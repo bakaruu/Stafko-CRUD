@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import loginImg from  '/home/general/Escritorio/Stafko CRUD/Frontend/src/assets/login.jpg'
+import loginImg from '../../assets/login.jpg';
 
 export default function Login() {
     return (
