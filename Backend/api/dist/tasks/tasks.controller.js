@@ -28,13 +28,16 @@ let TasksController = class TasksController {
         return this.tasksService.findAll();
     }
     findOne(id) {
-        return this.tasksService.findOne(+id);
+        return this.tasksService.findOne(id);
+    }
+    updateTask(id, updateTaskDto) {
+        return this.tasksService.update(id, updateTaskDto);
     }
     update(id, updateTaskDto) {
-        return this.tasksService.update(+id, updateTaskDto);
+        return this.tasksService.update(id, updateTaskDto);
     }
     remove(id) {
-        return this.tasksService.remove(+id);
+        return this.tasksService.remove(id);
     }
 };
 exports.TasksController = TasksController;
@@ -58,6 +61,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], TasksController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_task_dto_1.UpdateTaskDto]),
+    __metadata("design:returntype", void 0)
+], TasksController.prototype, "updateTask", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),

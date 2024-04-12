@@ -12,7 +12,7 @@ const task_entity_1 = require("./entities/task.entity");
 const uuid_1 = require("uuid");
 let TasksService = class TasksService {
     constructor() {
-        this.task = [
+        this.tasks = [
             {
                 id: (0, uuid_1.v4)(),
                 title: 'Tarea 1',
@@ -22,26 +22,33 @@ let TasksService = class TasksService {
         ];
     }
     create(createTaskDto) {
-        const task = {
+        const tasks = {
             id: (0, uuid_1.v4)(),
             title: createTaskDto.title,
             description: createTaskDto.description,
             status: task_entity_1.TaskStatus.PENDING,
         };
-        this.task.push(task);
-        return task;
+        this.tasks.push(tasks);
+        return tasks;
     }
     findAll() {
-        return this.task;
+        return this.tasks;
     }
     findOne(id) {
-        return `This action returns a #${id} task`;
+        return this.tasks.find(task => task.id === id);
     }
     update(id, updateTaskDto) {
-        return `This action updates a #${id} task`;
+        const task = this.findOne(id);
+        if (!task) {
+            return null;
+        }
+        const newTask = Object.assign(task, updateTaskDto);
+        this.tasks = this.tasks.map(task => task.id === id ?
+            newTask : task);
+        return newTask;
     }
     remove(id) {
-        return `This action removes a #${id} task`;
+        this.tasks = this.tasks.filter(task => task.id !== id);
     }
 };
 exports.TasksService = TasksService;

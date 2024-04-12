@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 @Injectable()
 export class TasksService {
 
-  private task: Task[] = [
+  private tasks: Task[] = [
     {
       id: v4(),
       title: 'Tarea 1',
@@ -18,29 +18,37 @@ export class TasksService {
   ]
 
   create(createTaskDto: CreateTaskDto): Task {
-    const task: Task = {
+    const tasks: Task = {
       id: v4(),
       title: createTaskDto.title,
       description: createTaskDto.description,
       status: TaskStatus.PENDING, // New tasks are created with pending status
     };
-    this.task.push(task);
-    return task;
+    this.tasks.push(tasks);
+    return tasks;
   }
 
   findAll() {
-    return this.task;
+    return this.tasks;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  findOne(id: string): Task {
+    return this.tasks.find(task => task.id === id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  update(id: string, updateTaskDto: UpdateTaskDto) {
+    const task = this.findOne(id);
+    if (!task) {
+      return null;
+    }
+    const newTask = Object.assign(task, updateTaskDto);
+    this.tasks = this.tasks.map(task => task.id === id ? 
+      newTask : task);
+
+    return newTask;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: string){
+    this.tasks =this.tasks.filter(task => task.id !== id);
   }
 }
