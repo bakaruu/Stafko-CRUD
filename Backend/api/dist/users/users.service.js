@@ -8,21 +8,53 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
+const uuid_1 = require("uuid");
+const user_entity_1 = require("./entities/user.entity");
 let UsersService = class UsersService {
+    constructor() {
+        this.users = [
+            {
+                id: (0, uuid_1.v4)(),
+                name: "ADMIN",
+                email: "admin@admin.com",
+                password: "admin",
+                role: user_entity_1.UserRole.ADMIN,
+                created_at: new Date(),
+                updated_at: new Date()
+            },
+        ];
+    }
     create(createUserDto) {
-        return 'This action adds a new user';
+        const users = {
+            id: (0, uuid_1.v4)(),
+            name: createUserDto.name,
+            email: createUserDto.email,
+            password: createUserDto.password,
+            role: user_entity_1.UserRole.USER,
+            created_at: new Date(),
+            updated_at: new Date()
+        };
+        this.users.push(users);
+        return users;
     }
     findAll() {
-        return `This action returns all users`;
+        return this.users;
     }
     findOne(id) {
-        return `This action returns a #${id} user`;
+        return this.users.find(user => user.id === id);
     }
     update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
+        const user = this.findOne(id);
+        if (!user) {
+            return null;
+        }
+        const newUser = Object.assign(user, updateUserDto);
+        this.users = this.users.map(user => user.id === id ?
+            newUser : user);
+        return newUser;
     }
     remove(id) {
-        return `This action removes a #${id} user`;
+        this.users = this.users.filter(user => user.id !== id);
     }
 };
 exports.UsersService = UsersService;

@@ -16,4 +16,7 @@ export class Task {
   title: string;
   description: string;
   status: TaskStatus;
+  created_at: Date;
+  updated_at: Date;
+  
 }

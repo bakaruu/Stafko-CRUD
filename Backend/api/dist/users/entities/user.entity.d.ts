@@ -3,7 +3,7 @@ export declare enum UserRole {
     USER = "USER"
 }
 export declare class User {
-    id: number;
+    id: string;
     name: string;
     email: string;
     password: string;

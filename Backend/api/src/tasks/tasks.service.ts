@@ -12,7 +12,9 @@ export class TasksService {
       id: v4(),
       title: 'Tarea 1',
       description: 'Descripcion de la tarea 1',
-      status: TaskStatus.PENDING
+      status: TaskStatus.PENDING,
+      created_at: new Date(),
+      updated_at: new Date()
     },
 
   ]
@@ -23,6 +25,8 @@ export class TasksService {
       title: createTaskDto.title,
       description: createTaskDto.description,
       status: TaskStatus.PENDING, // New tasks are created with pending status
+      created_at: new Date(),
+      updated_at: new Date()
     };
     this.tasks.push(tasks);
     return tasks;

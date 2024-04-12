@@ -17,7 +17,9 @@ let TasksService = class TasksService {
                 id: (0, uuid_1.v4)(),
                 title: 'Tarea 1',
                 description: 'Descripcion de la tarea 1',
-                status: task_entity_1.TaskStatus.PENDING
+                status: task_entity_1.TaskStatus.PENDING,
+                created_at: new Date(),
+                updated_at: new Date()
             },
         ];
     }
@@ -27,6 +29,8 @@ let TasksService = class TasksService {
             title: createTaskDto.title,
             description: createTaskDto.description,
             status: task_entity_1.TaskStatus.PENDING,
+            created_at: new Date(),
+            updated_at: new Date()
         };
         this.tasks.push(tasks);
         return tasks;
