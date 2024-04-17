@@ -2,8 +2,8 @@ version: '3.8'
 services:
   app:
     build:
-      context: ../api
-      dockerfile: Dockerfile
+      context: ./api
+      dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
     depends_on:
@@ -20,7 +20,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
+      POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

@@ -12,21 +12,23 @@ import { User } from './users/entities/user.entity';
   imports: [
     TasksModule,
     UsersModule,
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: 'db',
-    //   port: 5432,
-    //   username: 'user',
-    //   password: 'password',
-    //   database: 'postgres',
-    //   entities: [User, Task],
-    //   synchronize: true,
-    // }),
-    // TypeOrmModule.forFeature([User, Task]),
-    // TasksModule,
-    // UsersModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'db',
+      port: 5432,
+      username: 'user',
+      password: 'password',
+      database: 'postgres',
+      entities: [User, Task],
+      synchronize: true,
+    }),
+    TypeOrmModule.forFeature([User, Task]),
+    
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule {}
+
+
+

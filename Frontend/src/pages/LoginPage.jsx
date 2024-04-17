@@ -1,6 +1,7 @@
-// import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom'; // Importa Link desde 'react-router-dom' para crear el enlace a la página de registro
 
-import loginImg from '../../assets/login.jpg';
+import loginImg from '../assets/login.jpg';
 
 export default function Login() {
     return (
@@ -23,10 +24,11 @@ export default function Login() {
                   <button className='border w-full my-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white'>Sign In</button>
                   <div className='flex justify-between'>
                       <p className='flex items-center'><input className='mr-2' type="checkbox" /> Remember Me</p>
-                      <p>Create an account</p>
+                      {/* Agrega un enlace a la página de registro */}
+                      <Link to="/register" className="text-blue-500">Create an account</Link>
                   </div>
               </form>
           </div>
       </div>
     )
-  }
+}

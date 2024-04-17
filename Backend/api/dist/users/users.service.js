@@ -12,17 +12,7 @@ const uuid_1 = require("uuid");
 const user_entity_1 = require("./entities/user.entity");
 let UsersService = class UsersService {
     constructor() {
-        this.users = [
-            {
-                id: (0, uuid_1.v4)(),
-                name: "ADMIN",
-                email: "admin@admin.com",
-                password: "admin",
-                role: user_entity_1.UserRole.ADMIN,
-                created_at: new Date(),
-                updated_at: new Date()
-            },
-        ];
+        this.users = [];
     }
     create(createUserDto) {
         const users = {
