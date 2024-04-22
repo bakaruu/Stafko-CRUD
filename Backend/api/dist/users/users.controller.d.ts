@@ -4,9 +4,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
-    create(createUserDto: CreateUserDto): import("src/users/entities/user.entity").User;
-    findAll(): import("src/users/entities/user.entity").User[];
-    findOne(id: string): import("src/users/entities/user.entity").User;
-    update(id: string, updateUserDto: UpdateUserDto): import("src/users/entities/user.entity").User & UpdateUserDto;
-    remove(id: string): void;
+    create(createUserDto: CreateUserDto): Promise<import("src/users/entities/user.entity").User>;
+    findAll(): Promise<import("src/users/entities/user.entity").User[]>;
+    findOne(id: string): Promise<import("src/users/entities/user.entity").User>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<import("src/users/entities/user.entity").User>;
+    remove(id: string): Promise<void>;
 }

@@ -4,11 +4,11 @@ WORKDIR /api
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install && npm cache clean --force
 
-COPY .. .
+COPY . .
 
-RUN npm run build
+RUN npm rebuild bcrypt --build-from-source && npm run build
 
 EXPOSE 3000
 

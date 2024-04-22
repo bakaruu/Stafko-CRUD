@@ -1,11 +1,13 @@
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
+import { Repository } from "typeorm";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
 export declare class UsersService {
-    private users;
-    create(createUserDto: CreateUserDto): User;
-    findAll(): User[];
-    findOne(id: string): User;
-    update(id: string, updateUserDto: UpdateUserDto): User & UpdateUserDto;
-    remove(id: string): void;
+    private usersRepository;
+    constructor(usersRepository: Repository<User>);
+    create(createUserDto: CreateUserDto): Promise<User>;
+    findAll(): Promise<User[]>;
+    findOne(id: string): Promise<User>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<User>;
+    remove(id: string): Promise<void>;
 }

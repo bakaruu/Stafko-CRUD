@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -23,6 +24,10 @@ export class UsersService {
     if (existingUser) {
         throw new HttpException('User with this email or name already exists', HttpStatus.BAD_REQUEST);
     }
+
+    // Encripta la contraseña antes de guardarla
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    createUserDto.password = hashedPassword;
 
     const user = this.usersRepository.create(createUserDto);
     await this.usersRepository.save(user);
