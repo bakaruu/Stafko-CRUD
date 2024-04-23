@@ -24,6 +24,10 @@ let TasksService = class TasksService {
         ];
     }
     create(createTaskDto) {
+        const existingTask = this.tasks.find(task => task.title === createTaskDto.title);
+        if (existingTask) {
+            throw new Error('A task with this name already exists.');
+        }
         const tasks = {
             id: (0, uuid_1.v4)(),
             title: createTaskDto.title,
