@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ToastNewProject from './ToastNewProject';
 
 const TaskCrud = () => {
-  const [tasks, setTasks] = useState([]);
-  const [editing, setEditing] = useState(false);
-  const [creating, setCreating] = useState(false);
-  const [editingTask, setEditingTask] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
+    const [tasks, setTasks] = useState([]);
+    const [editing, setEditing] = useState(false);
+    const [creating, setCreating] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [editingTask, setEditingTask] = useState(null);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [status, setStatus] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:3000/tasks')
@@ -25,6 +27,8 @@ const TaskCrud = () => {
         console.log(`Created task with id ${response.data.id}`);
         setTasks([...tasks, response.data]);
         setCreating(false);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000); // hide the toast after 3 seconds
       })
       .catch(error => console.error('Error:', error));
   };
@@ -45,6 +49,7 @@ const TaskCrud = () => {
         setTasks(tasks.map(task => task.id === editingTask ? response.data : task));
         setEditing(false);
         setEditingTask(null);
+        
       })
       .catch(error => console.error('Error:', error));
   };
@@ -68,11 +73,14 @@ const TaskCrud = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-8">
+        
+
+        {showToast && <ToastNewProject />}
       <div className="py-8">
       <button className="btn btn-primary" onClick={() => setCreating(true)}>Add New Task</button>
             {creating && (
               <div className="form">
-                <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+                <input  type="text" placeholder="Title" value={title}  onChange={e => setTitle(e.target.value)} />
                 <input type="text" placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} />
                 <input type="text" placeholder="Status" value={status} onChange={e => setStatus(e.target.value)} />
                 <button className="btn btn-success" onClick={handleCreate}>Create</button>

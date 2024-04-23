@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import UserPage from "./pages/UserPage.jsx";
 import TaskPage from "./pages/TaskPage.jsx";
+import TestSideBar from "./pages/TestSideBar.jsx";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/home" element={<TaskPage/>} />
         <Route path="/users" element={<UserPage/>} />
-        <Route path="/tasks" element={<TaskPage/>} />
+        <Route path="/test" element={<TestSideBar/>} />
         
       </Routes>
     </BrowserRouter>
