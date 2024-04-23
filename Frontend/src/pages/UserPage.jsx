@@ -1,15 +1,16 @@
-// Remove the unused import statement for React
-import Navbar from '../components/Navbar';
 
-const HomePage = () => {
+import Navbar from '../components/Navbar';
+import UserCrud from '../components/UserCrud';
+
+const UserPage = () => {
     
 
     return (
         <div>
             <Navbar />
-            
+            <UserCrud />
         </div>
     );
-    
 }
-export default HomePage;
+
+export default UserPage;
