@@ -32,26 +32,31 @@ export class UsersService {
     const user = this.usersRepository.create(createUserDto);
     await this.usersRepository.save(user);
     return user;
-}
+  }
 
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
-    findOne(id: string): Promise<User> {
-      return this.usersRepository.findOne({ where: { id: id } });
+  findOne(id: string): Promise<User> {
+    return this.usersRepository.findOne({ where: { id: id } });
   }
 
-    async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-      const user = await this.usersRepository.preload({
-        id: id,
-        ...updateUserDto,
-      });
-      if (!user) {
-        throw new Error(`User ${id} not found`);
-      }
-      return await this.usersRepository.save(user);
+  // Find one user by email
+  findOneByEmail(email: string): Promise<User> {
+    return this.usersRepository.findOne({ where: { email: email } });
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.usersRepository.preload({
+      id: id,
+      ...updateUserDto,
+    });
+    if (!user) {
+      throw new Error(`User ${id} not found`);
     }
+    return await this.usersRepository.save(user);
+  }
 
   async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);

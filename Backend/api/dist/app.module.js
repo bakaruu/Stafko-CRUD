@@ -13,6 +13,7 @@ const tasks_module_1 = require("./tasks/tasks.module");
 const task_entity_1 = require("./tasks/entities/task.entity");
 const users_module_1 = require("./users/users.module");
 const user_entity_1 = require("./users/entities/user.entity");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -21,9 +22,10 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             tasks_module_1.TasksModule,
             users_module_1.UsersModule,
+            auth_module_1.AuthModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: 'db',
+                host: 'localhost',
                 port: 5432,
                 username: 'user',
                 password: 'password',

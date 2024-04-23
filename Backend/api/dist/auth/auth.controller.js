@@ -35,59 +35,36 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const user_entity_1 = require("./entities/user.entity");
+const users_service_1 = require("../users/users.service");
 const bcrypt = __importStar(require("bcrypt"));
-let UsersService = class UsersService {
-    constructor(usersRepository) {
-        this.usersRepository = usersRepository;
+let AuthController = class AuthController {
+    constructor(usersService) {
+        this.usersService = usersService;
     }
-    async create(createUserDto) {
-        const existingUser = await this.usersRepository.findOne({
-            where: [
-                { email: createUserDto.email },
-                { name: createUserDto.name }
-            ]
-        });
-        if (existingUser) {
-            throw new common_1.HttpException('User with this email or name already exists', common_1.HttpStatus.BAD_REQUEST);
-        }
-        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-        createUserDto.password = hashedPassword;
-        const user = this.usersRepository.create(createUserDto);
-        await this.usersRepository.save(user);
-        return user;
-    }
-    findAll() {
-        return this.usersRepository.find();
-    }
-    findOne(id) {
-        return this.usersRepository.findOne({ where: { id: id } });
-    }
-    findOneByEmail(email) {
-        return this.usersRepository.findOne({ where: { email: email } });
-    }
-    async update(id, updateUserDto) {
-        const user = await this.usersRepository.preload({
-            id: id,
-            ...updateUserDto,
-        });
+    async login(loginUserDto) {
+        const user = await this.usersService.findOneByEmail(loginUserDto.email);
         if (!user) {
-            throw new Error(`User ${id} not found`);
+            throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        return await this.usersRepository.save(user);
-    }
-    async remove(id) {
-        await this.usersRepository.delete(id);
+        const passwordMatch = await bcrypt.compare(loginUserDto.password, user.password);
+        if (!passwordMatch) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
+        }
+        return { message: 'Login successful' };
     }
 };
-exports.UsersService = UsersService;
-exports.UsersService = UsersService = __decorate([
-    (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
-], UsersService);
-//# sourceMappingURL=users.service.js.map
+exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "login", null);
+exports.AuthController = AuthController = __decorate([
+    (0, common_1.Controller)('auth'),
+    __metadata("design:paramtypes", [users_service_1.UsersService])
+], AuthController);
+//# sourceMappingURL=auth.controller.js.map

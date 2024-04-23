@@ -7,14 +7,16 @@ import { TasksModule } from './tasks/tasks.module';
 import { Task } from './tasks/entities/task.entity';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TasksModule,
     UsersModule,
+    AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
+      host: 'localhost',//db for production, localhost for development
       port: 5432,
       username: 'user',
       password: 'password',
