@@ -3,16 +3,44 @@ import axios from 'axios';
 
 const UserCrud = () => {
   const [users, setUsers] = useState([]);
+  const [editing, setEditing] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:3000/users')
-      .then(response => setUsers(response.data))
+      .then(response => {
+        const sortedUsers = response.data.sort((a, b) => (b.role === 'ADMIN' ? 1 : 0) - (a.role === 'ADMIN' ? 1 : 0));
+        setUsers(sortedUsers);
+      })
       .catch(error => console.error('Error:', error));
   }, []);
 
   const handleEdit = (userId) => {
-    // Aquí puedes manejar la lógica de edición
-    console.log(`Edit user with id ${userId}`);
+    const user = users.find(user => user.id === userId);
+    setName(user.name);
+    setEmail(user.email);
+    setRole(user.role);
+    setEditingUser(userId);
+    setEditing(true);
+  };
+
+  const handleUpdate = () => {
+    axios.patch(`http://localhost:3000/users/${editingUser}`, { name, email, role })
+      .then(response => {
+        console.log(`Updated user with id ${editingUser}`);
+        setUsers(users.map(user => user.id === editingUser ? response.data : user));
+        setEditing(false);
+        setEditingUser(null);
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
+  const handleCancel = () => {
+    setEditing(false);
+    setEditingUser(null);
   };
 
   const handleDelete = (userId) => {
@@ -20,7 +48,6 @@ const UserCrud = () => {
       axios.delete(`http://localhost:3000/users/${userId}`)
         .then(() => {
           console.log(`Deleted user with id ${userId}`);
-          // Actualizar la lista de usuarios después de borrar
           setUsers(users.filter(user => user.id !== userId));
         })
         .catch(error => console.error('Error:', error));
@@ -50,19 +77,33 @@ const UserCrud = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
-                  <tr key={user.id}>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">{user.name}</td>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">{user.email}</td>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">{user.role}</td>
-                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                      <button className="btn btn-warning" style={{ marginRight: '10px' }} onClick={() => handleEdit(user.id)}>Edit</button>
-                      <button className="btn btn-error" onClick={() => handleDelete(user.id)}>Delete</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+  {users.map(user => (
+    <tr key={user.id}>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        {editing && editingUser === user.id ? <input type="text" value={name} onChange={e => setName(e.target.value)} /> : user.name}
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        {editing && editingUser === user.id ? <input type="text" value={email} onChange={e => setEmail(e.target.value)} /> : user.email}
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        {editing && editingUser === user.id ? <input type="text" value={role} onChange={e => setRole(e.target.value)} /> : user.role}
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        {editing && editingUser === user.id ? (
+          <>
+            <button className="btn btn-success" style={{ marginRight: '10px' }} onClick={handleUpdate}>Accept</button>
+            <button className="btn btn-error" onClick={handleCancel}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <button className="btn btn-warning" style={{ marginRight: '10px' }} onClick={() => handleEdit(user.id)}>Edit</button>
+            <button className="btn btn-error" onClick={() => handleDelete(user.id)}>Delete</button>
+          </>
+        )}
+      </td>
+    </tr>
+  ))}
+</tbody>
             </table>
           </div>
         </div>
