@@ -93,6 +93,7 @@ const UserCrud = () => {
           <>
             <button className="btn btn-success" style={{ marginRight: '10px' }} onClick={handleUpdate}>Accept</button>
             <button className="btn btn-error" onClick={handleCancel}>Cancel</button>
+            
           </>
         ) : (
           <>

@@ -14,6 +14,7 @@ const task_entity_1 = require("./tasks/entities/task.entity");
 const users_module_1 = require("./users/users.module");
 const user_entity_1 = require("./users/entities/user.entity");
 const auth_module_1 = require("./auth/auth.module");
+const clients_module_1 = require("./clients/clients.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,6 +35,7 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: true,
             }),
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, task_entity_1.Task]),
+            clients_module_1.ClientsModule,
         ],
         controllers: [],
         providers: [],
