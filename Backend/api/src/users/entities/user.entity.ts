@@ -26,11 +26,13 @@ export class User {
   })
   role: UserRole;
 
+  //posibilidad de añadir foto de perfil
+  @Column({ nullable: true })
+  photoUrl: string;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-

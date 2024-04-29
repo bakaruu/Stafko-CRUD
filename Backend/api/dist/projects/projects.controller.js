@@ -12,80 +12,69 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TasksController = void 0;
+exports.ProjectsController = void 0;
 const common_1 = require("@nestjs/common");
-const tasks_service_1 = require("./tasks.service");
-const create_task_dto_1 = require("./dto/create-task.dto");
-const update_task_dto_1 = require("./dto/update-task.dto");
-let TasksController = class TasksController {
-    constructor(tasksService) {
-        this.tasksService = tasksService;
+const projects_service_1 = require("./projects.service");
+const create_project_dto_1 = require("./dto/create-project.dto");
+const update_project_dto_1 = require("./dto/update-project.dto");
+let ProjectsController = class ProjectsController {
+    constructor(projectsService) {
+        this.projectsService = projectsService;
     }
-    create(createTaskDto) {
-        return this.tasksService.create(createTaskDto);
+    create(createProjectDto) {
+        return this.projectsService.create(createProjectDto);
     }
     findAll() {
-        return this.tasksService.findAll();
+        return this.projectsService.findAll();
     }
     findOne(id) {
-        return this.tasksService.findOne(id);
+        return this.projectsService.findOne(+id);
     }
-    updateTask(id, updateTaskDto) {
-        return this.tasksService.update(id, updateTaskDto);
-    }
-    update(id, updateTaskDto) {
-        return this.tasksService.update(id, updateTaskDto);
+    update(id, updateProjectDto) {
+        return this.projectsService.update(+id, updateProjectDto);
     }
     remove(id) {
-        return this.tasksService.remove(id);
+        return this.projectsService.remove(+id);
     }
 };
-exports.TasksController = TasksController;
+exports.ProjectsController = ProjectsController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_task_dto_1.CreateTaskDto]),
+    __metadata("design:paramtypes", [create_project_dto_1.CreateProjectDto]),
     __metadata("design:returntype", void 0)
-], TasksController.prototype, "create", null);
+], ProjectsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], TasksController.prototype, "findAll", null);
+], ProjectsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TasksController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_task_dto_1.UpdateTaskDto]),
-    __metadata("design:returntype", void 0)
-], TasksController.prototype, "updateTask", null);
+], ProjectsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_task_dto_1.UpdateTaskDto]),
+    __metadata("design:paramtypes", [String, update_project_dto_1.UpdateProjectDto]),
     __metadata("design:returntype", void 0)
-], TasksController.prototype, "update", null);
+], ProjectsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TasksController.prototype, "remove", null);
-exports.TasksController = TasksController = __decorate([
-    (0, common_1.Controller)('tasks'),
-    __metadata("design:paramtypes", [tasks_service_1.TasksService])
-], TasksController);
-//# sourceMappingURL=tasks.controller.js.map
+], ProjectsController.prototype, "remove", null);
+exports.ProjectsController = ProjectsController = __decorate([
+    (0, common_1.Controller)('projects'),
+    __metadata("design:paramtypes", [projects_service_1.ProjectsService])
+], ProjectsController);
+//# sourceMappingURL=projects.controller.js.map

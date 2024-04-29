@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ClientsModule } from './clients/clients.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ClientsModule } from './clients/clients.module';
     }),
     TypeOrmModule.forFeature([User, Task]),
     ClientsModule,
+    ProjectsModule,
     
   ],
   controllers: [],

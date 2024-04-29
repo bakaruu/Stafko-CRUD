@@ -70,6 +70,9 @@ let UsersService = class UsersService {
     findOneByEmail(email) {
         return this.usersRepository.findOne({ where: { email: email } });
     }
+    findOneByName(name) {
+        return this.usersRepository.findOne({ where: { name: name } });
+    }
     async update(id, updateUserDto) {
         const user = await this.usersRepository.preload({
             id: id,

@@ -8,6 +8,7 @@ export declare class User {
     email: string;
     password: string;
     role: UserRole;
+    photoUrl: string;
     created_at: Date;
     updated_at: Date;
 }
