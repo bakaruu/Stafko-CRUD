@@ -10,11 +10,13 @@ import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ClientsModule } from './clients/clients.module';
+import { Client } from './clients/entities/client.entity';
 
 @Module({
   imports: [
     TasksModule,
     UsersModule,
+    ClientsModule,
     AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -23,12 +25,11 @@ import { ClientsModule } from './clients/clients.module';
       username: 'user',
       password: 'password',
       database: 'postgres',
-      entities: [User, Task],
+      entities: [User, Task, Client],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User, Task]),
+    TypeOrmModule.forFeature([User, Task, Client]),
     ProjectsModule,
-    ClientsModule,
     
   ],
   controllers: [],

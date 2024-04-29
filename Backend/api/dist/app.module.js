@@ -16,6 +16,7 @@ const user_entity_1 = require("./users/entities/user.entity");
 const auth_module_1 = require("./auth/auth.module");
 const projects_module_1 = require("./projects/projects.module");
 const clients_module_1 = require("./clients/clients.module");
+const client_entity_1 = require("./clients/entities/client.entity");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,6 +25,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             tasks_module_1.TasksModule,
             users_module_1.UsersModule,
+            clients_module_1.ClientsModule,
             auth_module_1.AuthModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
@@ -32,12 +34,11 @@ exports.AppModule = AppModule = __decorate([
                 username: 'user',
                 password: 'password',
                 database: 'postgres',
-                entities: [user_entity_1.User, task_entity_1.Task],
+                entities: [user_entity_1.User, task_entity_1.Task, client_entity_1.Client],
                 synchronize: true,
             }),
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, task_entity_1.Task]),
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, task_entity_1.Task, client_entity_1.Client]),
             projects_module_1.ProjectsModule,
-            clients_module_1.ClientsModule,
         ],
         controllers: [],
         providers: [],
