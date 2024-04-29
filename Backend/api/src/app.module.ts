@@ -8,8 +8,8 @@ import { Task } from './tasks/entities/task.entity';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { ClientsModule } from './clients/clients.module';
 import { ProjectsModule } from './projects/projects.module';
+import { ClientsModule } from './clients/clients.module';
 
 @Module({
   imports: [
@@ -27,8 +27,8 @@ import { ProjectsModule } from './projects/projects.module';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([User, Task]),
-    ClientsModule,
     ProjectsModule,
+    ClientsModule,
     
   ],
   controllers: [],
