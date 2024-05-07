@@ -11,13 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/users.service");
+const users_service_1 = require("../users/application/services/users.service");
 let AuthService = class AuthService {
     constructor(usersService) {
         this.usersService = usersService;
     }
     async validateUser(username, pass) {
-        const user = await this.usersService.findOne(username);
+        const user = await this.usersService.getUser(username);
         if (user && user.password === pass) {
             const { password, ...result } = user;
             return result;

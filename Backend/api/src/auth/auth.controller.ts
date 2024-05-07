@@ -1,5 +1,5 @@
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../users/application/services/users.service';
 import * as bcrypt from 'bcryptjs';
 
 @Controller('auth')
@@ -8,7 +8,7 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() loginUserDto: any) {
-    const user = await this.usersService.findOneByEmail(loginUserDto.email);
+    const user = await this.usersService.getUserByEmail(loginUserDto.email);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }

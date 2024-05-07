@@ -1,41 +1,28 @@
-//modulo raiz de la aplicacion que importa los modulos de tareas
-//y usuarios etc
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TasksModule } from './tasks/tasks.module';
-import { Task } from './tasks/entities/task.entity';
-import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
-import { AuthModule } from './auth/auth.module';
-import { ProjectsModule } from './projects/projects.module';
-import { ClientsModule } from './clients/clients.module';
-import { Client } from './clients/entities/client.entity';
-
+import { User } from './users/domain/entities/user.entity'; // Asumiendo que Client es parte del dominio
+import { UsersModule } from './users/application/users.module';
+import { Client } from './clients/domain/entities/client.entity';
+import { ClientsModule } from './clients/application/clients.module';
+import { Project } from './projects/domain/entities/project.entity';
+import { ProjectsModule } from './projects/application/projects.module';
 @Module({
   imports: [
-    TasksModule,
-    UsersModule,
-    ClientsModule,
-    AuthModule,
+
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',//db for production, localhost for development
+      host: 'localhost',
       port: 5432,
       username: 'user',
       password: 'password',
       database: 'postgres',
-      entities: [User, Task, Client],
+      entities: [User, Client, Project], // Agrega todas las entidades que necesitas para TypeORM
       synchronize: true,
-    }),
-    TypeOrmModule.forFeature([User, Task, Client]),
+    }), // Añade el módulo de clientes si es necesario
+    UsersModule,
+    ClientsModule,
     ProjectsModule,
-    
   ],
-  controllers: [],
-  providers: [],
+
 })
-export class AppModule {}
-
-
-
+export class AppModule { }

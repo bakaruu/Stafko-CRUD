@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../users/application/services/users.service';
 
 @Injectable()
 export class AuthService {
@@ -7,8 +7,7 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     // Aquí es donde verificarías las credenciales del usuario.
-    // Este es solo un ejemplo y deberías implementar tu propia lógica de validación.
-    const user = await this.usersService.findOne(username);
+   const user = await this.usersService.getUser(username);
     if (user && user.password === pass) {
       const { password, ...result } = user;
       return result;

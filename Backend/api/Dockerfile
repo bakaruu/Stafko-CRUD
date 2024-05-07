@@ -4,10 +4,9 @@ WORKDIR /api
 
 COPY package*.json ./
 
-RUN npm install 
+RUN npm install
 
 COPY . .
-# para windows en casa npm rebuild bcrypt --build-from-source && npm run build
 
 RUN npm run build
 

@@ -9,24 +9,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const tasks_module_1 = require("./tasks/tasks.module");
-const task_entity_1 = require("./tasks/entities/task.entity");
-const users_module_1 = require("./users/users.module");
-const user_entity_1 = require("./users/entities/user.entity");
-const auth_module_1 = require("./auth/auth.module");
-const projects_module_1 = require("./projects/projects.module");
-const clients_module_1 = require("./clients/clients.module");
-const client_entity_1 = require("./clients/entities/client.entity");
+const user_entity_1 = require("./users/domain/entities/user.entity");
+const users_module_1 = require("./users/application/users.module");
+const client_entity_1 = require("./clients/domain/entities/client.entity");
+const clients_module_1 = require("./clients/application/clients.module");
+const project_entity_1 = require("./projects/domain/entities/project.entity");
+const projects_module_1 = require("./projects/application/projects.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            tasks_module_1.TasksModule,
-            users_module_1.UsersModule,
-            clients_module_1.ClientsModule,
-            auth_module_1.AuthModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 host: 'localhost',
@@ -34,14 +28,13 @@ exports.AppModule = AppModule = __decorate([
                 username: 'user',
                 password: 'password',
                 database: 'postgres',
-                entities: [user_entity_1.User, task_entity_1.Task, client_entity_1.Client],
+                entities: [user_entity_1.User, client_entity_1.Client, project_entity_1.Project],
                 synchronize: true,
             }),
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, task_entity_1.Task, client_entity_1.Client]),
+            users_module_1.UsersModule,
+            clients_module_1.ClientsModule,
             projects_module_1.ProjectsModule,
         ],
-        controllers: [],
-        providers: [],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
