@@ -11,7 +11,7 @@ import { ProjectsModule } from './projects/application/projects.module';
 
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'localhost',  // db for prod, localhost for dev
       port: 5432,
       username: 'user',
       password: 'password',
