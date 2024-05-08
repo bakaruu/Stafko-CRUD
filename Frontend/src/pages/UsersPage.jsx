@@ -1,6 +1,6 @@
 
 import NavBar from "../components/navbar/Navbar";
-// import Footer from "../components/footer/Footer";
+import Footer from "../components/footer/Footer";
 import Team from "../components/staff/Team";
 
 const UsersPage = () => {
@@ -12,7 +12,7 @@ const UsersPage = () => {
         <Team />
       </div>
       <div >
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
   );
