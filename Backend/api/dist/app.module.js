@@ -16,18 +16,12 @@ const clients_module_1 = require("./clients/application/clients.module");
 const project_entity_1 = require("./projects/domain/entities/project.entity");
 const projects_module_1 = require("./projects/application/projects.module");
 const auth_module_1 = require("./auth/auth.module");
-const serve_static_1 = require("@nestjs/serve-static");
-const path_1 = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            serve_static_1.ServeStaticModule.forRoot({
-                rootPath: (0, path_1.join)(__dirname, '..', 'uploads'),
-                serveRoot: '/uploads',
-            }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
                 host: 'localhost',
