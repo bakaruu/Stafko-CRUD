@@ -9,6 +9,9 @@ import { User } from './../domain/entities/user.entity';
 import { UsersController } from '../infrastructure/adapters/controllers/user.controller';
 import { GetAllUsersAdapter } from '../infrastructure/adapters/get-all-user.adapter';
 import { GetUserByEmailAdapter } from '../infrastructure/adapters/get-user-by-email.adapter';
+import ImageUploader from '../domain/ports/image-uploader.port';
+import CloudinaryImageUploader from '../infrastructure/adapters/cloudinary-image-uploader.adapter';
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
@@ -22,6 +25,10 @@ import { GetUserByEmailAdapter } from '../infrastructure/adapters/get-user-by-em
     DeleteUserAdapter,
     GetAllUsersAdapter,
     GetUserByEmailAdapter,
+    {
+      provide: ImageUploader,
+      useClass: CloudinaryImageUploader,
+    },
   ],
 })
 export class UsersModule {}

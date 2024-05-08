@@ -5,10 +5,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
+import ImageUploader from '../../domain/ports/image-uploader.port';
+import * as path from 'path';
 
 @Injectable()
 export class CreateUserAdapter implements CreateUserPort {
-  constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+  constructor(
+    @InjectRepository(User) private userRepository: Repository<User>,
+    private readonly imageUploader: ImageUploader
+  ) { }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
     // Crea una nueva instancia de User a partir de los datos del DTO
@@ -20,7 +25,9 @@ export class CreateUserAdapter implements CreateUserPort {
     const salt = await bcrypt.genSalt();
     newUser.password = await bcrypt.hash(createUserDto.password, salt);
 
-    // Opcional: si hay más campos en el DTO, asigna los valores correspondientes
+    // Sube la foto por defecto y guarda la URL en el usuario
+    const defaultImagePath = path.resolve(process.cwd(), 'uploads', 'user-default.svg');
+    const imageUrl = await this.imageUploader.upload(defaultImagePath); newUser.photoUrl = imageUrl;
 
     // Guarda el nuevo usuario en la base de datos y devuelve el resultado
     return this.userRepository.save(newUser);

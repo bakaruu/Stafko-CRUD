@@ -18,9 +18,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const bcrypt = require("bcryptjs");
+const image_uploader_port_1 = require("../../domain/ports/image-uploader.port");
+const path = require("path");
 let CreateUserAdapter = class CreateUserAdapter {
-    constructor(userRepository) {
+    constructor(userRepository, imageUploader) {
         this.userRepository = userRepository;
+        this.imageUploader = imageUploader;
     }
     async createUser(createUserDto) {
         const newUser = new user_entity_1.User();
@@ -28,6 +31,9 @@ let CreateUserAdapter = class CreateUserAdapter {
         newUser.email = createUserDto.email;
         const salt = await bcrypt.genSalt();
         newUser.password = await bcrypt.hash(createUserDto.password, salt);
+        const defaultImagePath = path.resolve(process.cwd(), 'uploads', 'user-default.svg');
+        const imageUrl = await this.imageUploader.upload(defaultImagePath);
+        newUser.photoUrl = imageUrl;
         return this.userRepository.save(newUser);
     }
 };
@@ -35,6 +41,7 @@ exports.CreateUserAdapter = CreateUserAdapter;
 exports.CreateUserAdapter = CreateUserAdapter = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        image_uploader_port_1.default])
 ], CreateUserAdapter);
 //# sourceMappingURL=create-user.adapter.js.map
