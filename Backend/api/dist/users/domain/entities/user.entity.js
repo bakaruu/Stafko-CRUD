@@ -72,5 +72,14 @@ var UserRole;
 (function (UserRole) {
     UserRole["ADMIN"] = "ADMIN";
     UserRole["USER"] = "USER";
+    UserRole["FRONTEND"] = "Frontend";
+    UserRole["BACKEND"] = "Backend";
+    UserRole["FULLSTACK"] = "Fullstack";
+    UserRole["DEVOPS"] = "DevOps";
+    UserRole["QA"] = "QA";
+    UserRole["MOBILE"] = "Mobile";
+    UserRole["DESIGNER"] = "Designer";
+    UserRole["MANAGER"] = "Manager";
+    UserRole["HR"] = "HR";
 })(UserRole || (exports.UserRole = UserRole = {}));
 //# sourceMappingURL=user.entity.js.map

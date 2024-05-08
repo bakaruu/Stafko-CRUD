@@ -47,4 +47,14 @@ export class User {
 export enum UserRole {
     ADMIN = 'ADMIN',
     USER = 'USER',
+    FRONTEND = 'Frontend',
+    BACKEND = 'Backend',
+    FULLSTACK = 'Fullstack',
+    DEVOPS = 'DevOps',
+    QA = 'QA',
+    MOBILE = 'Mobile',
+    DESIGNER = 'Designer',
+    MANAGER = 'Manager',
+    HR = 'HR',
+    
 }

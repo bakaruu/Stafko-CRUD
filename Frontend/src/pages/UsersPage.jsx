@@ -1,24 +1,21 @@
 
-
 import NavBar from "../components/navbar/Navbar";
-import Stats from "../components/stats/Stats";
-import Footer from "../components/footer/Footer";
-import Projects from "../components/project/Projects";
+// import Footer from "../components/footer/Footer";
+import Team from "../components/staff/Team";
 
-const HomePage = () => {
+const UsersPage = () => {
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <NavBar style={{ zIndex: 1 }} /> {/* Asegúrate de establecer un z-index para el SideBar */}
       <div>
-        <Stats />
-        <Projects />
-
+        
+        <Team />
       </div>
       <div >
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default UsersPage;
