@@ -12,6 +12,8 @@ async function bootstrap() {
     origin: 'http://localhost:5173' // reemplaza esto con el origen de tu aplicación frontend
   });
 
+ 
+
 
   await app.listen(3000);
 }

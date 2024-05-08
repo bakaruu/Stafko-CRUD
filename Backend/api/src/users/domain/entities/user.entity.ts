@@ -22,13 +22,10 @@ export class User {
 
     @Column({
         type: 'enum',
-        enum: ['ADMIN', 'USER'],
-        default: 'USER',
+        enum: ['Admin', 'User', 'Client', 'Frontend', 'Backend', 'Fullstack', 'DevOps', 'Mobile', 'Manager', 'HR'],
+        default: 'User',
     })
     role: UserRole;
-
-    @Column({ nullable: true })
-    jobTitle: string;
 
     @Column({ nullable: true })
     photoUrl: string;
@@ -45,15 +42,14 @@ export class User {
 }
 
 export enum UserRole {
-    ADMIN = 'ADMIN',
-    USER = 'USER',
+    ADMIN = 'Admin',
+    USER = 'User',
+    CLIENT = 'Client',
     FRONTEND = 'Frontend',
     BACKEND = 'Backend',
     FULLSTACK = 'Fullstack',
     DEVOPS = 'DevOps',
-    QA = 'QA',
     MOBILE = 'Mobile',
-    DESIGNER = 'Designer',
     MANAGER = 'Manager',
     HR = 'HR',
     

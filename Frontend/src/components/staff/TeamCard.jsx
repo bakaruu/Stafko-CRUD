@@ -1,7 +1,8 @@
-const TeamCard = ({ name, role, imgSrc }) => {
+// eslint-disable-next-line react/prop-types
+const TeamCard = ({ name, role, photoUrl}) => {
     return (
         <div className="flex flex-col items-center transition-shadow duration-200 hover:shadow-lg cursor-pointer">
-            <img src={imgSrc} className="w-32 h-32 rounded-full inline-block" />
+            <img src={photoUrl} className="w-32 h-32 rounded-full inline-block" />
             <div className="py-4">
                 <h4 className="text-base font-extrabold">{name}</h4>
                 <p className="text-xs mt-1">{role}</p>

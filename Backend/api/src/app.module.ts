@@ -7,8 +7,15 @@ import { ClientsModule } from './clients/application/clients.module';
 import { Project } from './projects/domain/entities/project.entity';
 import { ProjectsModule } from './projects/application/projects.module';
 import { AuthModule } from './auth/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
 
     TypeOrmModule.forRoot({
       type: 'postgres',

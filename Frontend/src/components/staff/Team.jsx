@@ -29,7 +29,7 @@ const Team = () => {
                     {teamMembers.map((member, index) => (
                         <div className="m-2 flex-auto" style={{minWidth: '250px', maxWidth: 'calc(100% / 4)'}} key={index}>
                             <a href="#" className="hover:shadow-lg transition-shadow duration-200">
-                                <TeamCard name={member.name} role={member.role} imgSrc={member.imgSrc} />
+                                <TeamCard name={member.name} role={member.role} photoUrl={member.imgSrc} />
                             </a>
                         </div>
                     ))}
