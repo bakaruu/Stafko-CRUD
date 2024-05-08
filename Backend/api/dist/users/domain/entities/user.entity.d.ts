@@ -6,13 +6,20 @@ export declare class User {
     email: string;
     password: string;
     role: UserRole;
-    jobTitle: string;
     photoUrl: string;
     projects: Project[];
     created_at: Date;
     updated_at: Date;
 }
 export declare enum UserRole {
-    ADMIN = "ADMIN",
-    USER = "USER"
+    ADMIN = "Admin",
+    USER = "User",
+    CLIENT = "Client",
+    FRONTEND = "Frontend",
+    BACKEND = "Backend",
+    FULLSTACK = "Fullstack",
+    DEVOPS = "DevOps",
+    MOBILE = "Mobile",
+    MANAGER = "Manager",
+    HR = "HR"
 }

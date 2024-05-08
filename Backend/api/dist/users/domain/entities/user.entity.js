@@ -38,15 +38,11 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: ['ADMIN', 'USER'],
-        default: 'USER',
+        enum: ['Admin', 'User', 'Client', 'Frontend', 'Backend', 'Fullstack', 'DevOps', 'Mobile', 'Manager', 'HR'],
+        default: 'User',
     }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "jobTitle", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
@@ -70,7 +66,15 @@ exports.User = User = __decorate([
 ], User);
 var UserRole;
 (function (UserRole) {
-    UserRole["ADMIN"] = "ADMIN";
-    UserRole["USER"] = "USER";
+    UserRole["ADMIN"] = "Admin";
+    UserRole["USER"] = "User";
+    UserRole["CLIENT"] = "Client";
+    UserRole["FRONTEND"] = "Frontend";
+    UserRole["BACKEND"] = "Backend";
+    UserRole["FULLSTACK"] = "Fullstack";
+    UserRole["DEVOPS"] = "DevOps";
+    UserRole["MOBILE"] = "Mobile";
+    UserRole["MANAGER"] = "Manager";
+    UserRole["HR"] = "HR";
 })(UserRole || (exports.UserRole = UserRole = {}));
 //# sourceMappingURL=user.entity.js.map
