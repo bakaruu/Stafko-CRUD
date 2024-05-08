@@ -11,16 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/application/services/users.service");
+const get_user_by_email_adapter_1 = require("../users/infrastructure/adapters/get-user-by-email.adapter");
+const bcrypt = require("bcryptjs");
 let AuthService = class AuthService {
-    constructor(usersService) {
-        this.usersService = usersService;
+    constructor(userPort) {
+        this.userPort = userPort;
     }
-    async validateUser(username, pass) {
-        const user = await this.usersService.getUser(username);
-        if (user && user.password === pass) {
-            const { password, ...result } = user;
-            return result;
+    async validateUser(email, pass) {
+        const user = await this.userPort.getUserByEmail(email);
+        if (user) {
+            const passwordMatch = await bcrypt.compare(pass, user.password);
+            if (passwordMatch) {
+                const { password, ...result } = user;
+                return result;
+            }
         }
         return null;
     }
@@ -28,6 +32,6 @@ let AuthService = class AuthService {
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [get_user_by_email_adapter_1.GetUserByEmailAdapter])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

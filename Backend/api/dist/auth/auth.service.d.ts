@@ -1,6 +1,6 @@
-import { UsersService } from '../users/application/services/users.service';
+import { GetUserByEmailAdapter } from '../users/infrastructure/adapters/get-user-by-email.adapter';
 export declare class AuthService {
-    private usersService;
-    constructor(usersService: UsersService);
-    validateUser(username: string, pass: string): Promise<any>;
+    private userPort;
+    constructor(userPort: GetUserByEmailAdapter);
+    validateUser(email: string, pass: string): Promise<any>;
 }

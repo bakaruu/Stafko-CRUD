@@ -17,6 +17,7 @@ const user_entity_1 = require("../../domain/entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const common_1 = require("@nestjs/common");
+const bcrypt = require("bcryptjs");
 let CreateUserAdapter = class CreateUserAdapter {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -24,9 +25,9 @@ let CreateUserAdapter = class CreateUserAdapter {
     async createUser(createUserDto) {
         const newUser = new user_entity_1.User();
         newUser.name = createUserDto.name;
-        newUser.lastName = createUserDto.lastName;
         newUser.email = createUserDto.email;
-        newUser.password = createUserDto.password;
+        const salt = await bcrypt.genSalt();
+        newUser.password = await bcrypt.hash(createUserDto.password, salt);
         return this.userRepository.save(newUser);
     }
 };

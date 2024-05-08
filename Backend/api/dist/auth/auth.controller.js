@@ -14,19 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/application/services/users.service");
-const bcrypt = require("bcryptjs");
+const auth_service_1 = require("../auth/auth.service");
 let AuthController = class AuthController {
-    constructor(usersService) {
-        this.usersService = usersService;
+    constructor(authService) {
+        this.authService = authService;
     }
     async login(loginUserDto) {
-        const user = await this.usersService.getUserByEmail(loginUserDto.email);
+        const user = await this.authService.validateUser(loginUserDto.email, loginUserDto.password);
         if (!user) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
-        }
-        const passwordMatch = await bcrypt.compare(loginUserDto.password, user.password);
-        if (!passwordMatch) {
             throw new common_1.UnauthorizedException('Invalid credentials');
         }
         return { message: 'Login successful' };
@@ -42,6 +37,6 @@ __decorate([
 ], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

@@ -4,6 +4,7 @@ import { CreateUserDto } from '../../application/dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class CreateUserAdapter implements CreateUserPort {
@@ -13,9 +14,12 @@ export class CreateUserAdapter implements CreateUserPort {
     // Crea una nueva instancia de User a partir de los datos del DTO
     const newUser = new User();
     newUser.name = createUserDto.name;
-    newUser.lastName = createUserDto.lastName;
     newUser.email = createUserDto.email;
-    newUser.password = createUserDto.password;
+
+    // Encripta la contraseña antes de guardarla
+    const salt = await bcrypt.genSalt();
+    newUser.password = await bcrypt.hash(createUserDto.password, salt);
+
     // Opcional: si hay más campos en el DTO, asigna los valores correspondientes
 
     // Guarda el nuevo usuario en la base de datos y devuelve el resultado

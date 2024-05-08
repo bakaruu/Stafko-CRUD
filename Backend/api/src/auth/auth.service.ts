@@ -1,16 +1,20 @@
+// auth.service.ts
 import { Injectable } from '@nestjs/common';
-import { UsersService } from '../users/application/services/users.service';
+import { GetUserByEmailAdapter } from '../users/infrastructure/adapters/get-user-by-email.adapter';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(private userPort: GetUserByEmailAdapter) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    // Aquí es donde verificarías las credenciales del usuario.
-   const user = await this.usersService.getUser(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
+  async validateUser(email: string, pass: string): Promise<any> {
+    const user = await this.userPort.getUserByEmail(email);
+    if (user) {
+      const passwordMatch = await bcrypt.compare(pass, user.password);
+      if (passwordMatch) {
+        const { password, ...result } = user;
+        return result;
+      }
     }
     return null;
   }
