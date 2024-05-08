@@ -30,7 +30,7 @@ const Team = () => {
                         
                         <div className="m-2 flex-auto" style={{minWidth: '250px', maxWidth: 'calc(100% / 4)'}} key={index}>
                             <a href="#" className="hover:shadow-lg transition-shadow duration-200">
-                                <TeamCard name={member.name} role={member.role} photoUrl='http://res.cloudinary.com/dqwqulk5l/image/upload/v1715172804/feds04k9i2ehlb3o1k8j.svg' />
+                                <TeamCard name={member.name} role={member.role} photoUrl={member.photoUrl} />
                             </a>
                         </div>
                     ))}
