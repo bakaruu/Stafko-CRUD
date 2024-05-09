@@ -12,6 +12,7 @@ export class AuthController {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    return { message: 'Login successful' };
+    // Devuelve el rol del usuario junto con el mensaje de éxito
+    return { message: 'Login successful', role: user.role };
   }
 }

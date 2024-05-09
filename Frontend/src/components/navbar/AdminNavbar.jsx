@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const NavBar = () => {
+const AdminNavBar = () => {
 
     const navigate = useNavigate();
     const handleLogOff = () => {
@@ -14,7 +14,7 @@ const NavBar = () => {
         navigate(path);
     };
     return (
-        <div className="navbar bg-base-100 shadow-md mb-4">
+        <div className="navbar bg-base-100 shadow-md mb-4 sticky top-0 z-50" >
             <div className="navbar-start flex items-center">
                 <div className="dropdown mr-4">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -54,4 +54,4 @@ const NavBar = () => {
     );
 }
 
-export default NavBar;
+export default AdminNavBar;

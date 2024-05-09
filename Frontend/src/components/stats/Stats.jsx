@@ -13,11 +13,11 @@ const Stats = () => {
       .then(response => setUserCount(response.data.length))
       .catch(error => console.error(`Error: ${error}`));
 
-      axios.get('http://localhost:3000/tasks')
+      axios.get('http://localhost:3000/projects')
       .then(response => setProjectCount(response.data.length))
       .catch(error => console.error(`Error: ${error}`));
 
-      axios.get('http://localhost:3000/tasks')
+      axios.get('http://localhost:3000/clients')
       .then(response => setClientCount(response.data.length))
       .catch(error => console.error(`Error: ${error}`));
   }, []);

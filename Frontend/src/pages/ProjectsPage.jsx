@@ -1,11 +1,11 @@
 
-import NavBar from "../components/navbar/Navbar";
+import AdminNavBar from "../components/navbar/AdminNavbar";
 import Footer from "../components/footer/Footer";
 
 const ProjectsPage = () => {
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
-      <NavBar style={{ zIndex: 1 }} /> {/* Asegúrate de establecer un z-index para el SideBar */}
+      <AdminNavBar style={{ zIndex: 1 }} /> {/* Asegúrate de establecer un z-index para el SideBar */}
       
       <div >
         

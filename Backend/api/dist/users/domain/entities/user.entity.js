@@ -38,7 +38,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: ['Admin', 'User', 'Client', 'Frontend', 'Backend', 'Fullstack', 'DevOps', 'Mobile', 'Manager', 'HR'],
+        enum: ['Admin', 'User'],
         default: 'User',
     }),
     __metadata("design:type", String)
@@ -68,13 +68,5 @@ var UserRole;
 (function (UserRole) {
     UserRole["ADMIN"] = "Admin";
     UserRole["USER"] = "User";
-    UserRole["CLIENT"] = "Client";
-    UserRole["FRONTEND"] = "Frontend";
-    UserRole["BACKEND"] = "Backend";
-    UserRole["FULLSTACK"] = "Fullstack";
-    UserRole["DEVOPS"] = "DevOps";
-    UserRole["MOBILE"] = "Mobile";
-    UserRole["MANAGER"] = "Manager";
-    UserRole["HR"] = "HR";
 })(UserRole || (exports.UserRole = UserRole = {}));
 //# sourceMappingURL=user.entity.js.map

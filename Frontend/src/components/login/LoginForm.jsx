@@ -17,7 +17,15 @@ const LoginForm = () => {
                 password,
             });
             localStorage.setItem("token", response.data.token);
-            navigate("/home");
+            // Navegar según el rol del usuario
+            if (response.data.role === "Admin") {
+                navigate("/home");
+            } else if (response.data.role === "User") {
+                navigate("/userhome");
+            } else {
+                console.error("Role not recognized", response.data.role);
+                setErrorMessage("An error occurred. Please try again.");
+            }
         } catch (error) {
             console.error("Login failed", error);
             setErrorMessage("Email or password is incorrect");
