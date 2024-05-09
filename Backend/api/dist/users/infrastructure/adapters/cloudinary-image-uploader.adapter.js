@@ -6,9 +6,9 @@ class CloudinaryImageUploader extends image_uploader_port_1.default {
     constructor() {
         super();
         cloudinary_1.v2.config({
-            cloud_name: 'dqwqulk5l',
-            api_key: '884741773216214',
-            api_secret: '88bmHhF_a66VGAMB7lrBg_IeEGA'
+            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET
         });
     }
     async upload(imagePath) {

@@ -5,11 +5,11 @@ import { v2 as cloudinary } from 'cloudinary';
 class CloudinaryImageUploader extends ImageUploader {
   constructor() {
     super();
-    // Configura Cloudinary con tus credenciales
+    // Configura Cloudinary con tus credenciales desde variables de entorno
     cloudinary.config({
-      cloud_name: 'dqwqulk5l',
-      api_key: '884741773216214',
-      api_secret: '88bmHhF_a66VGAMB7lrBg_IeEGA'
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET
     });
   }
 
