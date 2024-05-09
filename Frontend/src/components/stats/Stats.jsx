@@ -27,7 +27,7 @@ const Stats = () => {
       <div className="bg-white shadow-[0_4px_24px_-8px_rgba(0,0,0,0.2)] flex flex-wrap justify-center rounded-3xl px-20 py-10 gap-12">
         <div className="text-center cursor-pointer hover:shadow-lg" onClick={() => navigate('/projects')}>
           <h3 className="text-4xl font-extrabold">{projectCount}<span className="text-blue-600"></span></h3>
-          <p className="text-gray-500 font-semibold mt-3">Total Projects</p>
+          <p className="text-gray-500 font-semibold mt-3">Projects</p>
         </div>
         <div className="text-center cursor-pointer hover:shadow-lg" onClick={() => navigate('/clients')}>
           <h3 className="text-4xl font-extrabold">{clientCount}</h3>
@@ -35,7 +35,7 @@ const Stats = () => {
         </div>
         <div className="text-center cursor-pointer hover:shadow-lg" onClick={() => navigate('/users')}>
           <h3 className="text-4xl font-extrabold">{userCount}</h3>
-          <p className="text-gray-500 font-semibold mt-3">Users</p>
+          <p className="text-gray-500 font-semibold mt-3">Staff</p>
         </div>
       </div>
     </div>
