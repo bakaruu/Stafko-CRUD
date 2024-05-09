@@ -17,7 +17,7 @@ export class Project {
     @Column({ nullable: true })
     photoUrl: string;
 
-    @ManyToOne(() => Client, client => client.projects)
+    @ManyToOne(() => Client, client => client.projects, { nullable: true })
     client: Client;
 
     @ManyToMany(() => User, user => user.projects)

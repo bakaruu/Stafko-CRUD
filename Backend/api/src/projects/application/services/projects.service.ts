@@ -25,9 +25,12 @@ export class ProjectsService {
   ) {}
 
   async createProject(dto: CreateProjectDto): Promise<Project> {
-    const client = await this.clientRepository.findOne({ where: { id: dto.clientId } });
-    if (!client) {
-      throw new NotFoundException(`Client with id ${dto.clientId} not found`);
+    let client: Client = null;
+    if (dto.clientId) {
+      client = await this.clientRepository.findOne({ where: { id: dto.clientId } });
+      if (!client) {
+        throw new NotFoundException(`Client with id ${dto.clientId} not found`);
+      }
     }
   
     const project = new Project();

@@ -19,3 +19,5 @@ cd ./api && npm install
 
 <br></br>
 App will run at: [http://localhost:3000](http://localhost:3000)
+
+Create your own cloud.env to access cloudinary

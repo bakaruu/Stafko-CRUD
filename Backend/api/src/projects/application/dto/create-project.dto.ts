@@ -17,7 +17,7 @@ export class CreateProjectDto {
     @IsArray()
     userIds?: string[];
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    clientId: string;
+    clientId?: string;
 }
