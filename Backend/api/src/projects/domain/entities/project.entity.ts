@@ -17,6 +17,15 @@ export class Project {
     @Column({ nullable: true })
     photoUrl: string;
 
+    @Column({ nullable: true })
+    progress: number;
+
+    @Column({ nullable: true })
+    status: string;
+
+    @Column({ nullable: true })
+    deadline: Date;
+
     @ManyToOne(() => Client, client => client.projects, { nullable: true })
     client: Client;
 
