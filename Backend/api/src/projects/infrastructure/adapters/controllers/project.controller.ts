@@ -1,5 +1,5 @@
 // project.controller.ts
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Patch, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
 import { CreateProjectDto } from '../../../application/dto/create-project.dto';
 import { UpdateProjectDto } from '../../../application/dto/update-project.dto';
 import { ProjectsService } from '../../../application/services/projects.service';
@@ -14,32 +14,37 @@ export class ProjectController {
   ) {}
 
   @Post()
-  createProject(@Body() dto: CreateProjectDto): Promise<Project> {
+  async createProject(@Body() dto: CreateProjectDto): Promise<Project> {
     return this.projectService.createProject(dto);
   }
 
   @Post(':id/users')
-  addUsersToProject(@Param('id') id: string, @Body('userIds') userIds: string[]): Promise<Project> {
+  async addUsersToProject(@Param('id') id: string, @Body('userIds') userIds: string[]): Promise<Project> {
     return this.addUsersToProjectPort.addUsersToProject(id, userIds);
   }
 
   @Put(':id')
-  updateProject(@Param('id') id: string, @Body() dto: UpdateProjectDto): Promise<Project> {
+  async updateProject(@Param('id') id: string, @Body() dto: UpdateProjectDto): Promise<Project> {
     return this.projectService.updateProject(id, dto);
   }
 
+  @Patch(':id')
+  async partialUpdateProject(@Param('id') id: string, @Body() dto: UpdateProjectDto): Promise<Project> {
+    return this.projectService.updatePartialProject(id, dto);
+  }
+
   @Get(':id')
-  getProject(@Param('id') id: string): Promise<Project> {
+  async getProject(@Param('id') id: string): Promise<Project> {
     return this.projectService.getProject(id);
   }
 
   @Get()
-  getProjects(): Promise<Project[]> {
+  async getProjects(): Promise<Project[]> {
     return this.projectService.getProjects();
   }
 
   @Delete(':id')
-  deleteProject(@Param('id') id: string): Promise<void> {
+  async deleteProject(@Param('id') id: string): Promise<void> {
     return this.projectService.deleteProject(id);
   }
 }

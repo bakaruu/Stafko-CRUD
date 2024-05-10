@@ -42,15 +42,19 @@ export class ProjectsService {
     return this.createProjectAdapter.createProject(project);
   }
 
-  updateProject(id: string, dto: UpdateProjectDto): Promise<Project> {
+  async updateProject(id: string, dto: UpdateProjectDto): Promise<Project> {
     return this.updateProjectAdapter.updateProject(id, dto);
   }
 
-  getProject(id: string): Promise<Project> {
+  async updatePartialProject(id: string, dto: UpdateProjectDto): Promise<Project> {
+    return this.updateProjectAdapter.updateProject(id, dto);
+  }
+
+  async getProject(id: string): Promise<Project> {
     return this.getProjectAdapter.getProject(id);
   }
 
-  getProjects(): Promise<Project[]> {
+  async getProjects(): Promise<Project[]> {
     return this.getProjectAdapter.getProjects();
   }
 
@@ -58,7 +62,7 @@ export class ProjectsService {
     return this.getAllProjectsAdapter.getAllProjects();
   }
 
-  deleteProject(id: string): Promise<void> {
+  async deleteProject(id: string): Promise<void> {
     return this.deleteProjectAdapter.deleteProject(id);
   }
 }

@@ -13,6 +13,6 @@ export class AuthController {
     }
 
     // Devuelve el rol del usuario junto con el mensaje de éxito
-    return { message: 'Login successful', role: user.role };
+    return { message: 'Login successful', role: user.role , user};
   }
 }

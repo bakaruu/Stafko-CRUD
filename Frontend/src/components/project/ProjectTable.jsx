@@ -50,7 +50,7 @@ const ProjectTable = () => {
                                                 <th className="pb-3 text-end min-w-[100px]">PROGRESS</th>
                                                 <th className="pb-3 pr-12 text-end min-w-[175px]">STATUS</th>
                                                 <th className="pb-3  pr-12 text-end min-w-[100px]">DEADLINE</th>
-                                                <th className="pb-3 text-end min-w-[50px]">DETAILS</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>

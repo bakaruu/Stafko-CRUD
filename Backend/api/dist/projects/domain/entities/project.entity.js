@@ -42,7 +42,7 @@ __decorate([
 ], Project.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], Project.prototype, "deadline", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => client_entity_1.Client, client => client.projects, { nullable: true }),

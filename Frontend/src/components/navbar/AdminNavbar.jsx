@@ -1,18 +1,31 @@
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../components/staff/UserContext";
 
 const AdminNavBar = () => {
 
+    
+    const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
+
     const handleLogOff = () => {
-        // Delete the JWT token here
         localStorage.removeItem("token");
-        // Redirect to the login page
+        localStorage.removeItem("user");
         navigate("/login");
     };
 
     const handleNavigation = (path) => {
         navigate(path);
     };
+
+    
     return (
         <div className="navbar bg-base-100 shadow-md mb-4 sticky top-0 z-50" >
             <div className="navbar-start flex items-center">
@@ -35,8 +48,7 @@ const AdminNavBar = () => {
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                        </div>
+                        <img alt="User avatar" src={user?.photoUrl} /></div>
                     </div>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-lg menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                         <li>

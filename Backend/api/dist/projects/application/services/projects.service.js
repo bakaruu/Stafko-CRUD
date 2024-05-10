@@ -47,19 +47,22 @@ let ProjectsService = class ProjectsService {
         project.client = client;
         return this.createProjectAdapter.createProject(project);
     }
-    updateProject(id, dto) {
+    async updateProject(id, dto) {
         return this.updateProjectAdapter.updateProject(id, dto);
     }
-    getProject(id) {
+    async updatePartialProject(id, dto) {
+        return this.updateProjectAdapter.updateProject(id, dto);
+    }
+    async getProject(id) {
         return this.getProjectAdapter.getProject(id);
     }
-    getProjects() {
+    async getProjects() {
         return this.getProjectAdapter.getProjects();
     }
     async getAllProjects() {
         return this.getAllProjectsAdapter.getAllProjects();
     }
-    deleteProject(id) {
+    async deleteProject(id) {
         return this.deleteProjectAdapter.deleteProject(id);
     }
 };

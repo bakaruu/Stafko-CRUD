@@ -7,7 +7,7 @@ export declare class Project {
     photoUrl: string;
     progress: number;
     status: string;
-    deadline: Date;
+    deadline: String;
     client: Client;
     users: User[];
     created_at: Date;

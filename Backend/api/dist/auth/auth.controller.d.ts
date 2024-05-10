@@ -5,5 +5,6 @@ export declare class AuthController {
     login(loginUserDto: any): Promise<{
         message: string;
         role: any;
+        user: any;
     }>;
 }

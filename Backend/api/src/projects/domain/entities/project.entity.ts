@@ -24,7 +24,7 @@ export class Project {
     status: string;
 
     @Column({ nullable: true })
-    deadline: Date;
+    deadline: String;
 
     @ManyToOne(() => Client, client => client.projects, { nullable: true })
     client: Client;
