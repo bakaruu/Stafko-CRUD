@@ -25,7 +25,7 @@ const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
             <td className="p-3 pr-1 text-center">
                 <span className="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{status}</span>
             </td>
-            <td className="pr-12 text-center">
+            <td className="text-center">
                 <span className="font-semibold text-light-inverse text-md/normal">{deadline}</span>
             </td>
             

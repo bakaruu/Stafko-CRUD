@@ -57,7 +57,7 @@ const ProjectTable = () => {
                                             <div className="font-semibold text-left">Progress</div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-left">Status</div>
+                                            <div className="font-semibold text-center">Status</div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
                                             <div className="font-semibold text-center">Deadline</div>
