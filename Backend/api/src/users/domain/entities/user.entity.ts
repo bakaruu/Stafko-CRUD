@@ -22,7 +22,11 @@ export class User {
 
     @Column({
         type: 'enum',
+<<<<<<< HEAD
         enum: ['Admin', 'User', 'Client', 'Frontend', 'Backend', 'Fullstack', 'DevOps', 'Mobile', 'Manager', 'HR'],
+=======
+        enum: ['Admin', 'User'],
+>>>>>>> etapa-3
         default: 'User',
     })
     role: UserRole;
@@ -44,6 +48,7 @@ export class User {
 export enum UserRole {
     ADMIN = 'Admin',
     USER = 'User',
+<<<<<<< HEAD
     CLIENT = 'Client',
     FRONTEND = 'Frontend',
     BACKEND = 'Backend',
@@ -54,3 +59,7 @@ export enum UserRole {
     HR = 'HR',
     
 }
+=======
+    
+}
+>>>>>>> etapa-3

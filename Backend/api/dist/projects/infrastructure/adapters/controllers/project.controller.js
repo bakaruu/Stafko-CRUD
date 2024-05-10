@@ -22,22 +22,25 @@ let ProjectController = class ProjectController {
         this.projectService = projectService;
         this.addUsersToProjectPort = addUsersToProjectPort;
     }
-    createProject(dto) {
+    async createProject(dto) {
         return this.projectService.createProject(dto);
     }
-    addUsersToProject(id, userIds) {
+    async addUsersToProject(id, userIds) {
         return this.addUsersToProjectPort.addUsersToProject(id, userIds);
     }
-    updateProject(id, dto) {
+    async updateProject(id, dto) {
         return this.projectService.updateProject(id, dto);
     }
-    getProject(id) {
+    async partialUpdateProject(id, dto) {
+        return this.projectService.updatePartialProject(id, dto);
+    }
+    async getProject(id) {
         return this.projectService.getProject(id);
     }
-    getProjects() {
+    async getProjects() {
         return this.projectService.getProjects();
     }
-    deleteProject(id) {
+    async deleteProject(id) {
         return this.projectService.deleteProject(id);
     }
 };
@@ -65,6 +68,14 @@ __decorate([
     __metadata("design:paramtypes", [String, update_project_dto_1.UpdateProjectDto]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "updateProject", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_project_dto_1.UpdateProjectDto]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "partialUpdateProject", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

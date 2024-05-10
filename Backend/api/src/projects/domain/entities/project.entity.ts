@@ -17,7 +17,16 @@ export class Project {
     @Column({ nullable: true })
     photoUrl: string;
 
-    @ManyToOne(() => Client, client => client.projects)
+    @Column({ nullable: true })
+    progress: number;
+
+    @Column({ nullable: true })
+    status: string;
+
+    @Column({ nullable: true })
+    deadline: String;
+
+    @ManyToOne(() => Client, client => client.projects, { nullable: true })
     client: Client;
 
     @ManyToMany(() => User, user => user.projects)

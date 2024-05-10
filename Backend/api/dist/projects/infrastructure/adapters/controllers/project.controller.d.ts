@@ -10,6 +10,7 @@ export declare class ProjectController {
     createProject(dto: CreateProjectDto): Promise<Project>;
     addUsersToProject(id: string, userIds: string[]): Promise<Project>;
     updateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
+    partialUpdateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     getProject(id: string): Promise<Project>;
     getProjects(): Promise<Project[]>;
     deleteProject(id: string): Promise<void>;

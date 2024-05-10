@@ -33,7 +33,19 @@ __decorate([
     __metadata("design:type", String)
 ], Project.prototype, "photoUrl", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => client_entity_1.Client, client => client.projects),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], Project.prototype, "progress", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Project.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Project.prototype, "deadline", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => client_entity_1.Client, client => client.projects, { nullable: true }),
     __metadata("design:type", client_entity_1.Client)
 ], Project.prototype, "client", void 0);
 __decorate([

@@ -33,9 +33,12 @@ let ProjectsService = class ProjectsService {
         this.getAllProjectsAdapter = getAllProjectsAdapter;
     }
     async createProject(dto) {
-        const client = await this.clientRepository.findOne({ where: { id: dto.clientId } });
-        if (!client) {
-            throw new common_1.NotFoundException(`Client with id ${dto.clientId} not found`);
+        let client = null;
+        if (dto.clientId) {
+            client = await this.clientRepository.findOne({ where: { id: dto.clientId } });
+            if (!client) {
+                throw new common_1.NotFoundException(`Client with id ${dto.clientId} not found`);
+            }
         }
         const project = new project_entity_1.Project();
         project.name = dto.name;
@@ -44,19 +47,22 @@ let ProjectsService = class ProjectsService {
         project.client = client;
         return this.createProjectAdapter.createProject(project);
     }
-    updateProject(id, dto) {
+    async updateProject(id, dto) {
         return this.updateProjectAdapter.updateProject(id, dto);
     }
-    getProject(id) {
+    async updatePartialProject(id, dto) {
+        return this.updateProjectAdapter.updateProject(id, dto);
+    }
+    async getProject(id) {
         return this.getProjectAdapter.getProject(id);
     }
-    getProjects() {
+    async getProjects() {
         return this.getProjectAdapter.getProjects();
     }
     async getAllProjects() {
         return this.getAllProjectsAdapter.getAllProjects();
     }
-    deleteProject(id) {
+    async deleteProject(id) {
         return this.deleteProjectAdapter.deleteProject(id);
     }
 };

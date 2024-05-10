@@ -18,6 +18,8 @@ const user_entity_1 = require("./../domain/entities/user.entity");
 const user_controller_1 = require("../infrastructure/adapters/controllers/user.controller");
 const get_all_user_adapter_1 = require("../infrastructure/adapters/get-all-user.adapter");
 const get_user_by_email_adapter_1 = require("../infrastructure/adapters/get-user-by-email.adapter");
+const image_uploader_port_1 = require("../domain/ports/image-uploader.port");
+const cloudinary_image_uploader_adapter_1 = require("../infrastructure/adapters/cloudinary-image-uploader.adapter");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -34,6 +36,10 @@ exports.UsersModule = UsersModule = __decorate([
             delete_user_adapter_1.DeleteUserAdapter,
             get_all_user_adapter_1.GetAllUsersAdapter,
             get_user_by_email_adapter_1.GetUserByEmailAdapter,
+            {
+                provide: image_uploader_port_1.default,
+                useClass: cloudinary_image_uploader_adapter_1.default,
+            },
         ],
     })
 ], UsersModule);

@@ -6,9 +6,11 @@ import { Client } from './clients/domain/entities/client.entity';
 import { ClientsModule } from './clients/application/clients.module';
 import { Project } from './projects/domain/entities/project.entity';
 import { ProjectsModule } from './projects/application/projects.module';
+import { AuthModule } from './auth/auth.module';
+
 @Module({
   imports: [
-
+    
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',  // db for prod, localhost for dev
@@ -22,6 +24,7 @@ import { ProjectsModule } from './projects/application/projects.module';
     UsersModule,
     ClientsModule,
     ProjectsModule,
+    AuthModule,
   ],
 
 })

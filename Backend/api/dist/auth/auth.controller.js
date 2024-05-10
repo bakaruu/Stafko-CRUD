@@ -24,7 +24,7 @@ let AuthController = class AuthController {
         if (!user) {
             throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        return { message: 'Login successful' };
+        return { message: 'Login successful', role: user.role, user };
     }
 };
 exports.AuthController = AuthController;

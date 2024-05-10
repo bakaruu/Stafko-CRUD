@@ -3,5 +3,5 @@ export declare class CreateProjectDto {
     description: string;
     photoUrl?: string;
     userIds?: string[];
-    clientId: string;
+    clientId?: string;
 }
