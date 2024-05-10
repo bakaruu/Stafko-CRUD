@@ -1,5 +1,6 @@
 //realizar cambios una vez podamos subir fotos y demas
 
+// eslint-disable-next-line react/prop-types
 const ProjectCard = ({ name, role, imageSrc }) => {
     return (
       <div className="group pb-24 relative overflow-hidden" style={{ zIndex: 1 }}> {/* Establecer un z-index menor */}

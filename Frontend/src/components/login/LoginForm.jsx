@@ -18,7 +18,7 @@ const LoginForm = () => {
         if (storedUser) {
             setUserContext(JSON.parse(storedUser));
         }
-    }, []);
+    }, [setUserContext]);
 
     const setUser = (user) => {
         localStorage.setItem('user', JSON.stringify(user));

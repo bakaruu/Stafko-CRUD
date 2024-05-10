@@ -36,7 +36,7 @@ const AdminNavBar = () => {
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a onClick={() => handleNavigation("/users")}>Staff</a></li>
                         <li><a onClick={() => handleNavigation("/projects")}>Projects</a></li>
-                        <li><a>About</a></li>
+                        <li><a onClick={() => handleNavigation("/clients")}>Clients</a></li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl" onClick={() => handleNavigation("/home")}>Stafko.</a>
