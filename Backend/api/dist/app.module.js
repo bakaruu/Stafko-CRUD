@@ -15,6 +15,7 @@ const client_entity_1 = require("./clients/domain/entities/client.entity");
 const clients_module_1 = require("./clients/application/clients.module");
 const project_entity_1 = require("./projects/domain/entities/project.entity");
 const projects_module_1 = require("./projects/application/projects.module");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,6 +35,7 @@ exports.AppModule = AppModule = __decorate([
             users_module_1.UsersModule,
             clients_module_1.ClientsModule,
             projects_module_1.ProjectsModule,
+            auth_module_1.AuthModule,
         ],
     })
 ], AppModule);

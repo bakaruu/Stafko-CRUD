@@ -10,10 +10,10 @@ export class User {
     @Column()
     name: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     lastName: string;
 
-    
+
     @Column()
     email: string;
 
@@ -22,11 +22,9 @@ export class User {
 
     @Column({
         type: 'enum',
-<<<<<<< HEAD
-        enum: ['Admin', 'User', 'Client', 'Frontend', 'Backend', 'Fullstack', 'DevOps', 'Mobile', 'Manager', 'HR'],
-=======
+
         enum: ['Admin', 'User'],
->>>>>>> etapa-3
+
         default: 'User',
     })
     role: UserRole;
@@ -48,18 +46,7 @@ export class User {
 export enum UserRole {
     ADMIN = 'Admin',
     USER = 'User',
-<<<<<<< HEAD
-    CLIENT = 'Client',
-    FRONTEND = 'Frontend',
-    BACKEND = 'Backend',
-    FULLSTACK = 'Fullstack',
-    DEVOPS = 'DevOps',
-    MOBILE = 'Mobile',
-    MANAGER = 'Manager',
-    HR = 'HR',
-    
+
+
 }
-=======
-    
-}
->>>>>>> etapa-3
+

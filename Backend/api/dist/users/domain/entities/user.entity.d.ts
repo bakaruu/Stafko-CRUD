@@ -13,13 +13,5 @@ export declare class User {
 }
 export declare enum UserRole {
     ADMIN = "Admin",
-    USER = "User",
-    CLIENT = "Client",
-    FRONTEND = "Frontend",
-    BACKEND = "Backend",
-    FULLSTACK = "Fullstack",
-    DEVOPS = "DevOps",
-    MOBILE = "Mobile",
-    MANAGER = "Manager",
-    HR = "HR"
+    USER = "User"
 }
