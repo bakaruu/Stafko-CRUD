@@ -73,7 +73,7 @@ const ProjectTable = () => {
                                             progress={project.progress || 0}
                                             status={project.status}
                                             deadline={project.deadline}
-                                            imageUrl={project.imageUrl || 'default.jpg'}
+                                            imageUrl={project.photoUrl || 'default.jpg'}
                                         />
                                     ))}
                                 </tbody>

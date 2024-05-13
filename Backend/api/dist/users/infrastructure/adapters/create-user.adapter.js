@@ -19,7 +19,6 @@ const typeorm_2 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const bcrypt = require("bcryptjs");
 const image_uploader_port_1 = require("../../domain/ports/image-uploader.port");
-const path = require("path");
 let CreateUserAdapter = class CreateUserAdapter {
     constructor(userRepository, imageUploader) {
         this.userRepository = userRepository;
@@ -31,9 +30,7 @@ let CreateUserAdapter = class CreateUserAdapter {
         newUser.email = createUserDto.email;
         const salt = await bcrypt.genSalt();
         newUser.password = await bcrypt.hash(createUserDto.password, salt);
-        const defaultImagePath = path.resolve(process.cwd(), 'uploads', 'user-default.svg');
-        const imageUrl = await this.imageUploader.upload(defaultImagePath);
-        newUser.photoUrl = imageUrl;
+        newUser.photoUrl = "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/g355zdao69izocaytd7f.svg";
         return this.userRepository.save(newUser);
     }
 };

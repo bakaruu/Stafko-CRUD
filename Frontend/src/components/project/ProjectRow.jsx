@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
     return (
@@ -8,9 +9,9 @@ const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
                         <img src={imageUrl} className="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="" />
                     </div>
-                    <div className="flex flex-col justify-start">
-                        <a href="#" className="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary"> {task} </a>
-                    </div>
+                    <Link to={`/project/${task}`} className="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary">
+                        {task}
+                    </Link>
                 </div>
             </td>
             <td className="p-3  text-left">
@@ -28,7 +29,7 @@ const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
             <td className="text-center">
                 <span className="font-semibold text-light-inverse text-md/normal">{deadline}</span>
             </td>
-            
+
         </tr>
     );
 };
