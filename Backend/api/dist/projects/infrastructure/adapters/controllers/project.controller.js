@@ -23,7 +23,7 @@ let ProjectController = class ProjectController {
         this.addUsersToProjectPort = addUsersToProjectPort;
     }
     async createProject(dto) {
-        return this.projectService.createProject(dto);
+        return this.projectService.createProject(dto, dto.userIds);
     }
     async addUsersToProject(id, userIds) {
         return this.addUsersToProjectPort.addUsersToProject(id, userIds);
@@ -43,6 +43,9 @@ let ProjectController = class ProjectController {
     async deleteProject(id) {
         return this.projectService.deleteProject(id);
     }
+    async removeUserFromProject(projectId, userId) {
+        await this.projectService.removeUserFromProject(projectId, userId);
+    }
 };
 exports.ProjectController = ProjectController;
 __decorate([
@@ -55,7 +58,7 @@ __decorate([
 __decorate([
     (0, common_1.Post)(':id/users'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)('userIds')),
+    __param(1, (0, common_1.Body)('users')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
@@ -96,6 +99,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "deleteProject", null);
+__decorate([
+    (0, common_1.Delete)(':projectId/users/:userId'),
+    __param(0, (0, common_1.Param)('projectId')),
+    __param(1, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "removeUserFromProject", null);
 exports.ProjectController = ProjectController = __decorate([
     (0, common_1.Controller)('projects'),
     __param(1, (0, common_1.Inject)('AddUsersToProjectPort')),

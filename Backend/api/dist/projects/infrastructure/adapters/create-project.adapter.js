@@ -17,11 +17,18 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const project_entity_1 = require("../../domain/entities/project.entity");
+const user_entity_1 = require("../../../users/domain/entities/user.entity");
 let CreateProjectAdapter = class CreateProjectAdapter {
-    constructor(projectRepository) {
+    constructor(projectRepository, userRepository) {
         this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
     }
-    async createProject(project) {
+    async createProject(project, userIds) {
+        const users = await this.userRepository.findByIds(userIds);
+        if (users.length !== userIds.length) {
+            throw new common_1.NotFoundException(`Some users with ids ${userIds.join(', ')} not found`);
+        }
+        project.users = users;
         return this.projectRepository.save(project);
     }
 };
@@ -29,6 +36,8 @@ exports.CreateProjectAdapter = CreateProjectAdapter;
 exports.CreateProjectAdapter = CreateProjectAdapter = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(project_entity_1.Project)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], CreateProjectAdapter);
 //# sourceMappingURL=create-project.adapter.js.map

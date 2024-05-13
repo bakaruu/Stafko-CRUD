@@ -8,27 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetAllUsersAdapter = void 0;
+exports.RemoveUserFromProjectAdapter = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const user_entity_1 = require("../../domain/entities/user.entity");
-const typeorm_2 = require("typeorm");
-let GetAllUsersAdapter = class GetAllUsersAdapter {
-    constructor(userRepository) {
-        this.userRepository = userRepository;
+const projects_service_1 = require("../../application/services/projects.service");
+let RemoveUserFromProjectAdapter = class RemoveUserFromProjectAdapter {
+    constructor(projectsService) {
+        this.projectsService = projectsService;
     }
-    async getAllUsers() {
-        return this.userRepository.find({ relations: ['projects'] });
+    async removeUserFromProject(projectId, userId) {
+        return this.projectsService.removeUserFromProject(projectId, userId);
     }
 };
-exports.GetAllUsersAdapter = GetAllUsersAdapter;
-exports.GetAllUsersAdapter = GetAllUsersAdapter = __decorate([
+exports.RemoveUserFromProjectAdapter = RemoveUserFromProjectAdapter;
+exports.RemoveUserFromProjectAdapter = RemoveUserFromProjectAdapter = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
-], GetAllUsersAdapter);
-//# sourceMappingURL=get-all-user.adapter.js.map
+    __metadata("design:paramtypes", [projects_service_1.ProjectsService])
+], RemoveUserFromProjectAdapter);
+//# sourceMappingURL=delete-user-from-project.adapter.js.map

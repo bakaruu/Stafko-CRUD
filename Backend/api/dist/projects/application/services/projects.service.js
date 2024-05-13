@@ -23,16 +23,19 @@ const get_project_adapter_1 = require("../../infrastructure/adapters/get-project
 const update_project_adapter_1 = require("../../infrastructure/adapters/update-project.adapter");
 const get_all_project_adapter_1 = require("../../infrastructure/adapters/get-all-project.adapter");
 const typeorm_2 = require("@nestjs/typeorm");
+const user_entity_1 = require("../../../users/domain/entities/user.entity");
 let ProjectsService = class ProjectsService {
-    constructor(clientRepository, createProjectAdapter, updateProjectAdapter, getProjectAdapter, deleteProjectAdapter, getAllProjectsAdapter) {
+    constructor(clientRepository, userRepository, projectRepository, createProjectAdapter, updateProjectAdapter, getProjectAdapter, deleteProjectAdapter, getAllProjectsAdapter) {
         this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
+        this.projectRepository = projectRepository;
         this.createProjectAdapter = createProjectAdapter;
         this.updateProjectAdapter = updateProjectAdapter;
         this.getProjectAdapter = getProjectAdapter;
         this.deleteProjectAdapter = deleteProjectAdapter;
         this.getAllProjectsAdapter = getAllProjectsAdapter;
     }
-    async createProject(dto) {
+    async createProject(dto, userIds) {
         let client = null;
         if (dto.clientId) {
             client = await this.clientRepository.findOne({ where: { id: dto.clientId } });
@@ -45,7 +48,20 @@ let ProjectsService = class ProjectsService {
         project.description = dto.description;
         project.photoUrl = dto.photoUrl;
         project.client = client;
-        return this.createProjectAdapter.createProject(project);
+        return this.createProjectAdapter.createProject(project, userIds);
+    }
+    async removeUserFromProject(projectId, userId) {
+        const project = await this.projectRepository.findOne({ where: { id: projectId }, relations: ['users'] });
+        if (!project) {
+            throw new common_1.NotFoundException(`Project with id ${projectId} not found`);
+        }
+        project.users = project.users.filter(user => user.id !== userId);
+        await this.projectRepository.save(project);
+        const user = await this.userRepository.findOne({ where: { id: userId }, relations: ['projects'] });
+        if (user) {
+            user.projects = user.projects.filter(project => project.id !== projectId);
+            await this.userRepository.save(user);
+        }
     }
     async updateProject(id, dto) {
         return this.updateProjectAdapter.updateProject(id, dto);
@@ -70,7 +86,11 @@ exports.ProjectsService = ProjectsService;
 exports.ProjectsService = ProjectsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(client_entity_1.Client)),
+    __param(1, (0, typeorm_2.InjectRepository)(user_entity_1.User)),
+    __param(2, (0, typeorm_2.InjectRepository)(project_entity_1.Project)),
     __metadata("design:paramtypes", [typeorm_1.Repository,
+        typeorm_1.Repository,
+        typeorm_1.Repository,
         create_project_adapter_1.CreateProjectAdapter,
         update_project_adapter_1.UpdateProjectAdapter,
         get_project_adapter_1.GetProjectAdapter,

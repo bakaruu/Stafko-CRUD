@@ -8,15 +8,19 @@ import { DeleteProjectAdapter } from 'src/projects/infrastructure/adapters/delet
 import { GetProjectAdapter } from 'src/projects/infrastructure/adapters/get-project.adapter';
 import { UpdateProjectAdapter } from 'src/projects/infrastructure/adapters/update-project.adapter';
 import { GetAllProjectsAdapter } from '../../infrastructure/adapters/get-all-project.adapter';
+import { User } from 'src/users/domain/entities/user.entity';
 export declare class ProjectsService {
     private readonly clientRepository;
+    private readonly userRepository;
+    private readonly projectRepository;
     private readonly createProjectAdapter;
     private readonly updateProjectAdapter;
     private readonly getProjectAdapter;
     private readonly deleteProjectAdapter;
     private readonly getAllProjectsAdapter;
-    constructor(clientRepository: Repository<Client>, createProjectAdapter: CreateProjectAdapter, updateProjectAdapter: UpdateProjectAdapter, getProjectAdapter: GetProjectAdapter, deleteProjectAdapter: DeleteProjectAdapter, getAllProjectsAdapter: GetAllProjectsAdapter);
-    createProject(dto: CreateProjectDto): Promise<Project>;
+    constructor(clientRepository: Repository<Client>, userRepository: Repository<User>, projectRepository: Repository<Project>, createProjectAdapter: CreateProjectAdapter, updateProjectAdapter: UpdateProjectAdapter, getProjectAdapter: GetProjectAdapter, deleteProjectAdapter: DeleteProjectAdapter, getAllProjectsAdapter: GetAllProjectsAdapter);
+    createProject(dto: CreateProjectDto, userIds: string[]): Promise<Project>;
+    removeUserFromProject(projectId: string, userId: string): Promise<void>;
     updateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     updatePartialProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     getProject(id: string): Promise<Project>;

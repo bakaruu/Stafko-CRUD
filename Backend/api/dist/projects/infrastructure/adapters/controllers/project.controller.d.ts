@@ -14,4 +14,5 @@ export declare class ProjectController {
     getProject(id: string): Promise<Project>;
     getProjects(): Promise<Project[]>;
     deleteProject(id: string): Promise<void>;
+    removeUserFromProject(projectId: string, userId: string): Promise<void>;
 }

@@ -11,15 +11,15 @@ export class ProjectController {
   constructor(
     private readonly projectService: ProjectsService,
     @Inject('AddUsersToProjectPort') private readonly addUsersToProjectPort: AddUsersToProjectPort,
-  ) {}
+  ) { }
 
   @Post()
   async createProject(@Body() dto: CreateProjectDto): Promise<Project> {
-    return this.projectService.createProject(dto);
+    return this.projectService.createProject(dto, dto.userIds);
   }
 
   @Post(':id/users')
-  async addUsersToProject(@Param('id') id: string, @Body('userIds') userIds: string[]): Promise<Project> {
+  async addUsersToProject(@Param('id') id: string, @Body('users') userIds: string[]): Promise<Project> {
     return this.addUsersToProjectPort.addUsersToProject(id, userIds);
   }
 
@@ -47,4 +47,10 @@ export class ProjectController {
   async deleteProject(@Param('id') id: string): Promise<void> {
     return this.projectService.deleteProject(id);
   }
+
+  @Delete(':projectId/users/:userId')
+  async removeUserFromProject(@Param('projectId') projectId: string, @Param('userId') userId: string): Promise<void> {
+    await this.projectService.removeUserFromProject(projectId, userId);
+  }
+
 }
