@@ -9,9 +9,7 @@ import ClientsPage from "./pages/ClientsPage";
 import ProfilePage from "./pages/ProfilePage";
 import UserHomePage from "./pages/user/UserHomePage";
 import { UserProvider } from "./components/staff/UserContext";
-// import ProjectProfile from './ProjectProfile'; // Importa el componente de la página de perfil del proyecto
-
-
+import ProjectProfilePage from "./pages/project/ProjectProfilePage";
 
 function App() {
   return (
@@ -36,8 +34,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             {/* user */}
             <Route path="/userhome" element={<UserHomePage />} />
-            {/* <Route path="/project/:id" component={ProjectProfile} /> */}
-          
+            <Route path="/project/:id" element={<ProjectProfilePage />} />
           </Routes>
         </BrowserRouter>
       </div>

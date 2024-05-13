@@ -5,7 +5,7 @@ import { UsersModule } from './users/application/users.module';
 import { Client } from './clients/domain/entities/client.entity';
 import { ClientsModule } from './clients/application/clients.module';
 import { Project } from './projects/domain/entities/project.entity';
-import { ProjectsModule } from './projects/application/projects.module';
+import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({

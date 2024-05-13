@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
+const ProjectRow = ({ id, task, owner, progress, status, deadline, imageUrl }) => {
     return (
         <tr className="border-b border-dashed last:border-b-0">
             <td className="p-3 pl-0">
@@ -9,7 +9,7 @@ const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
                         <img src={imageUrl} className="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl" alt="" />
                     </div>
-                    <Link to={`/project/${task}`} className="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary">
+                    <Link to={`/project/${id}`} className="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary">
                         {task}
                     </Link>
                 </div>
@@ -35,6 +35,7 @@ const ProjectRow = ({ task, owner, progress, status, deadline, imageUrl }) => {
 };
 
 ProjectRow.propTypes = {
+    id: PropTypes.string.isRequired,
     task: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
     progress: PropTypes.number.isRequired,

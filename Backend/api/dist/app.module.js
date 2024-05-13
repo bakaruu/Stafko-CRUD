@@ -14,7 +14,7 @@ const users_module_1 = require("./users/application/users.module");
 const client_entity_1 = require("./clients/domain/entities/client.entity");
 const clients_module_1 = require("./clients/application/clients.module");
 const project_entity_1 = require("./projects/domain/entities/project.entity");
-const projects_module_1 = require("./projects/application/projects.module");
+const projects_module_1 = require("./projects/projects.module");
 const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };

@@ -3,11 +3,11 @@ import { UpdateProjectDto } from '../dto/update-project.dto';
 import { Project } from '../../domain/entities/project.entity';
 import { Client } from '../../../clients/domain/entities/client.entity';
 import { Repository } from 'typeorm';
-import { CreateProjectAdapter } from 'src/projects/infrastructure/adapters/create-project.adapter';
-import { DeleteProjectAdapter } from 'src/projects/infrastructure/adapters/delete-project.adapter';
-import { GetProjectAdapter } from 'src/projects/infrastructure/adapters/get-project.adapter';
-import { UpdateProjectAdapter } from 'src/projects/infrastructure/adapters/update-project.adapter';
-import { GetAllProjectsAdapter } from '../../infrastructure/adapters/get-all-project.adapter';
+import { CreateProjectAdapter } from '../../infrastructure/adapters/create-project.adapter';
+import { DeleteProjectAdapter } from '../../infrastructure/adapters//delete-project.adapter';
+import { GetProjectAdapter } from '../../infrastructure/adapters//get-project.adapter';
+import { UpdateProjectAdapter } from '../../infrastructure/adapters/update-project.adapter';
+import { GetAllProjectsAdapter } from '../../infrastructure/adapters//get-all-project.adapter';
 import { User } from 'src/users/domain/entities/user.entity';
 export declare class ProjectsService {
     private readonly clientRepository;

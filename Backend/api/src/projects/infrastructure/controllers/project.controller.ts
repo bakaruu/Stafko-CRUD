@@ -1,10 +1,10 @@
 // project.controller.ts
 import { Body, Controller, Patch, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common';
-import { CreateProjectDto } from '../../../application/dto/create-project.dto';
-import { UpdateProjectDto } from '../../../application/dto/update-project.dto';
-import { ProjectsService } from '../../../application/services/projects.service';
-import { Project } from '../../../domain/entities/project.entity';
-import { AddUsersToProjectPort } from '../../../domain/ports/add-users-to-project.port';
+import { CreateProjectDto } from '../../application/dto/create-project.dto';
+import { UpdateProjectDto } from '../../application/dto/update-project.dto';
+import { ProjectsService } from '../../application/services/projects.service';
+import { Project } from '../../domain/entities/project.entity';
+import { AddUsersToProjectPort } from '../../domain/ports/add-users-to-project.port';
 
 @Controller('projects')
 export class ProjectController {

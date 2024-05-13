@@ -68,6 +68,7 @@ const ProjectTable = () => {
                                     {projects.map((project, index) => (
                                         <ProjectRow
                                             key={index} // Add key prop with a unique value
+                                            id={project.id}
                                             task={project.name}
                                             owner={project.client.clientName}
                                             progress={project.progress || 0}
