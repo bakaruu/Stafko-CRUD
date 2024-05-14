@@ -13,10 +13,10 @@ export class GetProjectAdapter implements GetProjectPort {
     ) {}
 
     async getProject(id: string): Promise<Project> {
-        return this.projectRepository.findOne({ where: { id }, relations: ['client', 'users'] });
+        return this.projectRepository.findOne({ where: { id }, relations: ['client', 'users', 'tasks'] });
     }
 
     async getProjects(): Promise<Project[]> {
-        return this.projectRepository.find({ relations: ['client', 'users'] });
+        return this.projectRepository.find({ relations: ['client', 'users', 'tasks'] });
     }
 }

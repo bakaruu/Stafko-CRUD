@@ -13,6 +13,7 @@ exports.Project = void 0;
 const client_entity_1 = require("../../../clients/domain/entities/client.entity");
 const user_entity_1 = require("../../../users/domain/entities/user.entity");
 const typeorm_1 = require("typeorm");
+const tasks_entity_1 = require("../../../tasks/domain/entities/tasks.entity");
 let Project = class Project {
 };
 exports.Project = Project;
@@ -52,6 +53,10 @@ __decorate([
     (0, typeorm_1.ManyToMany)(() => user_entity_1.User, user => user.projects),
     __metadata("design:type", Array)
 ], Project.prototype, "users", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => tasks_entity_1.Task, task => task.project),
+    __metadata("design:type", Array)
+], Project.prototype, "tasks", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

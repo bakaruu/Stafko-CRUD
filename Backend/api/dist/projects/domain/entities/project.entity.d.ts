@@ -1,5 +1,6 @@
 import { Client } from "../../../clients/domain/entities/client.entity";
 import { User } from "../../../users/domain/entities/user.entity";
+import { Task } from "../../../tasks/domain/entities/tasks.entity";
 export declare class Project {
     id: string;
     name: string;
@@ -10,6 +11,7 @@ export declare class Project {
     deadline: String;
     client: Client;
     users: User[];
+    tasks: Task[];
     created_at: Date;
     updated_at: Date;
 }

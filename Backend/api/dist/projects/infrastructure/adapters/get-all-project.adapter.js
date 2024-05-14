@@ -22,7 +22,7 @@ let GetAllProjectsAdapter = class GetAllProjectsAdapter {
         this.projectsRepository = projectsRepository;
     }
     async getAllProjects() {
-        return this.projectsRepository.find();
+        return this.projectsRepository.find({ relations: ['client', 'users', 'tasks'] });
     }
 };
 exports.GetAllProjectsAdapter = GetAllProjectsAdapter;

@@ -1,7 +1,7 @@
 import { Client } from "../../../clients/domain/entities/client.entity";
 import { User } from "../../../users/domain/entities/user.entity";
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, ManyToMany, OneToMany, JoinTable } from 'typeorm';
-// import { Task } from "../../../tasks/domain/entities/tasks.entity";
+import { Task } from "../../../tasks/domain/entities/tasks.entity";
 
 @Entity()
 export class Project {
@@ -33,8 +33,8 @@ export class Project {
     users: User[];
 
 
-    // @OneToMany(() => Task, task => task.project)
-    // tasks: Task[];
+    @OneToMany(() => Task, task => task.project)
+    tasks: Task[];
 
     @CreateDateColumn()
     created_at: Date;
