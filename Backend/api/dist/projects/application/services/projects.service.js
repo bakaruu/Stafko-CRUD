@@ -82,7 +82,14 @@ let ProjectsService = class ProjectsService {
         return this.getAllProjectsAdapter.getAllProjects();
     }
     async deleteProject(id) {
-        return this.deleteProjectAdapter.deleteProject(id);
+        const project = await this.projectRepository.findOne({
+            where: { id: id },
+            relations: ['users', 'client']
+        });
+        project.users = null;
+        project.client = null;
+        await this.projectRepository.save(project);
+        await this.projectRepository.delete(id);
     }
 };
 exports.ProjectsService = ProjectsService;

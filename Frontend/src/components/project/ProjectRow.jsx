@@ -18,10 +18,11 @@ const ProjectRow = ({ id, task, owner, progress, status, deadline, imageUrl }) =
                 <span className="font-semibold text-light-inverse text-md/normal">{owner}</span>
             </td>
             <td className="p-3 text-left">
-                <span className="text-center align-baseline inline-flex px-2 py-1 mr-auto items-center font-semibold text-base/none text-success bg-success-light rounded-lg">
+                <span className={`text-center align-baseline inline-flex px-2 py-1 mr-auto items-center font-semibold text-base/none rounded-lg ${progress < 40 ? 'text-red-500 bg-red-100' : progress < 80 ? 'text-yellow-500 bg-yellow-100' : 'text-green-500 bg-green-100'}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 mr-1">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                    </svg> {progress}% </span>
+                    </svg> {progress}%
+                </span>
             </td>
             <td className="p-3 pr-1 text-center">
                 <span className="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{status}</span>
@@ -40,7 +41,7 @@ ProjectRow.propTypes = {
     owner: PropTypes.string.isRequired,
     progress: PropTypes.number.isRequired,
     status: PropTypes.string.isRequired,
-    deadline: PropTypes.string.isRequired,
+    deadline: PropTypes.string,
     imageUrl: PropTypes.string.isRequired,
 };
 

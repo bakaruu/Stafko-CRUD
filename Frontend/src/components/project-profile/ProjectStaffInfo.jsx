@@ -17,19 +17,7 @@ const ProjectStaffInfo = () => {
             });
     }, [id]);
 
-    if (!users.length != 0) {
-        return <div><AddClient buttonText="Add Staff" /></div>;
-
-            
-            
-            
-            
-        
-       
-
-
     
-    }
 
     return (
         <div className="bg-white p-3 mb-14 hover:shadow">
@@ -43,17 +31,22 @@ const ProjectStaffInfo = () => {
                 </span>
                 <span>Staff</span>
             </div>
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2 ">
                 {users.map((user, index) => (
                     <div key={index} className="text-center my-2">
                         <img className="h-16 w-16 rounded-full mx-auto" src={user.photoUrl} alt={user.name} />
                         <a href="#" className="text-main-color">{user.name}</a>
                     </div>
                 ))}
+
+
+            </div>
+            <div className="flex justify-center">
+            <AddClient buttonText="Add Staff" />
             </div>
 
-
         </div>
+        
     );
 }
 

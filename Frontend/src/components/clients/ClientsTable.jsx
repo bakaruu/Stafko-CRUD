@@ -31,7 +31,7 @@ const CLientsTable = () => {
                                             <div className="font-semibold text-left">Phone</div>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
-                                            <div className="font-semibold text-center">Country</div>
+                                            <div className="font-semibold text-center">Address</div>
                                         </th>
                                     </tr>
                                 </thead>

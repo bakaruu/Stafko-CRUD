@@ -8,7 +8,10 @@ const Projects = () => {
 
   useEffect(() => {
     axios.get('http://localhost:3000/projects') // Asegúrate de reemplazar esta URL con la ruta correcta a tu API
-      .then(response => setProjects(response.data))
+      .then(response => {
+        const sortedProjects = response.data.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+        setProjects(sortedProjects);
+      })
       .catch(error => console.error(`Error: ${error}`));
   }, []);
 

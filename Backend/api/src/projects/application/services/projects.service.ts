@@ -101,7 +101,21 @@ async removeUserFromProject(projectId: string, userId: string): Promise<void> {
     return this.getAllProjectsAdapter.getAllProjects();
   }
 
+  
+
   async deleteProject(id: string): Promise<void> {
-    return this.deleteProjectAdapter.deleteProject(id);
-  }
+    const project = await this.projectRepository.findOne({ 
+      where: { id: id },
+      relations: ['users', 'client'] 
+  });
+    // Remove the relations
+    project.users = null;
+    project.client = null;
+
+    // Update the project
+    await this.projectRepository.save(project);
+
+    // Now you can delete the project
+    await this.projectRepository.delete(id);
+}
 }
