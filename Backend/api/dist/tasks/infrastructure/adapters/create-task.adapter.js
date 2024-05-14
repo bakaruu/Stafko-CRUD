@@ -12,24 +12,39 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TasksService = void 0;
+exports.CreateTaskAdapter = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const project_entity_1 = require("../../../projects/domain/entities/project.entity");
 const task_entity_1 = require("../../domain/entities/task.entity");
-let TasksService = class TasksService {
-    constructor(projectRepository, taskRepository) {
-        this.projectRepository = projectRepository;
+const project_entity_1 = require("../../../projects/domain/entities/project.entity");
+let CreateTaskAdapter = class CreateTaskAdapter {
+    constructor(taskRepository, projectRepository) {
         this.taskRepository = taskRepository;
+        this.projectRepository = projectRepository;
+    }
+    async createTask(dto) {
+        const project = await this.projectRepository.findOne({ where: { id: dto.projectId } });
+        if (!project) {
+            throw new common_1.NotFoundException(`Project with id ${dto.projectId} not found`);
+        }
+        const task = new task_entity_1.Task();
+        task.name = dto.name;
+        task.type = dto.type;
+        task.status = dto.status;
+        task.startTime = dto.startTime;
+        task.endTime = dto.endTime;
+        task.assignedTo = dto.assignedTo;
+        task.project = project;
+        return this.taskRepository.save(task);
     }
 };
-exports.TasksService = TasksService;
-exports.TasksService = TasksService = __decorate([
+exports.CreateTaskAdapter = CreateTaskAdapter;
+exports.CreateTaskAdapter = CreateTaskAdapter = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(project_entity_1.Project)),
-    __param(1, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
+    __param(0, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
+    __param(1, (0, typeorm_1.InjectRepository)(project_entity_1.Project)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository])
-], TasksService);
-//# sourceMappingURL=tasks.service.js.map
+], CreateTaskAdapter);
+//# sourceMappingURL=create-task.adapter.js.map

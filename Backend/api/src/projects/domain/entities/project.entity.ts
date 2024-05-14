@@ -1,7 +1,7 @@
 import { Client } from "../../../clients/domain/entities/client.entity";
 import { User } from "../../../users/domain/entities/user.entity";
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, ManyToMany, OneToMany, JoinTable } from 'typeorm';
-import { Task } from "../../../tasks/domain/entities/tasks.entity";
+import { Task } from "../../../tasks/domain/entities/task.entity";
 
 @Entity()
 export class Project {

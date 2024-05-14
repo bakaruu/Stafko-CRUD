@@ -9,30 +9,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TasksModule = void 0;
 const common_1 = require("@nestjs/common");
 const task_controller_1 = require("./infrastructure/controllers/task.controller");
-const tasks_service_1 = require("../tasks/application/services/tasks.service");
 const typeorm_1 = require("@nestjs/typeorm");
-const create_tasks_to_project_adapter_1 = require("../tasks/infrastructure/adapters/create-tasks-to-project.adapter");
-const get_task_to_project_adapter_1 = require("./infrastructure/adapters/get-task-to-project.adapter");
 const project_entity_1 = require("../projects/domain/entities/project.entity");
-const tasks_entity_1 = require("./domain/entities/tasks.entity");
-const delete_tasks_to_project_adapter_1 = require("./infrastructure/adapters/delete-tasks-to-project.adapter");
-const update_task_to_project_adapter_1 = require("./infrastructure/adapters/update-task-to-project.adapter");
+const task_entity_1 = require("./domain/entities/task.entity");
 let TasksModule = class TasksModule {
 };
 exports.TasksModule = TasksModule;
 exports.TasksModule = TasksModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([project_entity_1.Project, tasks_entity_1.Task])
+            typeorm_1.TypeOrmModule.forFeature([project_entity_1.Project, task_entity_1.Task])
         ],
         controllers: [task_controller_1.TasksController],
-        providers: [
-            tasks_service_1.TasksService,
-            create_tasks_to_project_adapter_1.CreateTaskToProjectAdapter,
-            get_task_to_project_adapter_1.GetTaskToProjectAdapter,
-            delete_tasks_to_project_adapter_1.DeleteTaskToProjectAdapter,
-            update_task_to_project_adapter_1.UpdateOrPatchTaskInProjectAdapter
-        ],
+        providers: [],
     })
 ], TasksModule);
 //# sourceMappingURL=tasks.module.js.map

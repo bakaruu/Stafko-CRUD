@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from '../../../projects/domain/entities/project.entity';
-import { Task } from '../../domain/entities/tasks.entity';
-import { GetTasksToProjectPort } from 'src/tasks/domain/ports/get-tasks-to-project.port';
+import { Task } from '../../domain/entities/task.entity';
+import { GetTasksToProjectPort } from 'src/tasks/domain/ports/get-task.port';
 @Injectable()
 export class GetTaskToProjectAdapter implements GetTasksToProjectPort {
     constructor(

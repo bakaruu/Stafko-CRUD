@@ -12,24 +12,35 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TasksService = void 0;
+exports.DeleteTaskToProjectAdapter = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
 const project_entity_1 = require("../../../projects/domain/entities/project.entity");
 const task_entity_1 = require("../../domain/entities/task.entity");
-let TasksService = class TasksService {
+const typeorm_2 = require("typeorm");
+let DeleteTaskToProjectAdapter = class DeleteTaskToProjectAdapter {
     constructor(projectRepository, taskRepository) {
         this.projectRepository = projectRepository;
         this.taskRepository = taskRepository;
     }
+    async deleteTaskFromProject(projectId, taskId) {
+        const project = await this.projectRepository.findOne({
+            where: { id: projectId },
+            relations: ['tasks']
+        });
+        if (!project) {
+            throw new common_1.NotFoundException(`Project with id ${projectId} not found`);
+        }
+        project.tasks = project.tasks.filter(task => task.id !== taskId);
+        await this.projectRepository.save(project);
+    }
 };
-exports.TasksService = TasksService;
-exports.TasksService = TasksService = __decorate([
+exports.DeleteTaskToProjectAdapter = DeleteTaskToProjectAdapter;
+exports.DeleteTaskToProjectAdapter = DeleteTaskToProjectAdapter = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(project_entity_1.Project)),
     __param(1, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository])
-], TasksService);
-//# sourceMappingURL=tasks.service.js.map
+], DeleteTaskToProjectAdapter);
+//# sourceMappingURL=delete-task.adapter.js.map
