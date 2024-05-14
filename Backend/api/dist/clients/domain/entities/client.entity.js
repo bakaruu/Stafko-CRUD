@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Client.prototype, "contactName", void 0);
+], Client.prototype, "address", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

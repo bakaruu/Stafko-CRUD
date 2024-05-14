@@ -11,7 +11,8 @@ const ProjectTable = () => {
     useEffect(() => {
         axios.get('http://localhost:3000/projects')
             .then(response => {
-                setProjects(response.data);
+                const sortedProjects = response.data.sort((a, b) => a.name.localeCompare(b.name));
+                setProjects(sortedProjects);
             })
             .catch(error => {
                 console.error('There was an error!', error);

@@ -43,6 +43,8 @@ export class ProjectController {
     return this.projectService.getProjects();
   }
 
+  
+
   @Delete(':id')
   async deleteProject(@Param('id') id: string): Promise<void> {
     return this.projectService.deleteProject(id);

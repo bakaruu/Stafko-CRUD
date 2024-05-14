@@ -24,7 +24,7 @@ let CreateClientAdapter = class CreateClientAdapter {
     async createClient(createClientDto) {
         const newClient = new client_entity_1.Client();
         newClient.clientName = createClientDto.clientName;
-        newClient.contactName = createClientDto.contactName;
+        newClient.address = createClientDto.contactName;
         newClient.email = createClientDto.email;
         newClient.phone = createClientDto.phone;
         return this.clientRepository.save(newClient);

@@ -13,7 +13,7 @@ export class CreateClientAdapter implements CreateClientPort {
   async createClient(createClientDto: CreateClientDto): Promise<Client> {
     const newClient = new Client();
     newClient.clientName = createClientDto.clientName;
-    newClient.contactName = createClientDto.contactName;
+    newClient.address = createClientDto.contactName;
     newClient.email = createClientDto.email;
     newClient.phone = createClientDto.phone;
 

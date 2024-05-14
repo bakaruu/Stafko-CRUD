@@ -27,7 +27,7 @@ const ProjectRow = ({ id, task, owner, progress, status, deadline, imageUrl }) =
                 <span className="text-center align-baseline inline-flex px-4 py-3 mr-auto items-center font-semibold text-[.95rem] leading-none text-primary bg-primary-light rounded-lg">{status}</span>
             </td>
             <td className="text-center">
-                <span className="font-semibold text-light-inverse text-md/normal">{deadline}</span>
+                <span className="font-semibold text-light-inverse text-md/normal">{deadline || "No deadline set"}</span>
             </td>
 
         </tr>
