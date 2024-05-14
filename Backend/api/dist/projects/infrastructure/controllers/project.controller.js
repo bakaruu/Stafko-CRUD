@@ -23,7 +23,7 @@ let ProjectController = class ProjectController {
         this.addUsersToProjectPort = addUsersToProjectPort;
     }
     async createProject(dto) {
-        return this.projectService.createProject(dto, dto.userIds);
+        return this.projectService.createProject(dto, dto.userIds || []);
     }
     async addUsersToProject(id, userIds) {
         return this.addUsersToProjectPort.addUsersToProject(id, userIds);

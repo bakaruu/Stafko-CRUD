@@ -15,7 +15,7 @@ export class ProjectController {
 
   @Post()
   async createProject(@Body() dto: CreateProjectDto): Promise<Project> {
-    return this.projectService.createProject(dto, dto.userIds);
+    return this.projectService.createProject(dto, dto.userIds || []);
   }
 
   @Post(':id/users')

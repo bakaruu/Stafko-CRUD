@@ -47,6 +47,10 @@ async createProject(dto: CreateProjectDto, userIds: string[]): Promise<Project> 
   project.photoUrl = dto.photoUrl;
   project.client = client;
 
+  project.status = dto.status;
+  project.progress = dto.progress;
+  project.deadline = dto.deadline;
+
   return this.createProjectAdapter.createProject(project, userIds);
 }
 

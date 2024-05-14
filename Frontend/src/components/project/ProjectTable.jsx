@@ -70,7 +70,7 @@ const ProjectTable = () => {
                                             key={index} // Add key prop with a unique value
                                             id={project.id}
                                             task={project.name}
-                                            owner={project.client.clientName}
+                                            owner={project.client ? project.client.clientName : 'No client'}
                                             progress={project.progress || 0}
                                             status={project.status}
                                             deadline={project.deadline}
