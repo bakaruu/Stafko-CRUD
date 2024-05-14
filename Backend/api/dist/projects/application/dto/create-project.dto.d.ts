@@ -1,7 +1,9 @@
-declare enum Status {
+export declare enum Status {
     Pending = "Pending",
     InProgress = "InProgress",
-    Completed = "Completed"
+    Completed = "Completed",
+    Active = "Active",
+    default = "Pending"
 }
 export declare class CreateProjectDto {
     name: string;
@@ -13,4 +15,3 @@ export declare class CreateProjectDto {
     progress?: number;
     deadline?: String;
 }
-export {};

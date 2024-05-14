@@ -30,7 +30,7 @@ let CreateUserAdapter = class CreateUserAdapter {
         newUser.email = createUserDto.email;
         const salt = await bcrypt.genSalt();
         newUser.password = await bcrypt.hash(createUserDto.password, salt);
-        newUser.photoUrl = "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/g355zdao69izocaytd7f.svg";
+        newUser.photoUrl = createUserDto.photoUrl ? createUserDto.photoUrl : "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/g355zdao69izocaytd7f.svg";
         return this.userRepository.save(newUser);
     }
 };

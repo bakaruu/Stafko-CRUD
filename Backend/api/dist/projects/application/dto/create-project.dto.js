@@ -9,14 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProjectDto = void 0;
+exports.CreateProjectDto = exports.Status = void 0;
 const class_validator_1 = require("class-validator");
 var Status;
 (function (Status) {
     Status["Pending"] = "Pending";
     Status["InProgress"] = "InProgress";
     Status["Completed"] = "Completed";
-})(Status || (Status = {}));
+    Status["Active"] = "Active";
+    Status["default"] = "Pending";
+})(Status || (exports.Status = Status = {}));
 class CreateProjectDto {
 }
 exports.CreateProjectDto = CreateProjectDto;

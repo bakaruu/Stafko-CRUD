@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const project_entity_1 = require("../../domain/entities/project.entity");
 const user_entity_1 = require("../../../users/domain/entities/user.entity");
+const create_project_dto_1 = require("../../application/dto/create-project.dto");
 let CreateProjectAdapter = class CreateProjectAdapter {
     constructor(projectRepository, userRepository) {
         this.projectRepository = projectRepository;
@@ -29,6 +30,8 @@ let CreateProjectAdapter = class CreateProjectAdapter {
             throw new common_1.NotFoundException(`Some users with ids ${userIds.join(', ')} not found`);
         }
         project.users = users;
+        project.status = project.status ? project.status : create_project_dto_1.Status.Pending;
+        project.photoUrl = project.photoUrl ? project.photoUrl : "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/defaultProjectHome_ti0bid.jpg";
         return this.projectRepository.save(project);
     }
 };

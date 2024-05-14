@@ -1,9 +1,12 @@
 import { IsNotEmpty, IsString, IsOptional, IsArray, IsDate, IsEnum } from 'class-validator';
 
-enum Status {
+export enum Status {
   Pending = 'Pending',
   InProgress = 'InProgress',
-  Completed = 'Completed'
+  Completed = 'Completed', 
+  Active = 'Active',
+
+  default = 'Pending'
 }
 
 export class CreateProjectDto {
@@ -27,10 +30,12 @@ export class CreateProjectDto {
   @IsString()
   clientId?: string;
 
+  
+
   // Add these fields
   @IsOptional()
   @IsEnum(Status)
-  status?: Status;
+  status?: Status ;
 
   @IsOptional()
   @IsString()
