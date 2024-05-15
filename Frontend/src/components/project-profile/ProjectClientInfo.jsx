@@ -2,12 +2,14 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import AddClientModal from '../modals/AddClientModal';
 import AddClient from '../buttons/btn-addClient';
 
 // eslint-disable-next-line react/prop-types
 const ProjectClientInfo = () => {
     const { id } = useParams();
     const [client, setClient] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         axios.get(`http://localhost:3000/projects/${id}`)
@@ -19,8 +21,22 @@ const ProjectClientInfo = () => {
             });
     }, [id]);
 
+    const handleAddClient = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
     if (!client) {
-        return <div><AddClient buttonText="Add Client" /></div>;
+        return (
+            <div>
+                <AddClient onClick={handleAddClient} buttonText="Add Client" />
+    
+                {isModalOpen && <AddClientModal handleClose={handleCloseModal} />}
+            </div>
+        );
     }
 
     return (

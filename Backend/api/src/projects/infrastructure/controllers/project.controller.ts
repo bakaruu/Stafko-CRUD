@@ -5,12 +5,13 @@ import { UpdateProjectDto } from '../../application/dto/update-project.dto';
 import { ProjectsService } from '../../application/services/projects.service';
 import { Project } from '../../domain/entities/project.entity';
 import { AddUsersToProjectPort } from '../../domain/ports/add-users-to-project.port';
-
+import { AddClientToProjectPort } from '../../domain/ports/add-client-to-project.port'; // Add missing import
 @Controller('projects')
 export class ProjectController {
   constructor(
     private readonly projectService: ProjectsService,
     @Inject('AddUsersToProjectPort') private readonly addUsersToProjectPort: AddUsersToProjectPort,
+    @Inject('AddClientToProjectPort') private readonly addClientToProjectPort: AddClientToProjectPort, // Add missing parameter
   ) { }
 
   @Post()
@@ -21,6 +22,11 @@ export class ProjectController {
   @Post(':id/users')
   async addUsersToProject(@Param('id') id: string, @Body('users') userIds: string[]): Promise<Project> {
     return this.addUsersToProjectPort.addUsersToProject(id, userIds);
+  }
+
+  @Post(':id/client')
+  async addClientToProject(@Param('id') id: string, @Body('client') clientId: string): Promise<Project> {
+    return this.addClientToProjectPort.addClientToProject(id, clientId);
   }
 
   @Put(':id')
@@ -43,7 +49,7 @@ export class ProjectController {
     return this.projectService.getProjects();
   }
 
-  
+
 
   @Delete(':id')
   async deleteProject(@Param('id') id: string): Promise<void> {

@@ -18,6 +18,7 @@ const get_project_adapter_1 = require("./infrastructure/adapters/get-project.ada
 const update_project_adapter_1 = require("./infrastructure/adapters/update-project.adapter");
 const get_all_project_adapter_1 = require("./infrastructure/adapters/get-all-project.adapter");
 const add_users_to_project_adapter_1 = require("./infrastructure/adapters/add-users-to-project.adapter");
+const add_client_to_project_adapter_1 = require("./infrastructure/adapters/add-client-to-project.adapter");
 const users_module_1 = require("../users/application/users.module");
 const client_entity_1 = require("../clients/domain/entities/client.entity");
 let ProjectsModule = class ProjectsModule {
@@ -37,6 +38,10 @@ exports.ProjectsModule = ProjectsModule = __decorate([
             {
                 provide: 'AddUsersToProjectPort',
                 useClass: add_users_to_project_adapter_1.AddUsersToProjectAdapter,
+            },
+            {
+                provide: 'AddClientToProjectPort',
+                useClass: add_client_to_project_adapter_1.AddClientToProjectAdapter,
             },
         ],
     })

@@ -18,15 +18,19 @@ const create_project_dto_1 = require("../../application/dto/create-project.dto")
 const update_project_dto_1 = require("../../application/dto/update-project.dto");
 const projects_service_1 = require("../../application/services/projects.service");
 let ProjectController = class ProjectController {
-    constructor(projectService, addUsersToProjectPort) {
+    constructor(projectService, addUsersToProjectPort, addClientToProjectPort) {
         this.projectService = projectService;
         this.addUsersToProjectPort = addUsersToProjectPort;
+        this.addClientToProjectPort = addClientToProjectPort;
     }
     async createProject(dto) {
         return this.projectService.createProject(dto, dto.userIds || []);
     }
     async addUsersToProject(id, userIds) {
         return this.addUsersToProjectPort.addUsersToProject(id, userIds);
+    }
+    async addClientToProject(id, clientId) {
+        return this.addClientToProjectPort.addClientToProject(id, clientId);
     }
     async updateProject(id, dto) {
         return this.projectService.updateProject(id, dto);
@@ -63,6 +67,14 @@ __decorate([
     __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "addUsersToProject", null);
+__decorate([
+    (0, common_1.Post)(':id/client'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)('client')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "addClientToProject", null);
 __decorate([
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -110,6 +122,7 @@ __decorate([
 exports.ProjectController = ProjectController = __decorate([
     (0, common_1.Controller)('projects'),
     __param(1, (0, common_1.Inject)('AddUsersToProjectPort')),
-    __metadata("design:paramtypes", [projects_service_1.ProjectsService, Object])
+    __param(2, (0, common_1.Inject)('AddClientToProjectPort')),
+    __metadata("design:paramtypes", [projects_service_1.ProjectsService, Object, Object])
 ], ProjectController);
 //# sourceMappingURL=project.controller.js.map
