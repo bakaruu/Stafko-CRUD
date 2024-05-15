@@ -1,19 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Select from 'react-select';
+import axios from 'axios';
 
 
 const ProjectForm = () => {
     const [manager, setManager] = useState('');
     const [customer, setCustomer] = useState('');
+    const [customerOptions, setCustomerOptions] = useState([]);
 
 
 
-    
-    const managers = ['Manager 1', 'Manager 2', 'Manager 3']; // reemplaza con datos reales
-    const managerOptions = managers.map((manager) => ({ value: manager, label: manager }));
-    const customers = ['Customer 1', 'Customer 2', 'Customer 3', 'Beebit', 'Civica', 'Unit4']; // reemplaza con datos reales
-    const customerOptions = customers.map((customer) => ({ value: customer, label: customer }));
-
+    useEffect(() => {
+        axios.get('http://localhost:3000/clients')
+            .then(response => {
+                const customers = response.data;
+                const options = customers.map((customer) => ({ value: customer.id, label: customer.clientName }));
+                setCustomerOptions(options);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, []);
     return (
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
@@ -52,9 +59,9 @@ const ProjectForm = () => {
                     Project Manager
                 </label>
                 <Select
-                    value={managerOptions.find(option => option.value === manager)}
+                    value={customerOptions.find(option => option.value === manager)}
                     onChange={(option) => setManager(option.value)}
-                    options={managerOptions}
+                    options={customerOptions}
                     isSearchable={true}
                     menuPlacement="auto"
                     maxMenuHeight={120} // ajusta este valor para cambiar la altura máxima del menú desplegable
