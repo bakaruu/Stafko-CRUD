@@ -76,6 +76,20 @@ export class ProjectsService {
     }
   }
 
+  async removeClientFromProject(projectId: string): Promise<void> {
+    const project = await this.projectRepository.findOne({
+        where: { id: projectId },
+        relations: ['client'],
+    });
+    if (!project) {
+        throw new NotFoundException(`Project with id ${projectId} not found`);
+    }
+
+    project.client = null;
+    await this.projectRepository.save(project);
+}
+
+
   // 
 
 

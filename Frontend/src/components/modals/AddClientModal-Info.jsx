@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate} from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 
@@ -8,6 +8,8 @@ const AddClientModalInfo = ({handleClose}) => {
     const { id: projectId } = useParams();
     const [customer, setCustomer] = useState('');
     const [customerOptions, setCustomerOptions] = useState([]);
+    
+
     
     useEffect(() => {
         // Reemplaza 'your-api-url' con la URL de tu API
@@ -23,18 +25,22 @@ const AddClientModalInfo = ({handleClose}) => {
     }, []);
 
 
+    const navigate = useNavigate(); // Agrega esto
+   
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:3000/projects/${projectId}/client`, { clientId: customer })
+        axios.post(`http://localhost:3000/projects/${projectId}/client`, { client: customer })
             .then(response => {
                 console.log(response);
-                console.log('Closing modal'); // Agrega esto
-                handleClose(); // Cierra el modal después de que la solicitud POST se haya completado con éxito
+                handleClose();
+                navigate(0); // Usa navigate(0) para recargar la página actual
             })
             .catch(error => {
                 console.error('There was an error!', error);
             });
     };
+
 
     return (
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>

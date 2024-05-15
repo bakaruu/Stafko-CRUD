@@ -21,6 +21,7 @@ export declare class ProjectsService {
     constructor(clientRepository: Repository<Client>, userRepository: Repository<User>, projectRepository: Repository<Project>, createProjectAdapter: CreateProjectAdapter, updateProjectAdapter: UpdateProjectAdapter, getProjectAdapter: GetProjectAdapter, deleteProjectAdapter: DeleteProjectAdapter, getAllProjectsAdapter: GetAllProjectsAdapter);
     createProject(dto: CreateProjectDto, userIds: string[]): Promise<Project>;
     removeUserFromProject(projectId: string, userId: string): Promise<void>;
+    removeClientFromProject(projectId: string): Promise<void>;
     updateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     updatePartialProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     getProject(id: string): Promise<Project>;

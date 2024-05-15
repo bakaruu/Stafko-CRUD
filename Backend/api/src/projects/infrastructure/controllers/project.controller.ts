@@ -61,4 +61,10 @@ export class ProjectController {
     await this.projectService.removeUserFromProject(projectId, userId);
   }
 
+  @Delete(':projectId/client')
+  async removeClientFromProject(@Param('projectId') projectId: string): Promise<void> {
+    await this.projectService.removeClientFromProject(projectId);
+  }
+
+
 }

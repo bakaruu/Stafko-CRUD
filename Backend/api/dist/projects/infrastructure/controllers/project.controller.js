@@ -50,6 +50,9 @@ let ProjectController = class ProjectController {
     async removeUserFromProject(projectId, userId) {
         await this.projectService.removeUserFromProject(projectId, userId);
     }
+    async removeClientFromProject(projectId) {
+        await this.projectService.removeClientFromProject(projectId);
+    }
 };
 exports.ProjectController = ProjectController;
 __decorate([
@@ -119,6 +122,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "removeUserFromProject", null);
+__decorate([
+    (0, common_1.Delete)(':projectId/client'),
+    __param(0, (0, common_1.Param)('projectId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "removeClientFromProject", null);
 exports.ProjectController = ProjectController = __decorate([
     (0, common_1.Controller)('projects'),
     __param(1, (0, common_1.Inject)('AddUsersToProjectPort')),
