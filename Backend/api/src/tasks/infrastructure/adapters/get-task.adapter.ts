@@ -1,29 +1,22 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Project } from '../../../projects/domain/entities/project.entity';
 import { Task } from '../../domain/entities/task.entity';
-import { GetTasksToProjectPort } from 'src/tasks/domain/ports/get-task.port';
+import { GetTaskPort } from '../../domain/ports/get-task.port';
+
 @Injectable()
-export class GetTaskToProjectAdapter implements GetTasksToProjectPort {
+export class GetTaskAdapter implements GetTaskPort {
+    [x: string]: any;
     constructor(
-        @InjectRepository(Project)
-        private readonly projectRepository: Repository<Project>,
         @InjectRepository(Task)
         private readonly taskRepository: Repository<Task>,
     ) {}
-    getTasksToProject(projectId: string): Promise<Task[]> {
-        throw new Error('Method not implemented.');
-    }
 
-    async getTasks(projectId: string): Promise<Task[]> {
-        const project = await this.projectRepository.findOne({ 
-            where: { id: projectId },
-            relations: ['tasks'] 
-        });
-        if (!project) {
-            throw new NotFoundException(`Project with id ${projectId} not found`);
+    async getTask(id: string): Promise<Task> {
+        const found = await this.taskRepository.findOne({ where: { id } });
+        if (!found) {
+            throw new NotFoundException(`Task with ID "${id}" not found`);
         }
-        return project.tasks;
+        return found;
     }
 }

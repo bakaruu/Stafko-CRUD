@@ -1,5 +1,5 @@
-import { Task } from '../entities/task.entity';
+import { Task } from '../../domain/entities/task.entity';
 
-export interface GetTasksToProjectPort {
-    getTasksToProject(projectId: string): Promise<Task[]>;
+export interface GetTaskPort {
+  getTask(id: string): Promise<Task>;
 }

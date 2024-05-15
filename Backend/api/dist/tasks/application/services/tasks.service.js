@@ -8,28 +8,45 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TasksService = void 0;
+exports.TaskService = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const project_entity_1 = require("../../../projects/domain/entities/project.entity");
-const task_entity_1 = require("../../domain/entities/task.entity");
-let TasksService = class TasksService {
-    constructor(projectRepository, taskRepository) {
-        this.projectRepository = projectRepository;
-        this.taskRepository = taskRepository;
+const create_task_adapter_1 = require("../../infrastructure/adapters/create-task.adapter");
+const delete_task_adapter_1 = require("../../infrastructure/adapters/delete-task.adapter");
+const get_task_adapter_1 = require("../../infrastructure/adapters/get-task.adapter");
+const update_task_adapter_1 = require("../../infrastructure/adapters/update-task.adapter");
+const get_all_task_adapter_1 = require("../../infrastructure/adapters/get-all-task.adapter");
+let TaskService = class TaskService {
+    constructor(createTaskAdapter, deleteTaskAdapter, getTaskAdapter, updateTaskAdapter, getAllTaskAdapter) {
+        this.createTaskAdapter = createTaskAdapter;
+        this.deleteTaskAdapter = deleteTaskAdapter;
+        this.getTaskAdapter = getTaskAdapter;
+        this.updateTaskAdapter = updateTaskAdapter;
+        this.getAllTaskAdapter = getAllTaskAdapter;
+    }
+    create(createTaskDto) {
+        return this.createTaskAdapter.createTask(createTaskDto);
+    }
+    delete(id) {
+        return this.deleteTaskAdapter.deleteTask(id);
+    }
+    findOne(id) {
+        return this.getTaskAdapter.getTask(id);
+    }
+    findAll() {
+        return this.getAllTaskAdapter.getAllTasks();
+    }
+    update(id, updateTaskDto) {
+        return this.updateTaskAdapter.updateTask(id, updateTaskDto);
     }
 };
-exports.TasksService = TasksService;
-exports.TasksService = TasksService = __decorate([
+exports.TaskService = TaskService;
+exports.TaskService = TaskService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(project_entity_1.Project)),
-    __param(1, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
-], TasksService);
+    __metadata("design:paramtypes", [create_task_adapter_1.CreateTaskAdapter,
+        delete_task_adapter_1.DeleteTaskAdapter,
+        get_task_adapter_1.GetTaskAdapter,
+        update_task_adapter_1.UpdateTaskAdapter,
+        get_all_task_adapter_1.GetAllTaskAdapter])
+], TaskService);
 //# sourceMappingURL=tasks.service.js.map

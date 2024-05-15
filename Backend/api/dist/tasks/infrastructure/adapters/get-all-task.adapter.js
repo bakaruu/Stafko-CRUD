@@ -12,28 +12,23 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateOrPatchTaskInProjectAdapter = void 0;
+exports.GetAllTaskAdapter = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const tasks_entity_1 = require("../entities/tasks.entity");
-const typeorm_2 = require("typeorm");
-let UpdateOrPatchTaskInProjectAdapter = class UpdateOrPatchTaskInProjectAdapter {
+const task_entity_1 = require("../../domain/entities/task.entity");
+const typeorm_1 = require("typeorm");
+const typeorm_2 = require("@nestjs/typeorm");
+let GetAllTaskAdapter = class GetAllTaskAdapter {
     constructor(taskRepository) {
         this.taskRepository = taskRepository;
     }
-    async updateOrPatchTaskInProject(taskId, updateTaskDto) {
-        const task = await this.taskRepository.findOne({ where: { id: taskId } });
-        if (!task) {
-            throw new common_1.NotFoundException(`Task with id ${taskId} not found`);
-        }
-        const updated = this.taskRepository.merge(task, updateTaskDto);
-        return this.taskRepository.save(updated);
+    async getAllTasks() {
+        return this.taskRepository.find({ relations: ['project'] });
     }
 };
-exports.UpdateOrPatchTaskInProjectAdapter = UpdateOrPatchTaskInProjectAdapter;
-exports.UpdateOrPatchTaskInProjectAdapter = UpdateOrPatchTaskInProjectAdapter = __decorate([
+exports.GetAllTaskAdapter = GetAllTaskAdapter;
+exports.GetAllTaskAdapter = GetAllTaskAdapter = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(tasks_entity_1.Task)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
-], UpdateOrPatchTaskInProjectAdapter);
-//# sourceMappingURL=update-task-to-project.adapter.js.map
+    __param(0, (0, typeorm_2.InjectRepository)(task_entity_1.Task)),
+    __metadata("design:paramtypes", [typeorm_1.Repository])
+], GetAllTaskAdapter);
+//# sourceMappingURL=get-all-task.adapter.js.map

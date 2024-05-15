@@ -1,9 +1,8 @@
-import { Project } from "src/projects/domain/entities/project.entity";
-import { Task } from "src/tasks/domain/entities/task.entity";
-import { Repository } from "typeorm";
-export declare class DeleteTaskToProjectAdapter {
-    private readonly projectRepository;
+import { Repository } from 'typeorm';
+import { Task } from '../../domain/entities/task.entity';
+import { DeleteTaskPort } from '../../domain/ports/delete-tasks.port';
+export declare class DeleteTaskAdapter implements DeleteTaskPort {
     private readonly taskRepository;
-    constructor(projectRepository: Repository<Project>, taskRepository: Repository<Task>);
-    deleteTaskFromProject(projectId: string, taskId: string): Promise<void>;
+    constructor(taskRepository: Repository<Task>);
+    deleteTask(id: string): Promise<void>;
 }

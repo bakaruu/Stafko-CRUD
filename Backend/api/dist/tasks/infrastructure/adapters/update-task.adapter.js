@@ -12,28 +12,32 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateOrPatchTaskInProjectAdapter = void 0;
+exports.UpdateTaskAdapter = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const task_entity_1 = require("../../domain/entities/task.entity");
 const typeorm_2 = require("typeorm");
-let UpdateOrPatchTaskInProjectAdapter = class UpdateOrPatchTaskInProjectAdapter {
+const task_entity_1 = require("../../domain/entities/task.entity");
+let UpdateTaskAdapter = class UpdateTaskAdapter {
     constructor(taskRepository) {
         this.taskRepository = taskRepository;
     }
-    async updateOrPatchTaskInProject(taskId, updateTaskDto) {
-        const task = await this.taskRepository.findOne({ where: { id: taskId } });
+    async updateTask(id, updateTaskDto) {
+        const task = await this.taskRepository.preload({
+            id: id,
+            ...updateTaskDto,
+            type: task_entity_1.TaskType[updateTaskDto.type],
+            status: task_entity_1.TaskStatus[updateTaskDto.status],
+        });
         if (!task) {
-            throw new common_1.NotFoundException(`Task with id ${taskId} not found`);
+            throw new common_1.NotFoundException(`Task with ID "${id}" not found`);
         }
-        const updated = this.taskRepository.merge(task, updateTaskDto);
-        return this.taskRepository.save(updated);
+        return this.taskRepository.save(task);
     }
 };
-exports.UpdateOrPatchTaskInProjectAdapter = UpdateOrPatchTaskInProjectAdapter;
-exports.UpdateOrPatchTaskInProjectAdapter = UpdateOrPatchTaskInProjectAdapter = __decorate([
+exports.UpdateTaskAdapter = UpdateTaskAdapter;
+exports.UpdateTaskAdapter = UpdateTaskAdapter = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
     __metadata("design:paramtypes", [typeorm_2.Repository])
-], UpdateOrPatchTaskInProjectAdapter);
+], UpdateTaskAdapter);
 //# sourceMappingURL=update-task.adapter.js.map

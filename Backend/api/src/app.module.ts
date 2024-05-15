@@ -8,6 +8,7 @@ import { Project } from './projects/domain/entities/project.entity';
 import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
 import { Task } from './tasks/domain/entities/task.entity';
+import { TaskModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { Task } from './tasks/domain/entities/task.entity';
     UsersModule,
     ClientsModule,
     ProjectsModule,
+    TaskModule,
     AuthModule,
   ],
 

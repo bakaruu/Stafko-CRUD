@@ -12,37 +12,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetTaskToProjectAdapter = void 0;
+exports.GetTaskAdapter = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const project_entity_1 = require("../../../projects/domain/entities/project.entity");
 const task_entity_1 = require("../../domain/entities/task.entity");
-let GetTaskToProjectAdapter = class GetTaskToProjectAdapter {
-    constructor(projectRepository, taskRepository) {
-        this.projectRepository = projectRepository;
+let GetTaskAdapter = class GetTaskAdapter {
+    constructor(taskRepository) {
         this.taskRepository = taskRepository;
     }
-    getTasksToProject(projectId) {
-        throw new Error('Method not implemented.');
-    }
-    async getTasks(projectId) {
-        const project = await this.projectRepository.findOne({
-            where: { id: projectId },
-            relations: ['tasks']
-        });
-        if (!project) {
-            throw new common_1.NotFoundException(`Project with id ${projectId} not found`);
+    async getTask(id) {
+        const found = await this.taskRepository.findOne({ where: { id } });
+        if (!found) {
+            throw new common_1.NotFoundException(`Task with ID "${id}" not found`);
         }
-        return project.tasks;
+        return found;
     }
 };
-exports.GetTaskToProjectAdapter = GetTaskToProjectAdapter;
-exports.GetTaskToProjectAdapter = GetTaskToProjectAdapter = __decorate([
+exports.GetTaskAdapter = GetTaskAdapter;
+exports.GetTaskAdapter = GetTaskAdapter = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(project_entity_1.Project)),
-    __param(1, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
-], GetTaskToProjectAdapter);
+    __param(0, (0, typeorm_1.InjectRepository)(task_entity_1.Task)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
+], GetTaskAdapter);
 //# sourceMappingURL=get-task.adapter.js.map

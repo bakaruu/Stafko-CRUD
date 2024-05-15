@@ -7,5 +7,5 @@ export declare class CreateTaskAdapter implements CreateTaskPort {
     private readonly taskRepository;
     private readonly projectRepository;
     constructor(taskRepository: Repository<Task>, projectRepository: Repository<Project>);
-    createTask(dto: CreateTaskDto): Promise<Task>;
+    createTask(createTaskDto: CreateTaskDto): Promise<Task>;
 }

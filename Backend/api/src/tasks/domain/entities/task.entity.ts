@@ -7,6 +7,13 @@ export enum TaskType {
     // Add any other task types here
 }
 
+export enum TaskStatus {
+    Done = 'Done',
+    InProgress = 'In progress',
+    ToStart = 'To start',
+    // Add any other task statuses here
+}
+
 @Entity()
 export class Task {
     @PrimaryGeneratedColumn('uuid')
@@ -19,7 +26,7 @@ export class Task {
     type: TaskType;
 
     @Column()
-    status: string; // Done, In progress, etc.
+    status: TaskStatus; // Done, In progress, etc.
 
     @Column({ nullable: true })
     startTime: Date;

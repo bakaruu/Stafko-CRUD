@@ -1,22 +1,28 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateTaskDto } from "src/tasks/application/dto/update-task.dto";
-import { Task } from "src/tasks/domain/entities/task.entity";
-import { Repository } from "typeorm";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Task, TaskType, TaskStatus } from '../../domain/entities/task.entity';
+import { UpdateTaskPort } from '../../domain/ports/update-task.port';
+import { UpdateTaskDto } from '../../application/dto/update-task.dto';
+
 
 @Injectable()
-export class UpdateOrPatchTaskInProjectAdapter {
-    constructor(
-        @InjectRepository(Task)
-        private readonly taskRepository: Repository<Task>,
-    ) {}
+export class UpdateTaskAdapter implements UpdateTaskPort {
+  constructor(
+    @InjectRepository(Task)
+    private readonly taskRepository: Repository<Task>,
+  ) {}
 
-    async updateOrPatchTaskInProject(taskId: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
-        const task = await this.taskRepository.findOne({ where: { id: taskId } });
-                if (!task) {
-            throw new NotFoundException(`Task with id ${taskId} not found`);
-        }
-        const updated = this.taskRepository.merge(task, updateTaskDto);
-        return this.taskRepository.save(updated);
+  async updateTask(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    const task = await this.taskRepository.preload({
+      id: id,
+      ...updateTaskDto,
+      type: TaskType[updateTaskDto.type as keyof typeof TaskType],
+      status: TaskStatus[updateTaskDto.status as keyof typeof TaskStatus],
+    });
+    if (!task) {
+      throw new NotFoundException(`Task with ID "${id}" not found`);
     }
+    return this.taskRepository.save(task);
+  }
 }

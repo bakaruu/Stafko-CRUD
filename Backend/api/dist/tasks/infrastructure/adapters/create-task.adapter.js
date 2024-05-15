@@ -23,18 +23,18 @@ let CreateTaskAdapter = class CreateTaskAdapter {
         this.taskRepository = taskRepository;
         this.projectRepository = projectRepository;
     }
-    async createTask(dto) {
-        const project = await this.projectRepository.findOne({ where: { id: dto.projectId } });
+    async createTask(createTaskDto) {
+        const project = await this.projectRepository.findOne({ where: { id: createTaskDto.projectId } });
         if (!project) {
-            throw new common_1.NotFoundException(`Project with id ${dto.projectId} not found`);
+            throw new common_1.NotFoundException(`Project with id ${createTaskDto.projectId} not found`);
         }
         const task = new task_entity_1.Task();
-        task.name = dto.name;
-        task.type = dto.type;
-        task.status = dto.status;
-        task.startTime = dto.startTime;
-        task.endTime = dto.endTime;
-        task.assignedTo = dto.assignedTo;
+        task.name = createTaskDto.name;
+        task.type = task_entity_1.TaskType[createTaskDto.type];
+        task.status = task_entity_1.TaskStatus[createTaskDto.status];
+        task.startTime = createTaskDto.startTime;
+        task.endTime = createTaskDto.endTime;
+        task.assignedTo = createTaskDto.assignedTo;
         task.project = project;
         return this.taskRepository.save(task);
     }

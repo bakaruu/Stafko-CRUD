@@ -1,5 +1,5 @@
 
 
-export interface DeleteTasksToProjectPort {
-    deleteTaskFromProject(projectId: string, taskId: string): Promise<void>;
-}
+export interface DeleteTaskPort {
+    deleteTask(id: string): Promise<void>;
+  }

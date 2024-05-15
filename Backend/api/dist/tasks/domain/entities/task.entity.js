@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Task = exports.TaskType = void 0;
+exports.Task = exports.TaskStatus = exports.TaskType = void 0;
 const typeorm_1 = require("typeorm");
 const project_entity_1 = require("../../../projects/domain/entities/project.entity");
 var TaskType;
@@ -17,6 +17,12 @@ var TaskType;
     TaskType["Frontend"] = "Frontend";
     TaskType["Backend"] = "Backend";
 })(TaskType || (exports.TaskType = TaskType = {}));
+var TaskStatus;
+(function (TaskStatus) {
+    TaskStatus["Done"] = "Done";
+    TaskStatus["InProgress"] = "In progress";
+    TaskStatus["ToStart"] = "To start";
+})(TaskStatus || (exports.TaskStatus = TaskStatus = {}));
 let Task = class Task {
 };
 exports.Task = Task;
