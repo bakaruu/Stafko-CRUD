@@ -5,9 +5,20 @@ const ProjectTaskInfo = () => {
 
     return (
         <div className="bg-white p-3 mb-36 shadow-sm rounded-sm ">
-            <div className="flex justify-center m-10">
-                <AddClient buttonText="Add Task" />
+            <div className="flex items-center justify-between space-x-2 font-semibold text-gray-900 leading-8 m-4">
+                <div className="flex items-center space-x-2">
+                    <span className="text-orange-200">
+                        <svg className="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </span>
+                    <span className="tracking-wide">Tasks</span>
+                </div>
+                <AddClient buttonText="Add Task" className="justify-end" />
             </div>
+            
             <div className="grid grid-cols-2">
                 <div>
                     <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
