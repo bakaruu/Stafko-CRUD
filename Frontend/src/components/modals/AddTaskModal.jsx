@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 
 // eslint-disable-next-line react/prop-types
-const AddTaskModal = ({ handleClose }) => {
+const AddTaskModal = ({ projectId, handleClose }) => {
     const taskTypeOptions = [
         { value: 'Frontend', label: 'Frontend' },
         { value: 'Backend', label: 'Backend' },
@@ -15,8 +15,8 @@ const AddTaskModal = ({ handleClose }) => {
 
     const [taskName, setTaskName] = useState('');
     const [taskType, setTaskType] = useState(taskTypeOptions[0].value);
-    const { projectId } = useParams();
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Agrega esto
+    
 
     useEffect(() => {
         // Aquí podrías realizar cualquier lógica adicional que necesites al cargar el componente, como cargar datos adicionales
@@ -25,20 +25,21 @@ const AddTaskModal = ({ handleClose }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
     
-        
-    
         try {
             await axios.post('http://localhost:3000/tasks', {
                 name: taskName,
                 type: taskType,
                 status: "ToDo",
                 project: {
-                    id: projectId
+                    id: projectId // Usa el projectId recibido como prop
                 },
             });
     
-            // Navegar a la página raíz del proyecto
+            // Cerrar el modal
+            handleClose();
             navigate(0);
+            
+            
         } catch (error) {
             console.error('Error creating task:', error);
         }

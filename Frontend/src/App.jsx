@@ -18,7 +18,9 @@ function App() {
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         minHeight: '100vh',
-        backgroundAttachment: 'fixed' // Agregar fondo fijo
+        backgroundAttachment: 'fixed', // Agregar fondo fijo
+        overflowX: "auto", // Agregar overflow-x: auto para desplazamiento horizontal
+        
       }}>
 
         <BrowserRouter>

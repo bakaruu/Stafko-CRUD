@@ -7,7 +7,7 @@ import ProjectTaskInfo from "./ProjectTaskInfo";
 
 
 const ProjectProfile = () => {
-
+    
 
     return (
         <div className="container mx-auto my-5 p-5">
