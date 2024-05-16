@@ -1,26 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Select from 'react-select';
+import axios from 'axios';
 
 
 const ProjectForm = () => {
     const [manager, setManager] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
     const [customer, setCustomer] = useState('');
+    const [customerOptions, setCustomerOptions] = useState([]);
 
-    const handleSearch = async (event) => {
-        const { value } = event.target;
-        setManager(value);
 
-        // if (value.length > 2) {
-        //     const results = await searchStaff(value);
-        //     setSearchResults(results);
-        // } else {
-        //     setSearchResults([]);
-        // }
-    };
 
-    const managers = ['Manager 1', 'Manager 2', 'Manager 3']; // reemplaza con datos reales
-    const customers = ['Customer 1', 'Customer 2', 'Customer 3']; // reemplaza con datos reales
-
+    useEffect(() => {
+        axios.get('http://localhost:3000/clients')
+            .then(response => {
+                const customers = response.data;
+                const options = customers.map((customer) => ({ value: customer.id, label: customer.clientName }));
+                setCustomerOptions(options);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, []);
     return (
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
@@ -33,12 +33,15 @@ const ProjectForm = () => {
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
                     Customer
                 </label>
-                <select value={customer} onChange={(e) => setCustomer(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    {customers.map((customer, index) => (
-                        <option key={index} value={customer}>{customer}</option>
-                    ))}
-                </select>
-                </div>
+                <Select
+                    value={customerOptions.find(option => option.value === customer)}
+                    onChange={(option) => setCustomer(option.value)}
+                    options={customerOptions}
+                    isSearchable={true}
+                    menuPlacement="auto"
+                    maxMenuHeight={120} // ajusta este valor para cambiar la altura máxima del menú desplegable
+                />
+            </div>
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="projectImage">
                     Photo
@@ -55,11 +58,14 @@ const ProjectForm = () => {
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="projectManager">
                     Project Manager
                 </label>
-                <select value={manager} onChange={(e) => setManager(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    {managers.map((manager, index) => (
-                        <option key={index} value={manager}>{manager}</option>
-                    ))}
-                </select>
+                <Select
+                    value={customerOptions.find(option => option.value === manager)}
+                    onChange={(option) => setManager(option.value)}
+                    options={customerOptions}
+                    isSearchable={true}
+                    menuPlacement="auto"
+                    maxMenuHeight={120} // ajusta este valor para cambiar la altura máxima del menú desplegable
+                />
             </div>
             <div className="flex items-center justify-between">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">

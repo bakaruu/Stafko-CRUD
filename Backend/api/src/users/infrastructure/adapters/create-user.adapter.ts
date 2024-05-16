@@ -25,9 +25,8 @@ export class CreateUserAdapter implements CreateUserPort {
     const salt = await bcrypt.genSalt();
     newUser.password = await bcrypt.hash(createUserDto.password, salt);
 
-    // Sube la foto por defecto y guarda la URL en el usuario
-    const defaultImagePath = path.resolve(process.cwd(), 'uploads', 'user-default.svg');
-    const imageUrl = await this.imageUploader.upload(defaultImagePath); newUser.photoUrl = imageUrl;
+    // Asigna la URL de la imagen por defecto a la propiedad photoUrl del usuario
+    newUser.photoUrl = createUserDto.photoUrl ? createUserDto.photoUrl : "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/g355zdao69izocaytd7f.svg";
 
     // Guarda el nuevo usuario en la base de datos y devuelve el resultado
     return this.userRepository.save(newUser);

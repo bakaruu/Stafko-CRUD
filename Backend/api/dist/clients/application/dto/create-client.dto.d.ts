@@ -1,6 +1,6 @@
 export declare class CreateClientDto {
     clientName: string;
-    contactName: string;
+    address: string;
     email: string;
     phone: string;
 }

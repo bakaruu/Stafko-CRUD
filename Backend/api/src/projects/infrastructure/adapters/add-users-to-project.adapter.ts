@@ -1,5 +1,5 @@
 // add-users-to-project.adapter.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddUsersToProjectPort } from '../../domain/ports/add-users-to-project.port';
@@ -20,7 +20,13 @@ export class AddUsersToProjectAdapter implements AddUsersToProjectPort {
       where: { id: projectId },
       relations: ['users'] 
     });
+    if (!project) {
+      throw new NotFoundException(`Project with id ${projectId} not found`);
+    }
     const users = await this.userRepository.findByIds(userIds);
+    if (users.length !== userIds.length) {
+      throw new NotFoundException('One or more users not found');
+    }
     project.users.push(...users);
     await this.projectRepository.save(project);
     return project;

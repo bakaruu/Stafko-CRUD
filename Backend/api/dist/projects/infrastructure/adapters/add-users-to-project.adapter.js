@@ -28,7 +28,13 @@ let AddUsersToProjectAdapter = class AddUsersToProjectAdapter {
             where: { id: projectId },
             relations: ['users']
         });
+        if (!project) {
+            throw new common_1.NotFoundException(`Project with id ${projectId} not found`);
+        }
         const users = await this.userRepository.findByIds(userIds);
+        if (users.length !== userIds.length) {
+            throw new common_1.NotFoundException('One or more users not found');
+        }
         project.users.push(...users);
         await this.projectRepository.save(project);
         return project;

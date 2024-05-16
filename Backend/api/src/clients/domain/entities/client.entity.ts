@@ -11,8 +11,7 @@ export class Client {
     clientName: string;
 
     @Column()
-    contactName: string;
-
+    address: string;
     
     @Column()
     email: string;

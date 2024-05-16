@@ -20,10 +20,10 @@ __decorate([
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "clientName", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateClientDto.prototype, "contactName", void 0);
+], CreateClientDto.prototype, "address", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsEmail)(),

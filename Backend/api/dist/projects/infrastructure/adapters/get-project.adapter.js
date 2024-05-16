@@ -22,10 +22,10 @@ let GetProjectAdapter = class GetProjectAdapter {
         this.projectRepository = projectRepository;
     }
     async getProject(id) {
-        return this.projectRepository.findOne({ where: { id }, relations: ['client', 'users'] });
+        return this.projectRepository.findOne({ where: { id }, relations: ['client', 'users', 'tasks'] });
     }
     async getProjects() {
-        return this.projectRepository.find({ relations: ['client', 'users'] });
+        return this.projectRepository.find({ relations: ['client', 'users', 'tasks'] });
     }
 };
 exports.GetProjectAdapter = GetProjectAdapter;

@@ -22,7 +22,7 @@ let GetAllUsersAdapter = class GetAllUsersAdapter {
         this.userRepository = userRepository;
     }
     async getAllUsers() {
-        return this.userRepository.find();
+        return this.userRepository.find({ relations: ['projects'] });
     }
 };
 exports.GetAllUsersAdapter = GetAllUsersAdapter;

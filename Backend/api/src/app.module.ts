@@ -5,8 +5,10 @@ import { UsersModule } from './users/application/users.module';
 import { Client } from './clients/domain/entities/client.entity';
 import { ClientsModule } from './clients/application/clients.module';
 import { Project } from './projects/domain/entities/project.entity';
-import { ProjectsModule } from './projects/application/projects.module';
+import { ProjectsModule } from './projects/projects.module';
 import { AuthModule } from './auth/auth.module';
+import { Task } from './tasks/domain/entities/task.entity';
+import { TaskModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -18,12 +20,13 @@ import { AuthModule } from './auth/auth.module';
       username: 'user',
       password: 'password',
       database: 'postgres',
-      entities: [User, Client, Project], // Agrega todas las entidades que necesitas para TypeORM
+      entities: [User, Client, Project, Task], // Agrega todas las entidades que necesitas para TypeORM
       synchronize: true,
     }), // Añade el módulo de clientes si es necesario
     UsersModule,
     ClientsModule,
     ProjectsModule,
+    TaskModule,
     AuthModule,
   ],
 

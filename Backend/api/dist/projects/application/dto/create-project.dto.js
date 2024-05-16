@@ -9,8 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProjectDto = void 0;
+exports.CreateProjectDto = exports.Status = void 0;
 const class_validator_1 = require("class-validator");
+var Status;
+(function (Status) {
+    Status["Pending"] = "Pending";
+    Status["InProgress"] = "InProgress";
+    Status["Completed"] = "Completed";
+    Status["Active"] = "Active";
+    Status["default"] = "Pending";
+})(Status || (exports.Status = Status = {}));
 class CreateProjectDto {
 }
 exports.CreateProjectDto = CreateProjectDto;
@@ -39,4 +47,19 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateProjectDto.prototype, "clientId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEnum)(Status),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "status", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], CreateProjectDto.prototype, "progress", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "deadline", void 0);
 //# sourceMappingURL=create-project.dto.js.map

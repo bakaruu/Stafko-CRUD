@@ -2,7 +2,7 @@ import { Project } from 'src/projects/domain/entities/project.entity';
 export declare class Client {
     id: string;
     clientName: string;
-    contactName: string;
+    address: string;
     email: string;
     phone: string;
     projects: Project[];

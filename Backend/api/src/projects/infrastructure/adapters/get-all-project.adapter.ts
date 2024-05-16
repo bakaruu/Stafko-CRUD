@@ -12,6 +12,7 @@ export class GetAllProjectsAdapter {
   ) {}
 
   async getAllProjects(): Promise<Project[]> {
-    return this.projectsRepository.find();
+    return this.projectsRepository.find({ relations: ['client', 'users', 'tasks'] });
   }
+
 }
