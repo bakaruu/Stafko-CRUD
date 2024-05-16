@@ -91,6 +91,18 @@ export class ProjectsService {
 
 
   // 
+  async updateProjectClient(projectId: string, clientId: string): Promise<Project> {
+    const project = await this.projectRepository.findOne({ where: { id: projectId } });
+    if (!project) throw new NotFoundException('Project not found');
+
+    const client = await this.clientRepository.findOne({ where: { id: clientId } });
+    if (!client) throw new NotFoundException('Client not found');
+
+    project.client = client;
+    await this.projectRepository.save(project);
+
+    return project;
+  }
 
 
 

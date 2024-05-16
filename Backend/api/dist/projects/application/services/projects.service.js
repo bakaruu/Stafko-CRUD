@@ -77,6 +77,17 @@ let ProjectsService = class ProjectsService {
         project.client = null;
         await this.projectRepository.save(project);
     }
+    async updateProjectClient(projectId, clientId) {
+        const project = await this.projectRepository.findOne({ where: { id: projectId } });
+        if (!project)
+            throw new common_1.NotFoundException('Project not found');
+        const client = await this.clientRepository.findOne({ where: { id: clientId } });
+        if (!client)
+            throw new common_1.NotFoundException('Client not found');
+        project.client = client;
+        await this.projectRepository.save(project);
+        return project;
+    }
     async updateProject(id, dto) {
         return this.updateProjectAdapter.updateProject(id, dto);
     }

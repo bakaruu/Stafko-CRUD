@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import AddClientModal from '../modals/AddClientModal';
-import AddClient from '../buttons/btn-addClient';
+import EditClientModal from '../modals/EditClientModal';
+import GenericBtn from '../buttons/Generic-btn';
 
 // eslint-disable-next-line react/prop-types
 const ProjectClientInfo = () => {
@@ -32,7 +33,7 @@ const ProjectClientInfo = () => {
     if (!client) {
         return (
             <div>
-                <AddClient onClick={handleAddClient} buttonText="Add Client" />
+                <GenericBtn onClick={handleAddClient} buttonText="Add Client" />
 
                 {isModalOpen && <AddClientModal handleClose={handleCloseModal} />}
             </div>
@@ -53,7 +54,8 @@ const ProjectClientInfo = () => {
                     </span>
                     <span className="tracking-wide">Client</span>
                 </div>
-                <AddClient onClick={handleAddClient} buttonText="Edit Client" className="justify-end" />
+                <GenericBtn onClick={handleAddClient} buttonText="Edit Client" className="justify-end" />
+                {isModalOpen && <EditClientModal handleClose={handleCloseModal} />}
             </div>
             <div className="text-gray-700">
                 <div className="grid md:grid-cols-2 text-sm">

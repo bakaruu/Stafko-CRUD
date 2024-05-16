@@ -38,6 +38,9 @@ let ProjectController = class ProjectController {
     async partialUpdateProject(id, dto) {
         return this.projectService.updatePartialProject(id, dto);
     }
+    async updateProjectClient(projectId, clientId) {
+        return this.projectService.updateProjectClient(projectId, clientId);
+    }
     async getProject(id) {
         return this.projectService.getProject(id);
     }
@@ -94,6 +97,14 @@ __decorate([
     __metadata("design:paramtypes", [String, update_project_dto_1.UpdateProjectDto]),
     __metadata("design:returntype", Promise)
 ], ProjectController.prototype, "partialUpdateProject", null);
+__decorate([
+    (0, common_1.Put)(':projectId/client/:clientId'),
+    __param(0, (0, common_1.Param)('projectId')),
+    __param(1, (0, common_1.Param)('clientId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], ProjectController.prototype, "updateProjectClient", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

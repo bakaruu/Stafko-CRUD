@@ -1,7 +1,18 @@
-import AddClient  from "../../components/buttons/btn-addClient";
+import { useState } from 'react';
+import GenericBtn from "../buttons/Generic-btn";
+import AddTaskModal from '../modals/AddTaskModal';
 
 const ProjectTaskInfo = () => {
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleAddTask = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div className="bg-white p-3 mb-36 shadow-sm rounded-sm ">
@@ -16,7 +27,8 @@ const ProjectTaskInfo = () => {
                     </span>
                     <span className="tracking-wide">Tasks</span>
                 </div>
-                <AddClient buttonText="Add Task" className="justify-end" />
+                <GenericBtn onClick={handleAddTask} buttonText="Add Task" className="justify-end" />
+                {isModalOpen && <AddTaskModal handleClose={handleCloseModal} />}
             </div>
             
             <div className="grid grid-cols-2">

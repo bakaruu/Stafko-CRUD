@@ -39,6 +39,11 @@ export class ProjectController {
     return this.projectService.updatePartialProject(id, dto);
   }
 
+  @Put(':projectId/client/:clientId')
+  async updateProjectClient(@Param('projectId') projectId: string, @Param('clientId') clientId: string): Promise<Project> {
+    return this.projectService.updateProjectClient(projectId, clientId);
+  }
+
   @Get(':id')
   async getProject(@Param('id') id: string): Promise<Project> {
     return this.projectService.getProject(id);

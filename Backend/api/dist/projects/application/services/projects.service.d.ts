@@ -22,6 +22,7 @@ export declare class ProjectsService {
     createProject(dto: CreateProjectDto, userIds: string[]): Promise<Project>;
     removeUserFromProject(projectId: string, userId: string): Promise<void>;
     removeClientFromProject(projectId: string): Promise<void>;
+    updateProjectClient(projectId: string, clientId: string): Promise<Project>;
     updateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     updatePartialProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     getProject(id: string): Promise<Project>;

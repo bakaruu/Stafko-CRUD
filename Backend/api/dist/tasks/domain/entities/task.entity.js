@@ -21,7 +21,7 @@ var TaskStatus;
 (function (TaskStatus) {
     TaskStatus["Done"] = "Done";
     TaskStatus["InProgress"] = "In progress";
-    TaskStatus["ToStart"] = "To start";
+    TaskStatus["ToDo"] = "To Do";
 })(TaskStatus || (exports.TaskStatus = TaskStatus = {}));
 let Task = class Task {
 };

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProjectRow from "./ProjectRow";
 import ProjectFormModal from './ProjectFormModal';
-import AddClient from '../buttons/btn-addClient';
+import GenericBtn from '../buttons/Generic-btn';
 
 const ProjectTable = () => {
     const [projects, setProjects] = useState([]);
@@ -58,7 +58,7 @@ const ProjectTable = () => {
                         <h2 className="font-semibold text-gray-800">Projects Deliveries</h2>
 
                         <div className="relative flex flex-wrap items-center my-2">
-                            <AddClient onClick={handleModalOpen} buttonText="Add Project" />
+                            <GenericBtn onClick={handleModalOpen} buttonText="Add Project" />
                         </div>
                     </header>
 

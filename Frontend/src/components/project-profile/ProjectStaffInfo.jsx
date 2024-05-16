@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import AddClient from '../buttons/btn-addClient';
+import GenericBtn from '../buttons/Generic-btn';
 
 const ProjectStaffInfo = () => {
     const { id } = useParams();
@@ -44,7 +44,7 @@ const ProjectStaffInfo = () => {
                 </div>
             </div>
             <div className="flex justify-center">
-                <AddClient buttonText="Add Staff" />
+                <GenericBtn buttonText="Add Staff" />
             </div>
 
         </div>

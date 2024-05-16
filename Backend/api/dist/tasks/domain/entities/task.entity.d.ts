@@ -6,7 +6,7 @@ export declare enum TaskType {
 export declare enum TaskStatus {
     Done = "Done",
     InProgress = "In progress",
-    ToStart = "To start"
+    ToDo = "To Do"
 }
 export declare class Task {
     id: string;

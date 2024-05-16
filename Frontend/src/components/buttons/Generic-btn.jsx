@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const AddClient = ({ buttonText, onClick }) => {
+const GenericBtn = ({ buttonText, onClick }) => {
     return (
         <div>
             <button 
@@ -12,4 +12,4 @@ const AddClient = ({ buttonText, onClick }) => {
     );
 };
 
-export default AddClient;
+export default GenericBtn;

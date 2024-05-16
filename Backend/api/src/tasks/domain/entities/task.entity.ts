@@ -10,7 +10,7 @@ export enum TaskType {
 export enum TaskStatus {
     Done = 'Done',
     InProgress = 'In progress',
-    ToStart = 'To start',
+    ToDo = 'To Do',
     // Add any other task statuses here
 }
 

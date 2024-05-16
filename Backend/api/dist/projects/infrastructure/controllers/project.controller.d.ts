@@ -14,6 +14,7 @@ export declare class ProjectController {
     addClientToProject(id: string, clientId: string): Promise<Project>;
     updateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
     partialUpdateProject(id: string, dto: UpdateProjectDto): Promise<Project>;
+    updateProjectClient(projectId: string, clientId: string): Promise<Project>;
     getProject(id: string): Promise<Project>;
     getProjects(): Promise<Project[]>;
     deleteProject(id: string): Promise<void>;
