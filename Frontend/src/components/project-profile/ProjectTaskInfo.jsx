@@ -10,6 +10,12 @@ const ProjectTaskInfo = () => {
     const [projectTasks, setProjectTasks] = useState([]);
     const userRole = localStorage.getItem("userRole"); // Get user role from localStorage
 
+    const [startVisible, setStartVisible] = useState(true);
+
+    const handleStartPause = () => {
+        setStartVisible(!startVisible);
+    };
+
     useEffect(() => {
         fetchProject();
     }, [id]);
@@ -63,13 +69,32 @@ const ProjectTaskInfo = () => {
 
             <div className="grid grid-cols-2">
                 {projectTasks.map(task => (
-                    <div key={task.id} className="bg-gray-50 p-4 rounded-md shadow-md mb-4">
-                        <h2 className="text-xl font-semibold">{task.name}</h2>
-                        <p className="text-sm text-gray-500">Type: {task.type}</p>
-                        <p className="text-sm text-gray-500">Status: {task.status}</p>
-                        {userRole === "Admin" && (
-                        <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-                    )}
+                    <div key={task.id} className="bg-gray-50 p-4 rounded-md shadow-md mb-4 flex justify-between items-center">
+                        <div>
+                            <h2 className="text-xl font-semibold">{task.name}</h2>
+                            <p className="text-sm text-gray-500">Type: {task.type}</p>
+                            <p className="text-sm text-gray-500">Status: {task.status}</p>
+                            {userRole === "Admin" && (
+                                <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                            )}
+                        </div>
+                        <div className="flex flex-col items-end">
+                            {startVisible ? (
+                                <button
+                                    onClick={handleStartPause}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    Start
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => handleStartPause(task.id)}
+                                    className="bg-orange-300 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded"
+                                >
+                                    Pause
+                                </button>
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>
