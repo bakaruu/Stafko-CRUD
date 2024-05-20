@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import GenericBtn from '../buttons/Generic-btn';
+import AddUserModal from '../modals/AddUserModal';
 
 const ProjectStaffInfo = () => {
     const { id } = useParams();
     const [users, setUsers] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false); // Nuevo estado para controlar el modal
+
 
     useEffect(() => {
         axios.get(`http://localhost:3000/projects/${id}`)
@@ -17,6 +20,13 @@ const ProjectStaffInfo = () => {
             });
     }, [id]);
 
+    const handleOpenModal = () => { // Función para abrir el modal
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => { // Función para cerrar el modal
+        setIsModalOpen(false);
+    };
 
 
     return (
@@ -32,7 +42,7 @@ const ProjectStaffInfo = () => {
                 <span>Staff</span>
             </div>
             <div className="flex justify-center ">
-                <div className="grid-cols-3 ">
+                <div className="grid grid-cols-2 gap-2">
                     {users.map((user, index) => (
                         <div key={index} className="text-center my-2">
                             <img className="h-16 w-16 rounded-full mx-auto" src={user.photoUrl} alt={user.name} />
@@ -44,8 +54,10 @@ const ProjectStaffInfo = () => {
                 </div>
             </div>
             <div className="flex justify-center">
-                <GenericBtn buttonText="Add Staff" />
+                <GenericBtn buttonText="Add Staff" onClick={handleOpenModal} /> {/* Agrega el manejador de clics al botón */}
             </div>
+            {isModalOpen && <AddUserModal handleClose={handleCloseModal} />} {/* Renderiza el modal si isModalOpen es true */}
+        
 
         </div>
 

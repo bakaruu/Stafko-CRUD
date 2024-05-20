@@ -17,12 +17,20 @@ const user_entity_1 = require("../../domain/entities/user.entity");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 let GetUserAdapter = class GetUserAdapter {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
     async getUser(userId) {
-        return this.userRepository.findOne({ where: { id: userId } });
+        const user = await this.userRepository.findOne({
+            where: { id: userId },
+            relations: ['projects', 'projects.client', 'projects.tasks']
+        });
+        if (!user) {
+            throw new common_2.NotFoundException(`User with ID ${userId} not found`);
+        }
+        return user;
     }
 };
 exports.GetUserAdapter = GetUserAdapter;

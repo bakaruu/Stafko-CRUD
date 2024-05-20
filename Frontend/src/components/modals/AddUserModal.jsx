@@ -1,46 +1,42 @@
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import axios from 'axios';
 
-// eslint-disable-next-line react/prop-types
-const AddClientModal = ({ handleClose }) => {
+const AddUserModal = ({ handleClose }) => {
     const { id: projectId } = useParams();
-    const [customer, setCustomer] = useState('');
-    const [customerOptions, setCustomerOptions] = useState([]);
-
-
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [userOptions, setUserOptions] = useState([]);
 
     useEffect(() => {
-        // Reemplaza 'your-api-url' con la URL de tu API
-        axios.get('http://localhost:3000/clients')
+        axios.get('http://localhost:3000/users')
             .then(response => {
-                const customers = response.data; // Esto corresponde a la estructura de tu respuesta
-                const options = customers.map((customer) => ({ value: customer.id, label: customer.clientName }));
-                setCustomerOptions(options);
+                const users = response.data;
+                const options = users.map((user) => ({ value: user.id, label: user.name }));
+                setUserOptions(options);
             })
             .catch(error => {
                 console.error('There was an error!', error);
             });
     }, []);
 
-
-    const navigate = useNavigate(); // Agrega esto
-
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:3000/projects/${projectId}/client`, { client: customer })
+        if (!selectedUser) return;
+    
+        axios.post(`http://localhost:3000/projects/${projectId}/users`, { users: [selectedUser.value] })
             .then(response => {
                 console.log(response);
                 handleClose();
-                navigate(0); // Usa navigate(0) para recargar la página actual
+                navigate(0);
             })
             .catch(error => {
                 console.error('There was an error!', error);
             });
     };
-
 
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -48,31 +44,25 @@ const AddClientModal = ({ handleClose }) => {
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                     <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
                 </div>
-
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-16">
+                        <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
-                                    Customer
-                                </label>
-                                <Select
-                                    value={customerOptions.find(option => option.value === customer)}
-                                    onChange={(option) => setCustomer(option.value)}
-                                    options={customerOptions}
+                                <Select 
+                                    options={userOptions} 
+                                    onChange={(option) => setSelectedUser(option)}
+                                    value={selectedUser}
                                     isSearchable={true}
                                     menuPlacement="auto"
                                     maxMenuHeight={120}
                                 />
                             </div>
-                            <div className="flex items-center justify-between">
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                    Add Client
-                                </button>
-                            </div>
-                        </form></div>
+                            <button className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm" type="submit">
+                                Add User
+                            </button>
+                        </form>
+                    </div>
                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button onClick={handleClose} type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                             Cerrar
@@ -81,11 +71,11 @@ const AddClientModal = ({ handleClose }) => {
                 </div>
             </div>
         </div>
-
-
-
-
     );
-}
+};
 
-export default AddClientModal;
+AddUserModal.propTypes = {
+    handleClose: PropTypes.func.isRequired,
+};
+
+export default AddUserModal;

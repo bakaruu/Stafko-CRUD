@@ -4,5 +4,5 @@ import { Repository } from 'typeorm';
 export declare class GetUserAdapter implements GetUserPort {
     private userRepository;
     constructor(userRepository: Repository<User>);
-    getUser(userId: string): Promise<User | null>;
+    getUser(userId: string): Promise<User>;
 }
