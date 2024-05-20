@@ -1,29 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useContext } from "react";
 import { UserContext } from "../../components/staff/UserContext";
 
 const LoginForm = () => {
-
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const { setUser: setUserContext } = useContext(UserContext);
-
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUserContext(JSON.parse(storedUser));
-        }
-    }, [setUserContext]);
-
-    const setUser = (user) => {
-        localStorage.setItem('user', JSON.stringify(user));
-        setUserContext(user);
-    };
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,16 +18,18 @@ const LoginForm = () => {
                 email: username,
                 password,
             });
-            //console.log(response.data.user); // Verificar si photoUrl está incluido
-            setUser(response.data.user);
+            setUserContext(response.data.user);
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("userId", response.data.user.id); // Guarda el ID del usuario en localStorage
+            localStorage.setItem("userRole", response.data.user.role); // Guarda el rol del usuario en localStorage
+
             // Navegar según el rol del usuario
-            if (response.data.role === "Admin") {
+            if (response.data.user.role === "Admin") {
                 navigate("/home");
-            } else if (response.data.role === "User") {
+            } else if (response.data.user.role === "User") {
                 navigate("/userhome");
             } else {
-                console.error("Role not recognized", response.data.role);
+                console.error("Role not recognized", response.data.user.role);
                 setErrorMessage("An error occurred. Please try again.");
             }
         } catch (error) {
@@ -78,7 +66,6 @@ const LoginForm = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="#bbb"
@@ -100,7 +87,6 @@ const LoginForm = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="#bbb"
@@ -144,7 +130,6 @@ const LoginForm = () => {
                 </div>
             </form>
         </div>
-
     );
 }
 

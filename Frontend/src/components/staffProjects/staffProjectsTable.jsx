@@ -4,17 +4,22 @@ import StaffProjectRow from './staffProjectRow';
 
 const StaffProjectsTable = () => {
     const [projects, setProjects] = useState([]);
+    const userId = localStorage.getItem('userId'); // Obtener el ID del usuario desde localStorage
 
     useEffect(() => {
-        const userId = '08a45a43-78fa-4779-ae35-2ff659760bd1'; // Replace with dynamic user ID if needed
-        axios.get(`http://localhost:3000/users/${userId}`)
-            .then(response => {
-                setProjects(response.data.projects);
-            })
-            .catch(error => {
-                console.error('Error fetching data: ', error);
-            });
-    }, []);
+        if (userId) {
+            axios.get(`http://localhost:3000/users/${userId}`)
+                .then(response => {
+                    console.log('Projects received:', response.data.projects);
+                    setProjects(response.data.projects);
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                });
+        }
+    }, [userId]); // Asegúrate de volver a cargar cuando el ID del usuario cambie
+
+
 
     return (
         <section className="antialiased text-gray-600 mt-32 px-4">

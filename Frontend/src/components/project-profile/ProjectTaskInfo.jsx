@@ -67,7 +67,6 @@ const ProjectTaskInfo = () => {
                     <p className="text-sm text-gray-500">Type: {task.type}</p>
                     <p className="text-sm text-gray-500">Status: {task.status}</p>
                     <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-                    
                 </div>
             ))}
         </div>
@@ -77,38 +76,3 @@ const ProjectTaskInfo = () => {
 };
 
 export default ProjectTaskInfo;
-
-
-
-
-
-// import axios from 'axios';
-
-// async function getTaskTime(taskId) {
-//     const response = await axios.get(`https://api.clockify.me/api/v1/workspaces/{workspaceId}/time-entries?task=${taskId}`, {
-//         headers: { 'X-Api-Key': 'your-api-key' }
-//     });
-
-//     // Aquí debes procesar la respuesta para obtener las horas y minutos
-//     const hours = response.data.hours;
-//     const minutes = response.data.minutes;
-
-//     return { hours, minutes };
-// }
-
-
-
-
-// const TimeDisplay = ({ taskId }) => {
-//     const [time, setTime] = useState({ hours: 0, minutes: 0 });
-
-//     useEffect(() => {
-//         getTaskTime(taskId).then(setTime);
-//     }, [taskId]);
-
-//     return (
-//         <div className="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-orange-200 active:bg-light focus:bg-light bg-gray-200">
-//             {time.hours} hours, {time.minutes} minutes
-//         </div>
-//     );
-// };
