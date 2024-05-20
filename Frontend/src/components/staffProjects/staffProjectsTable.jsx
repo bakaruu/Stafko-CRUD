@@ -35,24 +35,24 @@ const StaffProjectsTable = () => {
                                 <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                                     <tr>
                                         <th className="p-2 whitespace-nowrap">
-                                            <button type="button"  className="w-full text-left flex justify-between items-center">
+                                            <button type="button" className="w-full text-left flex justify-between items-center">
                                                 <div className="font-semibold">PROJECT</div>
                                                 <div>
-                                                 </div>
+                                                </div>
                                             </button>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
-                                            <button type="button"  className="w-full text-left flex justify-between items-center">
+                                            <button type="button" className="w-full text-left flex justify-between items-center">
                                                 <div className="font-semibold">CLIENT</div>
                                                 <div>
-                                                 </div>
+                                                </div>
                                             </button>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
-                                            <button type="button"  className="w-full text-left flex justify-between items-center">
+                                            <button type="button" className="w-full text-left flex justify-between items-center">
                                                 <div className="font-semibold">PROGRESS</div>
                                                 <div>
-                                                  </div>
+                                                </div>
                                             </button>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
@@ -68,21 +68,22 @@ const StaffProjectsTable = () => {
                                         <StaffProjectRow
                                             key={project.id}
                                             id={project.id}
-                                            task={project.name}
-                                            owner={project.client.clientName} // Replace with actual owner if available
-                                            progress={project.progress}
-                                            status={project.status}
-                                            deadline={project.deadline}
-                                            imageUrl={project.photoUrl}
+                                            task={project?.name}
+                                            owner={project?.client?.clientName} // Replace with actual owner if available
+                                            progress={project?.progress}
+                                            status={project?.status}
+                                            deadline={project?.deadline}
+                                            imageUrl={project?.photoUrl}
                                         />
                                     ))}
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 

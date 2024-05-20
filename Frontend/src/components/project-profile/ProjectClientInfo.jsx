@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -6,11 +5,12 @@ import AddClientModal from '../modals/AddClientModal';
 import EditClientModal from '../modals/EditClientModal';
 import GenericBtn from '../buttons/Generic-btn';
 
-// eslint-disable-next-line react/prop-types
 const ProjectClientInfo = () => {
     const { id } = useParams();
     const [client, setClient] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const userRole = localStorage.getItem("userRole"); // Obtén el rol del usuario del localStorage
 
     useEffect(() => {
         axios.get(`http://localhost:3000/projects/${id}`)
@@ -33,15 +33,13 @@ const ProjectClientInfo = () => {
     if (!client) {
         return (
             <div>
-                <GenericBtn onClick={handleAddClient} buttonText="Add Client" />
-
+                {userRole === "Admin" && <GenericBtn onClick={handleAddClient} buttonText="Add Client" />}
                 {isModalOpen && <AddClientModal handleClose={handleCloseModal} />}
             </div>
         );
     }
 
     return (
-
         <div className="bg-white p-3 shadow-sm rounded-sm" >
             <div className="flex items-center justify-between space-x-2 font-semibold text-gray-900 leading-8 m-4">
                 <div className="flex items-center space-x-2">
@@ -54,14 +52,14 @@ const ProjectClientInfo = () => {
                     </span>
                     <span className="tracking-wide">Client</span>
                 </div>
-                <GenericBtn onClick={handleAddClient} buttonText="Edit Client" className="justify-end" />
+                {userRole === "Admin" && <GenericBtn onClick={handleAddClient} buttonText="Edit Client" className="justify-end" />}
                 {isModalOpen && <EditClientModal handleClose={handleCloseModal} />}
             </div>
             <div className="text-gray-700">
                 <div className="grid md:grid-cols-2 text-sm">
                     <div className="grid grid-cols-2">
                         <div className="px-4 py-2 font-semibold">First Name</div>
-                        <div className="px-4 py-2">{client.clientName}</div>
+                        <div className="px-4 py-2">{client?.clientName}</div>
                     </div>
                     <div className="grid grid-cols-2">
                         <div className="px-4 py-2 font-semibold">Last Name</div>
@@ -70,17 +68,17 @@ const ProjectClientInfo = () => {
 
                     <div className="grid grid-cols-2">
                         <div className="px-4 py-2 font-semibold">Contact No.</div>
-                        <div className="px-4 py-2">{client.phone}</div>
+                        <div className="px-4 py-2">{client?.phone}</div>
                     </div>
 
                     <div className="grid grid-cols-2">
                         <div className="px-4 py-2 font-semibold">Permanant Address</div>
-                        <div className="px-4 py-2">{client.address}</div>
+                        <div className="px-4 py-2">{client?.address}</div>
                     </div>
                     <div className="grid grid-cols-2">
                         <div className="px-4 py-2 font-semibold">Email.</div>
                         <div className="px-4 py-2">
-                            <a className="text-blue-800" href="mailto:jane@example.com">{client.email}</a>
+                            <a className="text-blue-800" href={`mailto:${client?.email}`}>{client?.email}</a>
                         </div>
                     </div>
 
@@ -91,7 +89,6 @@ const ProjectClientInfo = () => {
                 Full Information</button>
         </div>
     );
-
 };
 
 export default ProjectClientInfo;

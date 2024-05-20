@@ -1,50 +1,36 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
 // eslint-disable-next-line react/prop-types
-const AddTaskModal = ({ projectId, handleClose }) => {
+const AddTaskModal = ({ projectId, handleClose, handleTaskAdded }) => {
     const taskTypeOptions = [
         { value: 'Frontend', label: 'Frontend' },
         { value: 'Backend', label: 'Backend' },
         // Add any other task types here
     ];
 
-   
-
     const [taskName, setTaskName] = useState('');
     const [taskType, setTaskType] = useState(taskTypeOptions[0].value);
-    const navigate = useNavigate(); // Agrega esto
-    
-
-    useEffect(() => {
-        // Aquí podrías realizar cualquier lógica adicional que necesites al cargar el componente, como cargar datos adicionales
-    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         try {
-            await axios.post('http://localhost:3000/tasks', {
+            const response = await axios.post('http://localhost:3000/tasks', {
                 name: taskName,
                 type: taskType,
                 status: "ToDo",
-                project: {
-                    id: projectId // Usa el projectId recibido como prop
-                },
+                projectId: projectId // Use the projectId received as a prop
             });
-    
-            // Cerrar el modal
+
+            // Close the modal and update the task list
+            handleTaskAdded(response.data); // Pass the new task to the parent component
             handleClose();
-            navigate(0);
-            
-            
         } catch (error) {
             console.error('Error creating task:', error);
         }
     };
-    
 
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -85,8 +71,6 @@ const AddTaskModal = ({ projectId, handleClose }) => {
                                     maxMenuHeight={120}
                                 />
                             </div>
-
-                            
 
                             <div className="flex items-center justify-between">
                                 <button

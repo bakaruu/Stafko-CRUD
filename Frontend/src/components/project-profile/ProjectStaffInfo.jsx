@@ -9,6 +9,7 @@ const ProjectStaffInfo = () => {
     const [users, setUsers] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false); // Nuevo estado para controlar el modal
 
+    const userRole = localStorage.getItem("userRole"); // Obtén el rol del usuario del localStorage
 
     useEffect(() => {
         axios.get(`http://localhost:3000/projects/${id}`)
@@ -49,18 +50,15 @@ const ProjectStaffInfo = () => {
                             <a href="#" className="text-main-color">{user.name}</a>
                         </div>
                     ))}
-
-
                 </div>
             </div>
-            <div className="flex justify-center">
-                <GenericBtn buttonText="Add Staff" onClick={handleOpenModal} /> {/* Agrega el manejador de clics al botón */}
-            </div>
+            {userRole === "Admin" && (
+                <div className="flex justify-center">
+                    <GenericBtn buttonText="Add Staff" onClick={handleOpenModal} /> {/* Agrega el manejador de clics al botón */}
+                </div>
+            )}
             {isModalOpen && <AddUserModal handleClose={handleCloseModal} />} {/* Renderiza el modal si isModalOpen es true */}
-        
-
         </div>
-
     );
 }
 
