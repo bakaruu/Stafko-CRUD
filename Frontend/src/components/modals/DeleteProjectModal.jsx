@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // eslint-disable-next-line react/prop-types
 const DeleteProjectModal = ({ handleClose }) => {
-    const [project, setProject] = useState('');
+    const [project, setProject] = useState(null);
     const [projectOptions, setProjectOptions] = useState([]);
 
     useEffect(() => {
@@ -21,15 +21,19 @@ const DeleteProjectModal = ({ handleClose }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.delete(`http://localhost:3000/projects/${project}`)
-            .then(response => {
-                console.log(response);
-                handleClose();
-                window.location.reload(); // Recarga la página actual
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-            });
+        if (project) {
+            axios.delete(`http://localhost:3000/projects/${project.value}`)
+                .then(response => {
+                    console.log(response);
+                    handleClose();
+                    window.location.reload(); // Recarga la página actual
+                })
+                .catch(error => {
+                    console.error('There was an error!', error);
+                });
+        } else {
+            console.error('No project selected!');
+        }
     };
 
     return (
@@ -49,8 +53,8 @@ const DeleteProjectModal = ({ handleClose }) => {
                                     Project
                                 </label>
                                 <Select
-                                    value={projectOptions.find(option => option.value === project)}
-                                    onChange={(option) => setProject(option.value)}
+                                    value={project && projectOptions.find(option => option.value === project.value)}
+                                    onChange={(option) => setProject(option)}
                                     options={projectOptions}
                                     isSearchable={true}
                                     menuPlacement="auto"

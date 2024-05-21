@@ -130,17 +130,19 @@ export class ProjectsService {
 
 
   async deleteProject(id: string): Promise<void> {
-    const project = await this.projectRepository.findOne({
+    const project = await this.projectRepository.findOneOrFail({
       where: { id: id },
-      relations: ['users', 'client']
+      relations: ['users', 'client', 'tasks']
     });
+  
     // Remove the relations
     project.users = null;
     project.client = null;
-
+    project.tasks = null;
+  
     // Update the project
     await this.projectRepository.save(project);
-
+  
     // Now you can delete the project
     await this.projectRepository.delete(id);
   }

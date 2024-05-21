@@ -104,12 +104,13 @@ let ProjectsService = class ProjectsService {
         return this.getAllProjectsAdapter.getAllProjects();
     }
     async deleteProject(id) {
-        const project = await this.projectRepository.findOne({
+        const project = await this.projectRepository.findOneOrFail({
             where: { id: id },
-            relations: ['users', 'client']
+            relations: ['users', 'client', 'tasks']
         });
         project.users = null;
         project.client = null;
+        project.tasks = null;
         await this.projectRepository.save(project);
         await this.projectRepository.delete(id);
     }
