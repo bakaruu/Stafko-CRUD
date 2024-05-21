@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage";
 import UserHomePage from "./pages/user/UserHomePage";
 import { UserProvider } from "./components/staff/UserContext";
 import ProjectProfilePage from "./pages/project/ProjectProfilePage";
+import ProjectProfilePageUser from "./pages/user/ProjectProfilePageUser";
 
 function App() {
   return (
@@ -34,9 +35,11 @@ function App() {
             <Route path="/users" element={<UsersPage />} />
             <Route path="/clients" element={<ClientsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/project/:id" element={<ProjectProfilePage />} />
             {/* user */}
             <Route path="/userhome" element={<UserHomePage />} />
-            <Route path="/project/:id" element={<ProjectProfilePage />} />
+            <Route path="/userproject/:id" element={<ProjectProfilePageUser />} />
+            
           </Routes>
         </BrowserRouter>
       </div>

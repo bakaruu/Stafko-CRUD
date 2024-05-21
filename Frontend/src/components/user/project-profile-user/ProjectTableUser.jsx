@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ProjectRow from "./ProjectRow";
-import ProjectFormModal from './ProjectFormModal';
-import DeleteProjectModal from '../modals/DeleteProjectModal';
-import GenericBtn from '../buttons/Generic-btn';
+import ProjectRowUser from './ProjectRowUser';
 
-const ProjectTable = () => {
+const ProjectTableUser = () => {
     const [projects, setProjects] = useState([]);
     const [sortConfig, setSortConfig] = useState(null);
 
@@ -41,25 +38,7 @@ const ProjectTable = () => {
         setSortConfig({ key, direction });
     };
 
-    const [addModalOpen, setAddModalOpen] = useState(false);
-    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-
-    const handleAddModalOpen = () => {
-        setAddModalOpen(true);
-    };
-
-    const handleAddModalClose = () => {
-        setAddModalOpen(false);
-    };
-
-    const handleDeleteModalOpen = () => {
-        setDeleteModalOpen(true);
-    };
-
-    const handleDeleteModalClose = () => {
-        setDeleteModalOpen(false);
-    };
-
+    
 
     return (
         <section className="antialiased text-gray-600  mt-32 px-4">
@@ -68,12 +47,7 @@ const ProjectTable = () => {
                     <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
                         <h2 className="font-semibold text-gray-800">Projects Deliveries</h2>
 
-                        <div className="relative flex flex-wrap items-center my-2">
-                            <GenericBtn onClick={handleAddModalOpen} buttonText="Add Project" />
-                        </div>
-                        <div className="relative flex flex-wrap items-center my-2">
-                            <GenericBtn onClick={handleDeleteModalOpen} buttonText="Delete Project" />
-                        </div>
+                        
                     </header>
 
                     <div className="p-3">
@@ -118,7 +92,7 @@ const ProjectTable = () => {
                                 </thead>
                                 <tbody className="text-sm divide-y divide-gray-100">
                                     {sortedProjects.map((project, index) => (
-                                        <ProjectRow
+                                        <ProjectRowUser
                                             key={index}
                                             id={project.id}
                                             task={project.name}
@@ -135,10 +109,8 @@ const ProjectTable = () => {
                     </div>
                 </div>
             </div>
-            {addModalOpen && <ProjectFormModal handleClose={handleAddModalClose} />}
-            {deleteModalOpen && <DeleteProjectModal handleClose={handleDeleteModalClose} />}
-        </section>
+         </section>
     );
 };
 
-export default ProjectTable;
+export default ProjectTableUser;

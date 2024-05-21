@@ -56,7 +56,6 @@ const AdminNavBar = () => {
                                 Profile
                             </a>
                         </li>
-                        <li><a>Settings</a></li>
                         <li><a onClick={handleLogOff}>Logout</a></li>
                     </ul>
                 </div>

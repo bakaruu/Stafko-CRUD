@@ -1,6 +1,7 @@
 
-import AdminNavBar from "../../components/navbar/AdminNavbar";
 import Footer from "../../components/footer/Footer";
+
+import AdminNavBar from "../../components/navbar/AdminNavbar";
 import ProjectProfile from "../../components/project-profile/ProjectProfile";
 
 const ProjectProfilePage = () => {

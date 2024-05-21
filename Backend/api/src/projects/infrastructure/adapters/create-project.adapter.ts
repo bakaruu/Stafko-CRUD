@@ -1,5 +1,5 @@
 // create-project.adapter.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from '../../domain/entities/project.entity';
@@ -22,10 +22,14 @@ export class CreateProjectAdapter implements CreateProjectPort {
       throw new NotFoundException(`Some users with ids ${userIds.join(', ')} not found`);
     }
 
+    const existingProject = await this.projectRepository.findOne({ where: { name: project.name } });
+    if (existingProject) {
+      throw new ConflictException(`A project with the name ${project.name} already exists`);
+    }
+
     project.users = users;
     project.status = project.status ? project.status : Status.Pending;
     project.photoUrl = project.photoUrl ? project.photoUrl : "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/defaultProjectHome_ti0bid.jpg";
-
 
     return this.projectRepository.save(project);
   }

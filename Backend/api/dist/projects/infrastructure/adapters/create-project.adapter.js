@@ -29,6 +29,10 @@ let CreateProjectAdapter = class CreateProjectAdapter {
         if (users.length !== userIds.length) {
             throw new common_1.NotFoundException(`Some users with ids ${userIds.join(', ')} not found`);
         }
+        const existingProject = await this.projectRepository.findOne({ where: { name: project.name } });
+        if (existingProject) {
+            throw new common_1.ConflictException(`A project with the name ${project.name} already exists`);
+        }
         project.users = users;
         project.status = project.status ? project.status : create_project_dto_1.Status.Pending;
         project.photoUrl = project.photoUrl ? project.photoUrl : "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/defaultProjectHome_ti0bid.jpg";
