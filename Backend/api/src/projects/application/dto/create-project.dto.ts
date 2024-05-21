@@ -30,6 +30,10 @@ export class CreateProjectDto {
   @IsString()
   clientId?: string;
 
+  @IsString()
+  @IsOptional()
+  clockifyId?: string;
+
   
 
   // Add these fields

@@ -19,6 +19,7 @@ const typeorm_2 = require("typeorm");
 const project_entity_1 = require("../../domain/entities/project.entity");
 const user_entity_1 = require("../../../users/domain/entities/user.entity");
 const create_project_dto_1 = require("../../application/dto/create-project.dto");
+const axios_1 = require("axios");
 let CreateProjectAdapter = class CreateProjectAdapter {
     constructor(projectRepository, userRepository) {
         this.projectRepository = projectRepository;
@@ -26,17 +27,44 @@ let CreateProjectAdapter = class CreateProjectAdapter {
     }
     async createProject(project, userIds) {
         const users = await this.userRepository.findByIds(userIds);
+        const workspaceId = '663a196d5e8ef3683b21dec8';
+        const clockifyApiKey = 'NTk4NDg5ZjItNzdlNC00ZDY5LTg5ZTQtM2YyYjgyZmIyYmE0';
         if (users.length !== userIds.length) {
             throw new common_1.NotFoundException(`Some users with ids ${userIds.join(', ')} not found`);
-        }
-        const existingProject = await this.projectRepository.findOne({ where: { name: project.name } });
-        if (existingProject) {
-            throw new common_1.ConflictException(`A project with the name ${project.name} already exists`);
         }
         project.users = users;
         project.status = project.status ? project.status : create_project_dto_1.Status.Pending;
         project.photoUrl = project.photoUrl ? project.photoUrl : "http://res.cloudinary.com/dqwqulk5l/image/upload/v1715173814/defaultProjectHome_ti0bid.jpg";
-        return this.projectRepository.save(project);
+        try {
+            const clockifyProjectsResponse = await axios_1.default.get(`https://api.clockify.me/api/v1/workspaces/${workspaceId}/projects`, {
+                headers: { 'X-Api-Key': clockifyApiKey }
+            });
+            const projectExists = clockifyProjectsResponse.data.some(p => p.name === project.name);
+            if (projectExists) {
+                throw new Error('Project already exists in Clockify');
+            }
+            const clockifyProject = {
+                name: project.name,
+                isPublic: true,
+                billable: true,
+                color: "#F44336",
+            };
+            console.log('Sending data to Clockify:', clockifyProject);
+            const clockifyResponse = await axios_1.default.post(`https://api.clockify.me/api/v1/workspaces/${workspaceId}/projects`, clockifyProject, {
+                headers: { 'X-Api-Key': clockifyApiKey }
+            });
+            const clockifyProjectId = clockifyResponse.data.id;
+            project.clockifyId = clockifyProjectId;
+            const savedProject = await this.projectRepository.save(project);
+            return savedProject;
+        }
+        catch (error) {
+            console.error('Error creating project in Clockify:', error.response ? error.response.data : error.message);
+            if (error.message.includes('Project already exists in Clockify')) {
+                throw new Error('Project already exists in Clockify');
+            }
+            throw new Error('Failed to create project in Clockify');
+        }
     }
 };
 exports.CreateProjectAdapter = CreateProjectAdapter;

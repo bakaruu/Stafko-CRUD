@@ -48,6 +48,11 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProjectDto.prototype, "clientId", void 0);
 __decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProjectDto.prototype, "clockifyId", void 0);
+__decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(Status),
     __metadata("design:type", String)

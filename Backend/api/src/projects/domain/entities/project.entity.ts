@@ -26,6 +26,9 @@ export class Project {
     @Column({ nullable: true })
     deadline: String;
 
+    @Column({ nullable: true })
+    clockifyId: string;
+
     @ManyToOne(() => Client, client => client.projects, { nullable: true })
     client: Client;
 

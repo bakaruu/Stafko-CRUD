@@ -9,6 +9,7 @@ export declare class Project {
     progress: number;
     status: string;
     deadline: String;
+    clockifyId: string;
     client: Client;
     users: User[];
     tasks: Task[];
