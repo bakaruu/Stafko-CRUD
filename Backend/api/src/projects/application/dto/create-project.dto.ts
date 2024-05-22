@@ -47,5 +47,5 @@ export class CreateProjectDto {
 
   @IsOptional()
   @IsDate()
-  deadline?: String;
+  deadline?: Date;
 }

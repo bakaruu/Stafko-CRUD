@@ -8,7 +8,7 @@ export declare class Project {
     photoUrl: string;
     progress: number;
     status: string;
-    deadline: String;
+    deadline: Date;
     clockifyId: string;
     client: Client;
     users: User[];

@@ -23,8 +23,8 @@ export class Project {
     @Column({ nullable: true })
     status: string;
 
-    @Column({ nullable: true })
-    deadline: String;
+    @Column({ type: 'date', nullable: true })
+    deadline: Date;
 
     @Column({ nullable: true })
     clockifyId: string;

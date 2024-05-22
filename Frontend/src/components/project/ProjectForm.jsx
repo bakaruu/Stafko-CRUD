@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 // eslint-disable-next-line react/prop-types
 const ProjectForm = ({ closeModal }) => {
@@ -9,11 +12,13 @@ const ProjectForm = ({ closeModal }) => {
     const [description, setDescription] = useState('');
     const [customerOptions, setCustomerOptions] = useState([]);
 
+    const [startDate, setStartDate] = useState(new Date());
+
     useEffect(() => {
         axios.get('http://localhost:3000/clients')
             .then(response => {
                 const customers = response.data;
-                const options = customers.map((customer) => ({ value: customer.id, label: customer.clientName }));
+                const options = customers.map((customer) => ({ value: customer, label: customer.clientName }));
                 setCustomerOptions(options);
             })
             .catch(error => {
@@ -21,19 +26,30 @@ const ProjectForm = ({ closeModal }) => {
             });
     }, []);
 
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero indexed, so we add 1
+        const day = ("0" + date.getDate()).slice(-2);
+
+        return `${year}-${month}-${day}`;
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const formattedDate = formatDate(new Date(startDate.setUTCHours(0, 0, 0, 0)));
         const project = {
             name: projectName,
-            customerId: customer,
+            client: customer.value,
             description: description,
+            deadline: formattedDate
         };
 
         try {
             // Add project to the database
             const dbResponse = await axios.post('http://localhost:3000/projects', project);
             console.log('Project added to database:', dbResponse.data);
+
 
             // Close the modal and reload the page
             closeModal();
@@ -56,8 +72,8 @@ const ProjectForm = ({ closeModal }) => {
                     Customer
                 </label>
                 <Select
-                    value={customerOptions.find(option => option.value === customer)}
-                    onChange={(option) => setCustomer(option.value)}
+                    value={customer}
+                    onChange={(option) => setCustomer(option)}
                     options={customerOptions}
                     isSearchable={true}
                     menuPlacement="auto"
@@ -70,11 +86,20 @@ const ProjectForm = ({ closeModal }) => {
                 </label>
                 <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" placeholder="Description project" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
             </div>
+            <div className="mb-6 mt-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="startDate">
+                    Deadline
+                </label>
+                <div className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} className="w-full" />
+                </div>
+            </div>
             <div className="flex items-center justify-between">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     Add Project
                 </button>
             </div>
+
         </form>
     );
 }

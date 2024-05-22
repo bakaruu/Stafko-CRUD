@@ -14,5 +14,5 @@ export declare class CreateProjectDto {
     clockifyId?: string;
     status?: Status;
     progress?: number;
-    deadline?: String;
+    deadline?: Date;
 }

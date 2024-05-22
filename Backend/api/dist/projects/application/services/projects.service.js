@@ -51,7 +51,7 @@ let ProjectsService = class ProjectsService {
         project.status = dto.status;
         project.progress = dto.progress;
         project.deadline = dto.deadline;
-        return this.createProjectAdapter.createProject(project, userIds);
+        return this.createProjectAdapter.createProject(project, userIds, dto.clientId);
     }
     async removeUserFromProject(projectId, userId) {
         const project = await this.projectRepository.findOne({ where: { id: projectId }, relations: ['users'] });

@@ -51,8 +51,9 @@ export class ProjectsService {
     project.progress = dto.progress;
     project.deadline = dto.deadline;
 
-    return this.createProjectAdapter.createProject(project, userIds);
-  }
+    // Aquí es donde pasas dto.clientId a createProject
+    return this.createProjectAdapter.createProject(project, userIds, dto.clientId);
+}
 
   async removeUserFromProject(projectId: string, userId: string): Promise<void> {
     // Usa el repositorio inyectado en lugar de getManager

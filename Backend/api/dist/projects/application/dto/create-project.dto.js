@@ -65,6 +65,6 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDate)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], CreateProjectDto.prototype, "deadline", void 0);
 //# sourceMappingURL=create-project.dto.js.map

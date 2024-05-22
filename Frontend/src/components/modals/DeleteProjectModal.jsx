@@ -22,14 +22,15 @@ const DeleteProjectModal = ({ handleClose }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (project) {
+            console.log('Deleting project with id:', project.value);
             axios.delete(`http://localhost:3000/projects/${project.value}`)
                 .then(response => {
-                    console.log(response);
+                    console.log('Successfully deleted project, response:', response);
                     handleClose();
-                    window.location.reload(); // Recarga la página actual
+                    window.location.reload(); // Reload the current page
                 })
                 .catch(error => {
-                    console.error('There was an error!', error);
+                    console.error('There was an error deleting the project!', error);
                 });
         } else {
             console.error('No project selected!');
