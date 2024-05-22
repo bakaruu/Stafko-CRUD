@@ -1,21 +1,39 @@
-const CLientsTable = () => {
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import ClientForm from '../clients/CLientForm'; // Asegúrate de que esta ruta sea correcta
 
-    
+const ClientsTable = () => {
+    const [clients, setClients] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchClients = async () => {
+            const response = await axios.get('http://localhost:3000/clients'); // Reemplaza con tu URL de la API
+            setClients(response.data);
+        };
+
+        fetchClients();
+    }, []);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
-
         <section className="antialiased text-gray-600  px-4 mt-32">
+            {isModalOpen && <ClientForm closeModal={closeModal} />}
             <div className="flex flex-col justify-center">
-
                 <div className="w-full max-w-screen-xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
                     <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
                         <h2 className="font-semibold text-gray-800">Customers</h2>
-
                         <div className="relative flex flex-wrap items-center my-2">
-                            <a href="#" className="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-orange-200 active:bg-light focus:bg-light bg-gray-200"> Add Client</a>
+                            <button onClick={openModal} className="inline-block text-[.925rem] font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-150 ease-in-out text-light-inverse bg-light-dark border-light shadow-none border-0 py-2 px-5 hover:bg-orange-200 active:bg-light focus:bg-light bg-gray-200"> Add Client</button>
                         </div>
                     </header>
-
                     <div className="p-3">
                         <div className="overflow-x-auto">
                             <table className="table-auto w-full">
@@ -36,24 +54,24 @@ const CLientsTable = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm divide-y divide-gray-100">
-                                    <tr>
-                                        <td className="p-2 whitespace-nowrap">
-                                            <div className="flex items-center">
-                                                <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3"><img className="rounded-full" src="https://raw.githubusercontent.com/cruip/vuejs-admin-dashboard-template/main/src/images/user-36-05.jpg" width="40" height="40" alt="Alex Shatov" /></div>
-                                                <div className="font-medium text-gray-800">Alex Shatov</div>
-                                            </div>
-                                        </td>
-                                        <td className="p-2 whitespace-nowrap">
-                                            <div className="text-left">alexshatov@gmail.com</div>
-                                        </td>
-                                        <td className="p-2 whitespace-nowrap">
-                                            <div className="text-left font-medium text-green-500">$2,890.66</div>
-                                        </td>
-                                        <td className="p-2 whitespace-nowrap">
-                                            <div className="text-lg text-center">🇺🇸</div>
-                                        </td>
-                                    </tr>
-
+                                    {clients.map((client) => (
+                                        <tr key={client.id}>
+                                            <td className="p-2 whitespace-nowrap">
+                                                <div className="flex items-center">
+                                                    <div className="font-medium text-gray-800">{client.clientName}</div>
+                                                </div>
+                                            </td>
+                                            <td className="p-2 whitespace-nowrap">
+                                                <div className="text-left">{client.email}</div>
+                                            </td>
+                                            <td className="p-2 whitespace-nowrap">
+                                                <div className="text-left font-medium text-green-500">{client.phone}</div>
+                                            </td>
+                                            <td className="p-2 whitespace-nowrap">
+                                                <div className="text-center">{client.address}</div>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -64,4 +82,4 @@ const CLientsTable = () => {
     );
 };
 
-export default CLientsTable;
+export default ClientsTable;
