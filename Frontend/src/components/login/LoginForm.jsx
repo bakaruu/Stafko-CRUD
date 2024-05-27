@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../components/staff/UserContext";
 
@@ -9,27 +9,37 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const { setUser: setUserContext } = useContext(UserContext);
-    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:3000/auth/login", {
+            const response = await axios.post("http://localhost:8055/auth/login", {
                 email: username,
                 password,
             });
-            setUserContext(response.data.user);
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("userId", response.data.user.id); // Guarda el ID del usuario en localStorage
-            localStorage.setItem("userRole", response.data.user.role); // Guarda el rol del usuario en localStorage
+
+            const { access_token } = response.data.data;
+
+            // Obtener la información del usuario autenticado con el nombre del rol
+            const userResponse = await axios.get("http://localhost:8055/users/me?fields=*,role.*", {
+                headers: {
+                    Authorization: `Bearer ${access_token}`
+                }
+            });
+
+            const user = userResponse.data.data;
+            setUserContext(user);
+            localStorage.setItem("token", access_token);
+            localStorage.setItem("userId", user.id); // Guarda el ID del usuario en localStorage
+            localStorage.setItem("userRole", user.role.name); // Guarda el nombre del rol del usuario en localStorage
 
             // Navegar según el rol del usuario
-            if (response.data.user.role === "Admin") {
+            if (user.role.name === "Admin") {
                 navigate("/home");
-            } else if (response.data.user.role === "User") {
+            } else if (user.role.name === "Staff") {
                 navigate("/userhome");
             } else {
-                console.error("Role not recognized", response.data.user.role);
+                console.error("Role not recognized", user.role.name);
                 setErrorMessage("An error occurred. Please try again.");
             }
         } catch (error) {
@@ -43,16 +53,6 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-12">
                     <h3 className="text-3xl font-extrabold">Stafko.</h3>
-                    <p className="text-sm mt-4 ">
-                        {" "}
-                        Dont have an account{" "}
-                        <Link
-                            to="/register"
-                            className="text-orange-600 font-semibold hover:underline ml-1 whitespace-nowrap"
-                        >
-                            Register here
-                        </Link>
-                    </p>
                 </div>
                 <div>
                     <label className="text-xs block mb-2">Email</label>
