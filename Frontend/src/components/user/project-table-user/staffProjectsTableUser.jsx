@@ -1,25 +1,83 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import StaffProjectRowUser from './staffProjectRowUser';
+import StaffProjectRow from './staffProjectRowUser';
 
 const StaffProjectsTable = () => {
     const [projects, setProjects] = useState([]);
     const userId = localStorage.getItem('userId'); // Obtener el ID del usuario desde localStorage
+    const token = localStorage.getItem('token'); // Obtener el token de acceso desde localStorage
 
     useEffect(() => {
-        if (userId) {
-            axios.get(`http://localhost:3000/users/${userId}`)
-                .then(response => {
-                    console.log('Projects received:', response.data.projects);
-                    setProjects(response.data.projects);
-                })
-                .catch(error => {
-                    console.error('Error fetching data: ', error);
+        const fetchProjects = async () => {
+            if (!token || !userId) {
+                console.error('No token or user ID found');
+                return;
+            }
+
+            try {
+                // Configurar el encabezado de autorización
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                };
+
+                // Obtener las asignaciones de proyectos del usuario
+                const projectAssignmentsResponse = await axios.get('http://localhost:8055/items/projects_staff_assignments', {
+                    params: {
+                        filter: {
+                            staff_id: {
+                                _eq: userId
+                            }
+                        }
+                    },
+                    ...config
                 });
-        }
-    }, [userId]); // Asegúrate de volver a cargar cuando el ID del usuario cambie
 
+                const projectAssignments = projectAssignmentsResponse.data.data;
 
+                if (projectAssignments.length === 0) {
+                    setProjects([]);
+                    return;
+                }
+
+                const projectIds = projectAssignments.map(item => item.project_id);
+
+                // Obtener la información detallada de cada proyecto
+                const projectDetailsPromises = projectIds.map(id => axios.get(`http://localhost:8055/items/projects/${id}`, config));
+                const projectDetailsResponses = await Promise.all(projectDetailsPromises);
+
+                // Obtener los detalles de cada proyecto incluyendo cliente e imagen
+                const projects = await Promise.all(projectDetailsResponses.map(async (response) => {
+                    const project = response.data.data;
+
+                    // Obtener el nombre del cliente
+                    const clientResponse = await axios.get(`http://localhost:8055/items/clients/${project.client_id}`, config);
+                    const clientName = clientResponse.data.data.name;
+
+                    // Construir la URL de la imagen
+                    const imageUrl = `http://localhost:8055/assets/${project.image}`;
+
+                    return { ...project, client_name: clientName, imageUrl };
+                }));
+
+                setProjects(projects);
+            } catch (error) {
+                console.error('Error fetching data: ', error);
+                if (error.response) {
+                    console.error('Response data:', error.response.data);
+                    console.error('Response status:', error.response.status);
+                    console.error('Response headers:', error.response.headers);
+                } else if (error.request) {
+                    console.error('Request data:', error.request);
+                } else {
+                    console.error('Error message:', error.message);
+                }
+            }
+        };
+
+        fetchProjects();
+    }, [userId, token]); // Asegúrate de volver a cargar cuando el ID del usuario o el token cambie
 
     return (
         <section className="antialiased text-gray-600 mt-32 px-4">
@@ -28,7 +86,6 @@ const StaffProjectsTable = () => {
                     <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
                         <h2 className="font-semibold text-gray-800">Working on</h2>
                     </header>
-
                     <div className="p-3">
                         <div className="overflow-x-auto">
                             <table className="table-auto w-full">
@@ -37,22 +94,11 @@ const StaffProjectsTable = () => {
                                         <th className="p-2 whitespace-nowrap">
                                             <button type="button" className="w-full text-left flex justify-between items-center">
                                                 <div className="font-semibold">PROJECT</div>
-                                                <div>
-                                                </div>
                                             </button>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
                                             <button type="button" className="w-full text-left flex justify-between items-center">
                                                 <div className="font-semibold">CLIENT</div>
-                                                <div>
-                                                </div>
-                                            </button>
-                                        </th>
-                                        <th className="p-2 whitespace-nowrap">
-                                            <button type="button" className="w-full text-left flex justify-between items-center">
-                                                <div className="font-semibold">PROGRESS</div>
-                                                <div>
-                                                </div>
                                             </button>
                                         </th>
                                         <th className="p-2 whitespace-nowrap">
@@ -65,25 +111,23 @@ const StaffProjectsTable = () => {
                                 </thead>
                                 <tbody>
                                     {projects.map(project => (
-                                        <StaffProjectRowUser
+                                        <StaffProjectRow
                                             key={project.id}
                                             id={project.id}
                                             task={project?.name}
-                                            owner={project?.client?.clientName} // Replace with actual owner if available
-                                            progress={project?.progress}
+                                            owner={project?.client_name} // Usar el nombre del cliente obtenido
                                             status={project?.status}
                                             deadline={project?.deadline}
-                                            imageUrl={project?.photoUrl}
+                                            imageUrl={project?.imageUrl} // Usar la URL de la imagen construida
                                         />
                                     ))}
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section >
+        </section>
     );
 };
 

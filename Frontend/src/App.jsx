@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import backgroundImage from './assets/Images/background.jpg';
+import LoginPage from "./pages/user/LoginPage";
+import backgroundImage from '../src/assets/Images/background.jpg';
 import UserHomePage from "./pages/user/UserHomePage";
 import { UserProvider } from "./components/staff/UserContext";
-import ProjectProfilePage from "./pages/project/ProjectProfilePage";
 import ProjectProfilePageUser from "./pages/user/ProjectProfilePageUser";
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
             
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<LoginPage />} />
-           <Route path="/project/:id" element={<ProjectProfilePage />} />
             {/* user */}
             <Route path="/userhome" element={<UserHomePage />} />
             <Route path="/userproject/:id" element={<ProjectProfilePageUser />} />

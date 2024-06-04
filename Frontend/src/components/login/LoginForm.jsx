@@ -34,9 +34,7 @@ const LoginForm = () => {
             localStorage.setItem("userRole", user.role.name); // Guarda el nombre del rol del usuario en localStorage
 
             // Navegar según el rol del usuario
-            if (user.role.name === "Admin") {
-                navigate("/home");
-            } else if (user.role.name === "Staff") {
+            if (user.role.name === "Staff") {
                 navigate("/userhome");
             } else {
                 console.error("Role not recognized", user.role.name);
