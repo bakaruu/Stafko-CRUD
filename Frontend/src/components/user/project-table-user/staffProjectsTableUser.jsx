@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import StaffProjectRow from './staffProjectRowUser';
 
-const StaffProjectsTable = () => {
+const StaffProjectsTableUser = () => {
     const [projects, setProjects] = useState([]);
-    const userId = localStorage.getItem('userId'); // Obtener el ID del usuario desde localStorage
-    const token = localStorage.getItem('token'); // Obtener el token de acceso desde localStorage
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -15,14 +15,12 @@ const StaffProjectsTable = () => {
             }
 
             try {
-                // Configurar el encabezado de autorización
                 const config = {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 };
 
-                // Obtener las asignaciones de proyectos del usuario
                 const projectAssignmentsResponse = await axios.get('http://localhost:8055/items/projects_staff_assignments', {
                     params: {
                         filter: {
@@ -43,19 +41,15 @@ const StaffProjectsTable = () => {
 
                 const projectIds = projectAssignments.map(item => item.project_id);
 
-                // Obtener la información detallada de cada proyecto
                 const projectDetailsPromises = projectIds.map(id => axios.get(`http://localhost:8055/items/projects/${id}`, config));
                 const projectDetailsResponses = await Promise.all(projectDetailsPromises);
 
-                // Obtener los detalles de cada proyecto incluyendo cliente e imagen
                 const projects = await Promise.all(projectDetailsResponses.map(async (response) => {
                     const project = response.data.data;
 
-                    // Obtener el nombre del cliente
                     const clientResponse = await axios.get(`http://localhost:8055/items/clients/${project.client_id}`, config);
                     const clientName = clientResponse.data.data.name;
 
-                    // Construir la URL de la imagen
                     const imageUrl = `http://localhost:8055/assets/${project.image}`;
 
                     return { ...project, client_name: clientName, imageUrl };
@@ -77,7 +71,7 @@ const StaffProjectsTable = () => {
         };
 
         fetchProjects();
-    }, [userId, token]); // Asegúrate de volver a cargar cuando el ID del usuario o el token cambie
+    }, [userId, token]);
 
     return (
         <section className="antialiased text-gray-600 mt-32 px-4">
@@ -115,10 +109,10 @@ const StaffProjectsTable = () => {
                                             key={project.id}
                                             id={project.id}
                                             task={project?.name}
-                                            owner={project?.client_name} // Usar el nombre del cliente obtenido
+                                            owner={project?.client_name}
                                             status={project?.status}
                                             deadline={project?.deadline}
-                                            imageUrl={project?.imageUrl} // Usar la URL de la imagen construida
+                                            imageUrl={project?.imageUrl}
                                         />
                                     ))}
                                 </tbody>
@@ -131,4 +125,4 @@ const StaffProjectsTable = () => {
     );
 };
 
-export default StaffProjectsTable;
+export default StaffProjectsTableUser;

@@ -8,7 +8,7 @@ const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const { setUser: setUserContext } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,20 +20,18 @@ const LoginForm = () => {
 
             const { access_token } = response.data.data;
 
-            // Obtener la información del usuario autenticado con el nombre del rol
-            const userResponse = await axios.get("http://localhost:8055/users/me?fields=*,role.*", {
+            const userResponse = await axios.get("http://localhost:8055/users/me?fields=*,role.*,avatar", {
                 headers: {
                     Authorization: `Bearer ${access_token}`
                 }
             });
 
             const user = userResponse.data.data;
-            setUserContext(user);
+            setUser(user);
             localStorage.setItem("token", access_token);
-            localStorage.setItem("userId", user.id); // Guarda el ID del usuario en localStorage
-            localStorage.setItem("userRole", user.role.name); // Guarda el nombre del rol del usuario en localStorage
+            localStorage.setItem("userId", user.id);
+            localStorage.setItem("userRole", user.role.name);
 
-            // Navegar según el rol del usuario
             if (user.role.name === "Staff") {
                 navigate("/userhome");
             } else {
@@ -64,13 +62,6 @@ const LoginForm = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="#bbb"
-                            stroke="#bbb"
-                            className="w-[18px] h-[18px] absolute right-2"
-                            viewBox="0 0 682.667 682.667"
-                        ></svg>
                     </div>
                 </div>
                 <div className="mt-8">
@@ -85,13 +76,6 @@ const LoginForm = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="#bbb"
-                            stroke="#bbb"
-                            className="w-[18px] h-[18px] absolute right-2 cursor-pointer"
-                            viewBox="0 0 128 128"
-                        ></svg>
                     </div>
                 </div>
                 <div className="flex items-center justify-between gap-2 mt-5">

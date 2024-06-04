@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const StaffProjectRow = ({ id, task, owner, status, deadline, imageUrl }) => {
+const StaffProjectRowUser = ({ id, task, owner, status, deadline, imageUrl }) => {
     return (
         <tr className="border-b border-dashed last:border-b-0">
             <td className="p-3 pl-0">
@@ -28,7 +28,7 @@ const StaffProjectRow = ({ id, task, owner, status, deadline, imageUrl }) => {
     );
 };
 
-StaffProjectRow.propTypes = {
+StaffProjectRowUser.propTypes = {
     id: PropTypes.string.isRequired,
     task: PropTypes.string.isRequired,
     owner: PropTypes.string.isRequired,
@@ -37,4 +37,4 @@ StaffProjectRow.propTypes = {
     imageUrl: PropTypes.string.isRequired,
 };
 
-export default StaffProjectRow;
+export default StaffProjectRowUser;

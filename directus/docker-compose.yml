@@ -1,0 +1,31 @@
+version: "3"
+services:
+  database:
+    image: postgis/postgis:13-master
+    environment:
+      POSTGRES_USER: "directus"
+      POSTGRES_PASSWORD: "directus"
+      POSTGRES_DB: "directus"
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+  cache:
+    image: redis:6
+
+  directus:
+    image: directus/directus:latest
+    ports:
+      - 8055:8055
+    volumes:
+      - uploads_data:/directus/uploads
+      - extensions_data:/directus/extensions
+    depends_on:
+      - cache
+      - database
+    env_file:
+      - .env
+
+volumes:
+  database_data:
+  uploads_data:
+  extensions_data:
